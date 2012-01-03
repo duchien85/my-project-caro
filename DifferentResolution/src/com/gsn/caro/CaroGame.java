@@ -14,9 +14,7 @@ public class CaroGame extends Game {
 	public void create() {
 		Gdx.app.log("GAME", "CREATE");
 		asset = ImageAsset.getInstance();
-		asset.create();
-		global = new GlobalStage(320, 240, false);					
-		Gdx.input.setInputProcessor(global);
+		asset.create();							
 	}
 
 	@Override
@@ -32,6 +30,8 @@ public class CaroGame extends Game {
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 		Gdx.app.log("GAME", "RESIZE");
+		global = new GlobalStage(width, height, false);
+		Gdx.input.setInputProcessor(global);
 	}
 	
 	@Override

@@ -19,21 +19,18 @@ public class GlobalStage extends GsnStage {
 	public String tag = GlobalStage.class.getSimpleName();
 	Vector2 point = new Vector2();		
 	ImageAsset asset;
-	Image avatar;		
-	Camera localCam = new OrthographicCamera();			
+	Image avatar;					
 	Sprite pieceO;		
 	
 	public GlobalStage(float width, float height, boolean stretch) {		
 		super(width, height, stretch);
-		GsnUtility.setViewport(localCam, width, height, stretch);		
-		
-		Gdx.app.log(tag, "kt " + width + " " + height + " ");
-		Gdx.app.log(tag, "center " + centerX + " " + centerY + " ");
-		
+		GsnUtility.setViewport(localCam, width, height, stretch);				
+//		Gdx.app.log(tag, "kt " + width + " " + height + " ");
+//		Gdx.app.log(tag, "center " + centerX + " " + centerY + " ");		
 		asset = ImageAsset.getInstance();
 		avatar = new Image(asset.avatar);
-		avatar.x = 300;
-		avatar.y = 300;
+		avatar.x = 50;
+		avatar.y = 0;
 		avatar.setClickListener(new ClickListener() {			
 			@Override
 			public void click(Actor actor, float x, float y) {
@@ -43,9 +40,9 @@ public class GlobalStage extends GsnStage {
 		});		
 		//addActor(new Image(asset.background));		
 		addActor(avatar);		
-		camera.translate(-100, -100, 0);		
+		//camera.translate(-200, -100, 0);		
 		pieceO = new Sprite(asset.pieceO);		
-	}					
+	}		
 
 	@Override
 	public void localDraw(SpriteBatch batcher) {
@@ -57,6 +54,8 @@ public class GlobalStage extends GsnStage {
 	public boolean localTouchUp(float x, float y, int pointer, int button) {
 		// TODO Auto-generated method stub
 		Rectangle r = pieceO.getBoundingRectangle();
+//		Gdx.app.log(tag, "rec : " + r);
+//		Gdx.app.log(tag, "pos : " + x + " " + y);
 		if (GsnUtility.pointInRectangle(r, x, y)){
 			Gdx.app.log(tag, "click LOCAL!!!!");			
 		}
