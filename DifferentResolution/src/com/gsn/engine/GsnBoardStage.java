@@ -26,7 +26,7 @@ public abstract class GsnBoardStage extends Stage{
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub		
-		super.draw();		
+		super.draw();			
 		camera = localCam;		
 		myBatch.begin();
 		localDraw(myBatch);

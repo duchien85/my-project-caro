@@ -27,10 +27,10 @@ public class ImageAsset {
 	AssetManager manager;
 	BitmapFont font;
 	public TextureRegion bet;
-	ParticleEffect pEffect = new ParticleEffect();
+	public GsnParticleEffect clickEffect = new GsnParticleEffect();
 
 	private void assignContent() {
-		pEffect.load(Gdx.files.internal("particle/blow.p"), Gdx.files.internal("particle"));		
+		clickEffect.load(Gdx.files.internal("particle/thu.p"), Gdx.files.internal("particle"));		
 		
 		TextureAtlas atlas = manager.get("gdx/pack", TextureAtlas.class);
 		win = atlas.findRegion("win");
