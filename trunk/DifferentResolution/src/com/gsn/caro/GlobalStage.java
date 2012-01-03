@@ -1,6 +1,7 @@
 package com.gsn.caro;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -19,6 +20,7 @@ public class GlobalStage extends GsnBoardStage {
 	ImageAsset asset;
 	Image avatar;					
 	Sprite pieceO;		
+	ParticleEffect pEffect;
 	
 	public GlobalStage(float width, float height, boolean stretch) {		
 		super(width, height, stretch);					
@@ -38,13 +40,17 @@ public class GlobalStage extends GsnBoardStage {
 		//addActor(new Image(asset.background));		
 		addActor(avatar);		
 		camera.translate(-200, -100, 0);		
-		pieceO = new Sprite(asset.pieceO);		
+		pieceO = new Sprite(asset.pieceO);
+		pEffect = asset.clickEffect;
+		pEffect.setPosition(100, 100);
 	}		
 
 	@Override
 	public void localDraw(SpriteBatch batcher) {
 		// TODO Auto-generated method stub
 		pieceO.draw(batcher);		
+		pEffect.update(Gdx.graphics.getDeltaTime());
+		pEffect.draw(batcher);
 	}
 
 	@Override
