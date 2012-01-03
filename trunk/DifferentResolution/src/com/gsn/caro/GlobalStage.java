@@ -1,8 +1,6 @@
 package com.gsn.caro;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -11,11 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.caro.asset.ImageAsset;
-import com.gsn.engine.GsnStage;
+import com.gsn.engine.GsnBoardStage;
 import com.gsn.engine.GsnUtility;
 
 
-public class GlobalStage extends GsnStage {
+public class GlobalStage extends GsnBoardStage {
 	public String tag = GlobalStage.class.getSimpleName();
 	Vector2 point = new Vector2();		
 	ImageAsset asset;
@@ -23,8 +21,7 @@ public class GlobalStage extends GsnStage {
 	Sprite pieceO;		
 	
 	public GlobalStage(float width, float height, boolean stretch) {		
-		super(width, height, stretch);
-		GsnUtility.setViewport(localCam, width, height, stretch);				
+		super(width, height, stretch);					
 //		Gdx.app.log(tag, "kt " + width + " " + height + " ");
 //		Gdx.app.log(tag, "center " + centerX + " " + centerY + " ");		
 		asset = ImageAsset.getInstance();
@@ -40,7 +37,7 @@ public class GlobalStage extends GsnStage {
 		});		
 		//addActor(new Image(asset.background));		
 		addActor(avatar);		
-		//camera.translate(-200, -100, 0);		
+		camera.translate(-200, -100, 0);		
 		pieceO = new Sprite(asset.pieceO);		
 	}		
 
