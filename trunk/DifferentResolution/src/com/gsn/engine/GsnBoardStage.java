@@ -8,47 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public abstract class GsnBoardStage extends Stage{
-	final public String tag = GsnBoardStage.class.getSimpleName();
-	final protected Camera localCam;
-	final protected Camera globalCam;
-	
-	protected Vector2 point = new Vector2();
-	protected SpriteBatch myBatch = new SpriteBatch();
-	
-	public GsnBoardStage(float width, float height, boolean stretch) {
-		super(width, height, stretch);
-		localCam = new OrthographicCamera();
-		GsnBoardStage.setViewport(localCam, width, height, stretch);
-		localCam.update();
-		globalCam = camera;
-		// TODO Auto-generated constructor stub
-	}			
-	@Override
-	public void draw() {
-		// TODO Auto-generated method stub		
-		super.draw();			
-		camera = localCam;		
-		myBatch.begin();
-		localDraw(myBatch);
-		myBatch.end();
-		camera = globalCam;
-	}
-	
-	@Override
-	public boolean touchUp(int x, int y, int pointer, int button) {
-		// TODO Auto-generated method stub
-		camera = localCam;		
-		this.toStageCoordinates(x, y, point);				
-		boolean checkGlobal = localTouchUp(point.x, point.y, pointer, button);
-		camera = globalCam;
-		if (checkGlobal)
-			super.touchUp(x, y, pointer, button);			
-		return true;				
-	}
-	
-	public abstract void localDraw(SpriteBatch batcher);
-	
-	abstract public boolean localTouchUp(float x, float y, int pointer, int button);
 	static public void setViewport (Camera camera, float width, float height, boolean stretch) {
 		float thiswidth = 0f, thisheight = 0f;
 		if (!stretch) {
@@ -78,5 +37,60 @@ public abstract class GsnBoardStage extends Stage{
 		camera.position.set(centerX, centerY, 0);
 		camera.viewportWidth = thiswidth;
 		camera.viewportHeight = thisheight;
+	}
+	protected GsnParticleEffect clickEffect;
+	final protected Camera globalCam;
+	
+	final protected Camera localCam;
+	protected SpriteBatch myBatch = new SpriteBatch();
+	protected Vector2 point = new Vector2();
+	
+	final public String tag = GsnBoardStage.class.getSimpleName();			
+	
+	public GsnBoardStage(float width, float height, boolean stretch) {
+		super(width, height, stretch);
+		localCam = new OrthographicCamera();
+		GsnBoardStage.setViewport(localCam, width, height, stretch);
+		localCam.update();
+		globalCam = camera;
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public void draw() {
+		// TODO Auto-generated method stub		
+		super.draw();			
+		camera = localCam;		
+		myBatch.begin();
+		localDraw(myBatch);
+		myBatch.end();
+		camera = globalCam;
+		
+		if (clickEffect != null){			
+			clickEffect.drawNow(Gdx.graphics.getDeltaTime());
+		}
+	}
+	
+	abstract public void localDraw(SpriteBatch batcher);
+	
+	abstract public boolean localTouchUp(float x, float y, int pointer, int button);
+	abstract public boolean globalTouchUp(float x, float y, int pointer, int button);
+	
+	public void setClickEffect(GsnParticleEffect effect){
+		this.clickEffect = effect;		
+	}
+	@Override
+	public boolean touchUp(int x, int y, int pointer, int button) {
+		// TODO Auto-generated method stub
+		camera = localCam;		
+		this.toStageCoordinates(x, y, point);				
+		boolean checkGlobal = localTouchUp(point.x, point.y, pointer, button);
+		camera = globalCam;
+		if (checkGlobal){
+			super.touchUp(x, y, pointer, button);
+			toStageCoordinates(x, y, point);
+			globalTouchUp(point.x, point.y, pointer, button);
+		}
+		return true;				
 	}
 }

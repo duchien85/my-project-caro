@@ -11,46 +11,56 @@ import com.badlogic.gdx.assets.loaders.resolvers.ResolutionFileResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.ResolutionFileResolver.Resolution;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.gsn.engine.GsnParticleEffect;
 
 public class ImageAsset {
-	final String tag = ImageAsset.class.getSimpleName(); 
-	public AtlasRegion win;
-	public AtlasRegion background;
-	public AtlasRegion pieceO;
-	public AtlasRegion pieceX;
-	public AtlasRegion avatar;
-	public List winAni;
-	AssetManager manager;
-	BitmapFont font;
-	public TextureRegion bet;
-	public GsnParticleEffect clickEffect = new GsnParticleEffect();
-
-	private void assignContent() {
-		clickEffect.load(Gdx.files.internal("particle/thu.p"), Gdx.files.internal("particle"));		
-		
-		TextureAtlas atlas = manager.get("gdx/pack", TextureAtlas.class);
-		win = atlas.findRegion("win");
-		background = atlas.findRegion("background");		
-		winAni = atlas.findRegions("Thang");
-		pieceO = atlas.findRegion("dauO");
-		pieceX = atlas.findRegion("dauX1");
-		avatar = atlas.findRegion("avatarIngame");
-		bet = atlas.findRegion("bet5001");
-	}
-
-	private static ImageAsset _instance;
-
+	private static ImageAsset _instance; 
 	public static ImageAsset getInstance() {
 		if (_instance == null)
 			_instance = new ImageAsset();
 		return _instance;
 	}
+	public AtlasRegion avatar;
+	public AtlasRegion background;
+	public TextureRegion bet;
+	public GsnParticleEffect clickEffect = new GsnParticleEffect();
+	public AtlasRegion menuBG;
+	BitmapFont font;
+	AssetManager manager;
+	
+	public AtlasRegion pieceO;
+	public AtlasRegion pieceX;
+	final String tag = ImageAsset.class.getSimpleName();
+	public List numberTimerList;
+	public AtlasRegion win;
+	public AtlasRegion board;
+	public AtlasRegion clockBG;
+	
+	public List winAni;
 
 	private ImageAsset() {
+	}
+
+	private void assignContent() {
+		clickEffect.load(Gdx.files.internal("particle/click.p"), Gdx.files.internal("particle"));		
+		
+		TextureAtlas atlas = manager.get("gdx/pack", TextureAtlas.class);
+		win = atlas.findRegion("win");
+		background = atlas.findRegion("background");		
+		winAni = atlas.findRegions("Thang");
+		
+		numberTimerList = atlas.findRegions("timer");
+		
+		pieceO = atlas.findRegion("dauO");
+		pieceX = atlas.findRegion("dauX1");
+		avatar = atlas.findRegion("avatarIngame");
+		bet = atlas.findRegion("bet5001");
+		menuBG = atlas.findRegion("cuocGold");		
+		board = atlas.findRegion("board");
+		clockBG = atlas.findRegion("DongHoDemNguoc");
 	}
 	
 	public void create() {
@@ -72,14 +82,14 @@ public class ImageAsset {
 		font = new BitmapFont();
 	}
 
+	public void finishLoading() {
+		manager.finishLoading();
+	}
+
 	private void loadAll() {
 		manager.load("gdx/pack", TextureAtlas.class);
 		finishLoading();
 		assignContent();
-	}
-
-	public void finishLoading() {
-		manager.finishLoading();
 	}
 }
 //===================================================================

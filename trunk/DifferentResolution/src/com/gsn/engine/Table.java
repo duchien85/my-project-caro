@@ -49,22 +49,41 @@ import com.esotericsoftware.tablelayout.ParseException;
 
 /** @author Nathan Sweet */
 public class Table extends com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table {
-	private final TableLayout layout;
+	static private void drawDebug(List<Actor> actors, SpriteBatch batch) {
+		for (int i = 0, n = actors.size(); i < n; i++) {
+			Actor actor = actors.get(i);
+			if (actor instanceof Table)
+				((Table) actor).layout.drawDebug(batch);
+			if (actor instanceof Group)
+				drawDebug(((Group) actor).getActors(), batch);
+		}
+	}
 
+	/**
+	 * Draws the debug lines for all TableLayouts in the stage. If this method
+	 * is not called each frame, no debug lines will be drawn. If debug is never
+	 * turned on for any table in the application, calling this method will have
+	 * no effect. If a table has ever had debug set, calling this method causes
+	 * an expensive traversal of all actors in the stage.
+	 */
+	static public void drawDebug(Stage stage) {
+		// if (!LibgdxToolkit.drawDebug)
+		// return;
+		// drawDebug(stage.getActors(), stage.getSpriteBatch());
+	}
 	private NinePatch backgroundPatch;
-	private final Rectangle tableBounds = new Rectangle();
-	private final Rectangle scissors = new Rectangle();
-	private ClickListener listener;
-
 	public boolean clip;
 	public boolean isPressed;
 
+	private final TableLayout layout;
+	private ClickListener listener;
+
+	private final Rectangle scissors = new Rectangle();
+
+	private final Rectangle tableBounds = new Rectangle();
+
 	public Table() {
 		this(null, null, null);
-	}
-
-	public Table(String name) {
-		this(null, null, name);
 	}
 
 	public Table(Skin skin) {
@@ -81,161 +100,8 @@ public class Table extends com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table 
 		layout.skin = skin;
 	}
 
-	public void draw(SpriteBatch batch, float parentAlpha) {
-		validate();
-		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-		drawBackground(batch, parentAlpha);
-
-		if (transform) {
-			applyTransform(batch);
-			if (clip) {
-				calculateScissors(batch.getTransformMatrix());
-				if (ScissorStack.pushScissors(scissors)) {
-					drawChildren(batch, parentAlpha);
-					ScissorStack.popScissors();
-				}
-			} else
-				drawChildren(batch, parentAlpha);
-			resetTransform(batch);
-		} else
-			super.draw(batch, parentAlpha);
-	}
-
-	/**
-	 * Called to draw the background, before clipping is applied (if enabled).
-	 * Default implementation draws the background nine patch.
-	 */
-	protected void drawBackground(SpriteBatch batch, float parentAlpha) {
-		if (backgroundPatch != null) {
-			batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
-			backgroundPatch.draw(batch, x, y, width, height);
-		}
-	}
-
-	private void calculateScissors(Matrix4 transform) {
-		tableBounds.x = 0;
-		tableBounds.y = 0;
-		tableBounds.width = width;
-		tableBounds.height = height;
-		if (backgroundPatch != null) {
-			tableBounds.x += backgroundPatch.getLeftWidth();
-			tableBounds.y += backgroundPatch.getBottomHeight();
-			tableBounds.width -= backgroundPatch.getLeftWidth() + backgroundPatch.getRightWidth();
-			tableBounds.height -= backgroundPatch.getTopHeight() + backgroundPatch.getBottomHeight();
-		}
-		ScissorStack.calculateScissors(stage.getCamera(), transform, tableBounds, scissors);
-	}
-
-	public void invalidate() {
-		layout.invalidate();
-		super.invalidate();
-	}
-
-	public float getPrefWidth() {
-		if (backgroundPatch != null)
-			return Math.max(layout.getPrefWidth(), (int) backgroundPatch.getTotalWidth());
-		return layout.getPrefWidth();
-	}
-
-	public float getPrefHeight() {
-		if (backgroundPatch != null)
-			return Math.max(layout.getPrefHeight(), (int) backgroundPatch.getTotalHeight());
-		return layout.getPrefHeight();
-	}
-
-	public float getMinWidth() {
-		return layout.getMinWidth();
-	}
-
-	public float getMinHeight() {
-		return layout.getMinHeight();
-	}
-
-	/**
-	 * Sets the background ninepatch and sets the table's padding to
-	 * {@link NinePatch#getTopHeight()} , {@link NinePatch#getBottomHeight()},
-	 * {@link NinePatch#getLeftWidth()}, and {@link NinePatch#getRightWidth()}.
-	 * 
-	 * @param background
-	 *            If null, no background will be set and all padding is removed.
-	 */
-	public void setBackground(NinePatch background) {
-		if (this.backgroundPatch == background)
-			return;
-		this.backgroundPatch = background;
-		if (background == null)
-			pad(null);
-		else {
-			padBottom((int) background.getBottomHeight());
-			padTop((int) background.getTopHeight());
-			padLeft((int) background.getLeftWidth());
-			padRight((int) background.getRightWidth());
-			invalidate();
-		}
-	}
-
-	public NinePatch getBackgroundPatch() {
-		return backgroundPatch;
-	}
-
-	/**
-	 * Causes the contents to be clipped if they exceed the table bounds.
-	 * Enabling clipping will set {@link #transform} to true.
-	 */
-	public void setClip(boolean enabled) {
-		clip = enabled;
-		transform = enabled;
-		invalidate();
-	}
-
-	public void setClickListener(ClickListener listener) {
-		this.listener = listener;
-	}
-
-	public ClickListener getClickListener() {
-		return listener;
-	}
-
-	public boolean touchDown(float x, float y, int pointer) {
-		if (super.touchDown(x, y, pointer))
-			return true;
-		if (pointer != 0)
-			return false;
-		if (listener == null)
-			return false;
-		isPressed = true;
-		return true;
-	}
-
-	public void touchUp(float x, float y, int pointer) {
-		if (hit(x, y) != null)
-			click(x, y);
-		isPressed = false;
-	}
-
-	public void click(float x, float y) {
-		if (listener != null)
-			listener.click(this, x, y);
-	}
-
-	/** Returns the row index for the y coordinate. */
-	public int getRow(float y) {
-		return layout.getRow(y);
-	}
-
-	public TableLayout getTableLayout() {
-		return layout;
-	}
-
-	/** Removes all actors and cells from the table. */
-	public void clear() {
-		super.clear();
-		layout.clear();
-		invalidate();
-	}
-
-	public Actor register(String name, Actor widget) {
-		return layout.register(name, widget);
+	public Table(String name) {
+		this(null, null, name);
 	}
 
 	/**
@@ -247,349 +113,6 @@ public class Table extends com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table 
 	 */
 	public Cell add(Actor actor) {
 		return layout.add(actor);
-	}
-
-	/**
-	 * Adds a new cell to the table with the specified actors in a {@link Stack}
-	 * .
-	 * 
-	 * @see TableLayout#stack(Actor...)
-	 * @param actor
-	 *            May be null to add a cell without an actor.
-	 */
-	public Cell stack(Actor... actor) {
-		return layout.stack(actor);
-	}
-
-	/** Creates a new table with the same Skin and AssetManager as this table. */
-	public Table newTable() {
-		return (Table) layout.getToolkit().newTable(this);
-	}
-
-	/**
-	 * Indicates that subsequent cells should be added to a new row and returns
-	 * the cell values that will be used as the defaults for all cells in the
-	 * new row.
-	 * 
-	 * @see TableLayout#row()
-	 */
-	public Cell row() {
-		return layout.row();
-	}
-
-	public void parse(FileHandle tableDescriptionFile) {
-		try {
-			layout.parse(tableDescriptionFile.readString());
-		} catch (ParseException ex) {
-			throw new ParseException("Error parsing layout file: " + tableDescriptionFile, ex);
-		}
-	}
-
-	/**
-	 * Parses a table description and adds the actors and cells to the table.
-	 * 
-	 * @see TableLayout#parse(String)
-	 */
-	public void parse(String tableDescription) {
-		layout.parse(tableDescription);
-	}
-
-	/**
-	 * Gets the cell values that will be used as the defaults for all cells in
-	 * the specified column.
-	 * 
-	 * @see TableLayout#columnDefaults(int)
-	 */
-	public Cell columnDefaults(int column) {
-		return layout.columnDefaults(column);
-	}
-
-	/**
-	 * The cell values that will be used as the defaults for all cells.
-	 * 
-	 * @see TableLayout#defaults()
-	 */
-	public Cell defaults() {
-		return layout.defaults();
-	}
-
-	/**
-	 * Positions and sizes children of the actor being laid out using the cell
-	 * associated with each child.
-	 * 
-	 * @see TableLayout#layout()
-	 */
-	public void layout() {
-		layout.layout();
-	}
-
-	/**
-	 * Removes all actors and cells from the table (same as {@link #clear()})
-	 * and additionally resets all table properties and cell, column, and row
-	 * defaults.
-	 * 
-	 * @see TableLayout#reset()
-	 */
-	public void reset() {
-		layout.reset();
-	}
-
-	/**
-	 * Returns the widget with the specified name, anywhere in the table
-	 * hierarchy.
-	 */
-	public Actor getWidget(String name) {
-		return layout.getWidget(name);
-	}
-
-	/** Returns all named widgets, anywhere in the table hierarchy. */
-	public List<Actor> getWidgets() {
-		return layout.getWidgets();
-	}
-
-	/**
-	 * Returns all widgets with the specified name prefix, anywhere in the table
-	 * hierarchy.
-	 */
-	public List<Actor> getWidgets(String namePrefix) {
-		return layout.getWidgets(namePrefix);
-	}
-
-	/**
-	 * Returns the cell for the specified actor, anywhere in the table
-	 * hierarchy.
-	 * 
-	 * @see TableLayout#getCell(Actor)
-	 */
-	public Cell getCell(Actor actor) {
-		return layout.getCell(actor);
-	}
-
-	/**
-	 * Returns the cell with the specified name, anywhere in the table
-	 * hierarchy.
-	 * 
-	 * @see TableLayout#getCell(String)
-	 */
-	public Cell getCell(String name) {
-		return layout.getCell(name);
-	}
-
-	/**
-	 * Returns all cells, anywhere in the table hierarchy.
-	 * 
-	 * @see TableLayout#getAllCells()
-	 */
-	public List<Cell> getAllCells() {
-		return layout.getAllCells();
-	}
-
-	/**
-	 * Returns all cells with the specified name prefix, anywhere in the table
-	 * hierarchy.
-	 * 
-	 * @see TableLayout#getAllCells(String)
-	 */
-	public List<Cell> getAllCells(String namePrefix) {
-		return layout.getAllCells(namePrefix);
-	}
-
-	/**
-	 * Returns the cells for this table.
-	 * 
-	 * @see TableLayout#getCells()
-	 */
-	public List<Cell> getCells() {
-		return layout.getCells();
-	}
-
-	/**
-	 * Sets the actor in the cell with the specified name.
-	 * 
-	 * @see TableLayout#setWidget(String, Actor)
-	 */
-	public void setWidget(String name, Actor actor) {
-		layout.setWidget(name, actor);
-	}
-
-	/**
-	 * The fixed size of the table.
-	 * 
-	 * @see TableLayout#size(String, String)
-	 */
-	public Table size(String width, String height) {
-		layout.size(width, height);
-		return this;
-	}
-
-	/**
-	 * The fixed width of the table, or null.
-	 * 
-	 * @see TableLayout#width(String)
-	 */
-	public Table width(String width) {
-		layout.width(width);
-		return this;
-	}
-
-	/**
-	 * The fixed height of the table, or null.
-	 * 
-	 * @see TableLayout#height(String)
-	 */
-	public Table height(String height) {
-		layout.height(height);
-		return this;
-	}
-
-	/**
-	 * The fixed size of the table.
-	 * 
-	 * @see TableLayout#size(int, int)
-	 */
-	public Table size(int width, int height) {
-		layout.size(width, height);
-		return this;
-	}
-
-	/**
-	 * The fixed width of the table.
-	 * 
-	 * @see TableLayout#width(int)
-	 */
-	public Table width(int width) {
-		layout.width(width);
-		return this;
-	}
-
-	/**
-	 * The fixed height of the table.
-	 * 
-	 * @see TableLayout#height(int)
-	 */
-	public Table height(int height) {
-		layout.height(height);
-		return this;
-	}
-
-	/**
-	 * Padding around the table.
-	 * 
-	 * @see TableLayout#pad(String)
-	 */
-	public Table pad(String pad) {
-		layout.pad(pad);
-		return this;
-	}
-
-	/**
-	 * Padding around the table.
-	 * 
-	 * @see TableLayout#pad(String, String, String, String)
-	 */
-	public Table pad(String top, String left, String bottom, String right) {
-		layout.pad(top, left, bottom, right);
-		return this;
-	}
-
-	/**
-	 * Padding at the top of the table.
-	 * 
-	 * @see TableLayout#padTop(String)
-	 */
-	public Table padTop(String padTop) {
-		layout.padTop(padTop);
-		return this;
-	}
-
-	/**
-	 * Padding at the left of the table.
-	 * 
-	 * @see TableLayout#padLeft(String)
-	 */
-	public Table padLeft(String padLeft) {
-		layout.padLeft(padLeft);
-		return this;
-	}
-
-	/**
-	 * Padding at the bottom of the table.
-	 * 
-	 * @see TableLayout#padBottom(String)
-	 */
-	public Table padBottom(String padBottom) {
-		layout.padBottom(padBottom);
-		return this;
-	}
-
-	/**
-	 * Padding at the right of the table.
-	 * 
-	 * @see TableLayout#padRight(String)
-	 */
-	public Table padRight(String padRight) {
-		layout.padRight(padRight);
-		return this;
-	}
-
-	/**
-	 * Padding around the table.
-	 * 
-	 * @see TableLayout#pad(int)
-	 */
-	public Table pad(int pad) {
-		layout.pad(pad);
-		return this;
-	}
-
-	/**
-	 * Padding around the table.
-	 * 
-	 * @see TableLayout#pad(int, int, int, int)
-	 */
-	public Table pad(int top, int left, int bottom, int right) {
-		layout.pad(top, left, bottom, right);
-		return this;
-	}
-
-	/**
-	 * Padding at the top of the table.
-	 * 
-	 * @see TableLayout#padTop(int)
-	 */
-	public Table padTop(int padTop) {
-		layout.padTop(padTop);
-		return this;
-	}
-
-	/**
-	 * Padding at the left of the table.
-	 * 
-	 * @see TableLayout#padLeft(int)
-	 */
-	public Table padLeft(int padLeft) {
-		layout.padLeft(padLeft);
-		return this;
-	}
-
-	/**
-	 * Padding at the bottom of the table.
-	 * 
-	 * @see TableLayout#padBottom(int)
-	 */
-	public Table padBottom(int padBottom) {
-		layout.padBottom(padBottom);
-		return this;
-	}
-
-	/**
-	 * Padding at the right of the table.
-	 * 
-	 * @see TableLayout#padRight(int)
-	 */
-	public Table padRight(int padRight) {
-		layout.padRight(padRight);
-		return this;
 	}
 
 	/**
@@ -618,39 +141,6 @@ public class Table extends com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table 
 
 	/**
 	 * Sets the alignment of the table within the actor being laid out to
-	 * {@link Align#CENTER}.
-	 * 
-	 * @see TableLayout#center()
-	 */
-	public Table center() {
-		layout.center();
-		return this;
-	}
-
-	/**
-	 * Sets the alignment of the table within the actor being laid out to
-	 * {@link Align#TOP}.
-	 * 
-	 * @see TableLayout#top()
-	 */
-	public Table top() {
-		layout.top();
-		return this;
-	}
-
-	/**
-	 * Sets the alignment of the table within the actor being laid out to
-	 * {@link Align#LEFT}.
-	 * 
-	 * @see TableLayout#left()
-	 */
-	public Table left() {
-		layout.left();
-		return this;
-	}
-
-	/**
-	 * Sets the alignment of the table within the actor being laid out to
 	 * {@link Align#BOTTOM}.
 	 * 
 	 * @see TableLayout#bottom()
@@ -660,15 +150,51 @@ public class Table extends com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table 
 		return this;
 	}
 
+	private void calculateScissors(Matrix4 transform) {
+		tableBounds.x = 0;
+		tableBounds.y = 0;
+		tableBounds.width = width;
+		tableBounds.height = height;
+		if (backgroundPatch != null) {
+			tableBounds.x += backgroundPatch.getLeftWidth();
+			tableBounds.y += backgroundPatch.getBottomHeight();
+			tableBounds.width -= backgroundPatch.getLeftWidth() + backgroundPatch.getRightWidth();
+			tableBounds.height -= backgroundPatch.getTopHeight() + backgroundPatch.getBottomHeight();
+		}
+		ScissorStack.calculateScissors(stage.getCamera(), transform, tableBounds, scissors);
+	}
+
 	/**
 	 * Sets the alignment of the table within the actor being laid out to
-	 * {@link Align#RIGHT}.
+	 * {@link Align#CENTER}.
 	 * 
-	 * @see TableLayout#right()
+	 * @see TableLayout#center()
 	 */
-	public Table right() {
-		layout.right();
+	public Table center() {
+		layout.center();
 		return this;
+	}
+
+	/** Removes all actors and cells from the table. */
+	public void clear() {
+		super.clear();
+		layout.clear();
+		invalidate();
+	}
+
+	public void click(float x, float y) {
+		if (listener != null)
+			listener.click(this, x, y);
+	}
+
+	/**
+	 * Gets the cell values that will be used as the defaults for all cells in
+	 * the specified column.
+	 * 
+	 * @see TableLayout#columnDefaults(int)
+	 */
+	public Cell columnDefaults(int column) {
+		return layout.columnDefaults(column);
 	}
 
 	/**
@@ -705,6 +231,106 @@ public class Table extends com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table 
 		return this;
 	}
 
+	/**
+	 * The cell values that will be used as the defaults for all cells.
+	 * 
+	 * @see TableLayout#defaults()
+	 */
+	public Cell defaults() {
+		return layout.defaults();
+	}
+
+	public void draw(SpriteBatch batch, float parentAlpha) {
+		validate();
+		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+		drawBackground(batch, parentAlpha);
+
+		if (transform) {
+			applyTransform(batch);
+			if (clip) {
+				calculateScissors(batch.getTransformMatrix());
+				if (ScissorStack.pushScissors(scissors)) {
+					drawChildren(batch, parentAlpha);
+					ScissorStack.popScissors();
+				}
+			} else
+				drawChildren(batch, parentAlpha);
+			resetTransform(batch);
+		} else
+			super.draw(batch, parentAlpha);
+	}
+
+	/**
+	 * Called to draw the background, before clipping is applied (if enabled).
+	 * Default implementation draws the background nine patch.
+	 */
+	protected void drawBackground(SpriteBatch batch, float parentAlpha) {
+		if (backgroundPatch != null) {
+			batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+			backgroundPatch.draw(batch, x, y, width, height);
+		}
+	}
+
+	public int getAlign() {
+		return layout.getAlign();
+	}
+
+	/**
+	 * Returns all cells, anywhere in the table hierarchy.
+	 * 
+	 * @see TableLayout#getAllCells()
+	 */
+	public List<Cell> getAllCells() {
+		return layout.getAllCells();
+	}
+
+	/**
+	 * Returns all cells with the specified name prefix, anywhere in the table
+	 * hierarchy.
+	 * 
+	 * @see TableLayout#getAllCells(String)
+	 */
+	public List<Cell> getAllCells(String namePrefix) {
+		return layout.getAllCells(namePrefix);
+	}
+
+	public NinePatch getBackgroundPatch() {
+		return backgroundPatch;
+	}
+
+	/**
+	 * Returns the cell for the specified actor, anywhere in the table
+	 * hierarchy.
+	 * 
+	 * @see TableLayout#getCell(Actor)
+	 */
+	public Cell getCell(Actor actor) {
+		return layout.getCell(actor);
+	}
+
+	/**
+	 * Returns the cell with the specified name, anywhere in the table
+	 * hierarchy.
+	 * 
+	 * @see TableLayout#getCell(String)
+	 */
+	public Cell getCell(String name) {
+		return layout.getCell(name);
+	}
+
+	/**
+	 * Returns the cells for this table.
+	 * 
+	 * @see TableLayout#getCells()
+	 */
+	public List<Cell> getCells() {
+		return layout.getCells();
+	}
+
+	public ClickListener getClickListener() {
+		return listener;
+	}
+
 	public int getDebug() {
 		return layout.getDebug();
 	}
@@ -713,28 +339,295 @@ public class Table extends com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table 
 		return layout.getHeight();
 	}
 
-	public String getPadTop() {
-		return layout.getPadTop();
+	public float getMinHeight() {
+		return layout.getMinHeight();
 	}
 
-	public String getPadLeft() {
-		return layout.getPadLeft();
+	public float getMinWidth() {
+		return layout.getMinWidth();
 	}
 
 	public String getPadBottom() {
 		return layout.getPadBottom();
 	}
 
+	public String getPadLeft() {
+		return layout.getPadLeft();
+	}
+
 	public String getPadRight() {
 		return layout.getPadRight();
 	}
 
-	public int getAlign() {
-		return layout.getAlign();
+	public String getPadTop() {
+		return layout.getPadTop();
 	}
 
-	public void setSkin(Skin skin) {
-		layout.skin = skin;
+	public float getPrefHeight() {
+		if (backgroundPatch != null)
+			return Math.max(layout.getPrefHeight(), (int) backgroundPatch.getTotalHeight());
+		return layout.getPrefHeight();
+	}
+
+	public float getPrefWidth() {
+		if (backgroundPatch != null)
+			return Math.max(layout.getPrefWidth(), (int) backgroundPatch.getTotalWidth());
+		return layout.getPrefWidth();
+	}
+
+	/** Returns the row index for the y coordinate. */
+	public int getRow(float y) {
+		return layout.getRow(y);
+	}
+
+	public TableLayout getTableLayout() {
+		return layout;
+	}
+
+	/**
+	 * Returns the widget with the specified name, anywhere in the table
+	 * hierarchy.
+	 */
+	public Actor getWidget(String name) {
+		return layout.getWidget(name);
+	}
+
+	/** Returns all named widgets, anywhere in the table hierarchy. */
+	public List<Actor> getWidgets() {
+		return layout.getWidgets();
+	}
+
+	/**
+	 * Returns all widgets with the specified name prefix, anywhere in the table
+	 * hierarchy.
+	 */
+	public List<Actor> getWidgets(String namePrefix) {
+		return layout.getWidgets(namePrefix);
+	}
+
+	/**
+	 * The fixed height of the table.
+	 * 
+	 * @see TableLayout#height(int)
+	 */
+	public Table height(int height) {
+		layout.height(height);
+		return this;
+	}
+
+	/**
+	 * The fixed height of the table, or null.
+	 * 
+	 * @see TableLayout#height(String)
+	 */
+	public Table height(String height) {
+		layout.height(height);
+		return this;
+	}
+
+	public void invalidate() {
+		layout.invalidate();
+		super.invalidate();
+	}
+
+	/**
+	 * Positions and sizes children of the actor being laid out using the cell
+	 * associated with each child.
+	 * 
+	 * @see TableLayout#layout()
+	 */
+	public void layout() {
+		layout.layout();
+	}
+
+	/**
+	 * Sets the alignment of the table within the actor being laid out to
+	 * {@link Align#LEFT}.
+	 * 
+	 * @see TableLayout#left()
+	 */
+	public Table left() {
+		layout.left();
+		return this;
+	}
+
+	/** Creates a new table with the same Skin and AssetManager as this table. */
+	public Table newTable() {
+		return (Table) layout.getToolkit().newTable(this);
+	}
+
+	/**
+	 * Padding around the table.
+	 * 
+	 * @see TableLayout#pad(int)
+	 */
+	public Table pad(int pad) {
+		layout.pad(pad);
+		return this;
+	}
+
+	/**
+	 * Padding around the table.
+	 * 
+	 * @see TableLayout#pad(int, int, int, int)
+	 */
+	public Table pad(int top, int left, int bottom, int right) {
+		layout.pad(top, left, bottom, right);
+		return this;
+	}
+
+	/**
+	 * Padding around the table.
+	 * 
+	 * @see TableLayout#pad(String)
+	 */
+	public Table pad(String pad) {
+		layout.pad(pad);
+		return this;
+	}
+
+	/**
+	 * Padding around the table.
+	 * 
+	 * @see TableLayout#pad(String, String, String, String)
+	 */
+	public Table pad(String top, String left, String bottom, String right) {
+		layout.pad(top, left, bottom, right);
+		return this;
+	}
+
+	/**
+	 * Padding at the bottom of the table.
+	 * 
+	 * @see TableLayout#padBottom(int)
+	 */
+	public Table padBottom(int padBottom) {
+		layout.padBottom(padBottom);
+		return this;
+	}
+
+	/**
+	 * Padding at the bottom of the table.
+	 * 
+	 * @see TableLayout#padBottom(String)
+	 */
+	public Table padBottom(String padBottom) {
+		layout.padBottom(padBottom);
+		return this;
+	}
+
+	/**
+	 * Padding at the left of the table.
+	 * 
+	 * @see TableLayout#padLeft(int)
+	 */
+	public Table padLeft(int padLeft) {
+		layout.padLeft(padLeft);
+		return this;
+	}
+
+	/**
+	 * Padding at the left of the table.
+	 * 
+	 * @see TableLayout#padLeft(String)
+	 */
+	public Table padLeft(String padLeft) {
+		layout.padLeft(padLeft);
+		return this;
+	}
+
+	/**
+	 * Padding at the right of the table.
+	 * 
+	 * @see TableLayout#padRight(int)
+	 */
+	public Table padRight(int padRight) {
+		layout.padRight(padRight);
+		return this;
+	}
+
+	/**
+	 * Padding at the right of the table.
+	 * 
+	 * @see TableLayout#padRight(String)
+	 */
+	public Table padRight(String padRight) {
+		layout.padRight(padRight);
+		return this;
+	}
+
+	/**
+	 * Padding at the top of the table.
+	 * 
+	 * @see TableLayout#padTop(int)
+	 */
+	public Table padTop(int padTop) {
+		layout.padTop(padTop);
+		return this;
+	}
+
+	/**
+	 * Padding at the top of the table.
+	 * 
+	 * @see TableLayout#padTop(String)
+	 */
+	public Table padTop(String padTop) {
+		layout.padTop(padTop);
+		return this;
+	}
+
+	public void parse(FileHandle tableDescriptionFile) {
+		try {
+			layout.parse(tableDescriptionFile.readString());
+		} catch (ParseException ex) {
+			throw new ParseException("Error parsing layout file: " + tableDescriptionFile, ex);
+		}
+	}
+
+	/**
+	 * Parses a table description and adds the actors and cells to the table.
+	 * 
+	 * @see TableLayout#parse(String)
+	 */
+	public void parse(String tableDescription) {
+		layout.parse(tableDescription);
+	}
+
+	public Actor register(String name, Actor widget) {
+		return layout.register(name, widget);
+	}
+
+	/**
+	 * Removes all actors and cells from the table (same as {@link #clear()})
+	 * and additionally resets all table properties and cell, column, and row
+	 * defaults.
+	 * 
+	 * @see TableLayout#reset()
+	 */
+	public void reset() {
+		layout.reset();
+	}
+
+	/**
+	 * Sets the alignment of the table within the actor being laid out to
+	 * {@link Align#RIGHT}.
+	 * 
+	 * @see TableLayout#right()
+	 */
+	public Table right() {
+		layout.right();
+		return this;
+	}
+
+	/**
+	 * Indicates that subsequent cells should be added to a new row and returns
+	 * the cell values that will be used as the defaults for all cells in the
+	 * new row.
+	 * 
+	 * @see TableLayout#row()
+	 */
+	public Cell row() {
+		return layout.row();
 	}
 
 	public void setAssetManager(AssetManager assetManager) {
@@ -742,25 +635,132 @@ public class Table extends com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table 
 	}
 
 	/**
-	 * Draws the debug lines for all TableLayouts in the stage. If this method
-	 * is not called each frame, no debug lines will be drawn. If debug is never
-	 * turned on for any table in the application, calling this method will have
-	 * no effect. If a table has ever had debug set, calling this method causes
-	 * an expensive traversal of all actors in the stage.
+	 * Sets the background ninepatch and sets the table's padding to
+	 * {@link NinePatch#getTopHeight()} , {@link NinePatch#getBottomHeight()},
+	 * {@link NinePatch#getLeftWidth()}, and {@link NinePatch#getRightWidth()}.
+	 * 
+	 * @param background
+	 *            If null, no background will be set and all padding is removed.
 	 */
-	static public void drawDebug(Stage stage) {
-		// if (!LibgdxToolkit.drawDebug)
-		// return;
-		// drawDebug(stage.getActors(), stage.getSpriteBatch());
+	public void setBackground(NinePatch background) {
+		if (this.backgroundPatch == background)
+			return;
+		this.backgroundPatch = background;
+		if (background == null)
+			pad(null);
+		else {
+			padBottom((int) background.getBottomHeight());
+			padTop((int) background.getTopHeight());
+			padLeft((int) background.getLeftWidth());
+			padRight((int) background.getRightWidth());
+			invalidate();
+		}
 	}
 
-	static private void drawDebug(List<Actor> actors, SpriteBatch batch) {
-		for (int i = 0, n = actors.size(); i < n; i++) {
-			Actor actor = actors.get(i);
-			if (actor instanceof Table)
-				((Table) actor).layout.drawDebug(batch);
-			if (actor instanceof Group)
-				drawDebug(((Group) actor).getActors(), batch);
-		}
+	public void setClickListener(ClickListener listener) {
+		this.listener = listener;
+	}
+
+	/**
+	 * Causes the contents to be clipped if they exceed the table bounds.
+	 * Enabling clipping will set {@link #transform} to true.
+	 */
+	public void setClip(boolean enabled) {
+		clip = enabled;
+		transform = enabled;
+		invalidate();
+	}
+
+	public void setSkin(Skin skin) {
+		layout.skin = skin;
+	}
+
+	/**
+	 * Sets the actor in the cell with the specified name.
+	 * 
+	 * @see TableLayout#setWidget(String, Actor)
+	 */
+	public void setWidget(String name, Actor actor) {
+		layout.setWidget(name, actor);
+	}
+
+	/**
+	 * The fixed size of the table.
+	 * 
+	 * @see TableLayout#size(int, int)
+	 */
+	public Table size(int width, int height) {
+		layout.size(width, height);
+		return this;
+	}
+
+	/**
+	 * The fixed size of the table.
+	 * 
+	 * @see TableLayout#size(String, String)
+	 */
+	public Table size(String width, String height) {
+		layout.size(width, height);
+		return this;
+	}
+
+	/**
+	 * Adds a new cell to the table with the specified actors in a {@link Stack}
+	 * .
+	 * 
+	 * @see TableLayout#stack(Actor...)
+	 * @param actor
+	 *            May be null to add a cell without an actor.
+	 */
+	public Cell stack(Actor... actor) {
+		return layout.stack(actor);
+	}
+
+	/**
+	 * Sets the alignment of the table within the actor being laid out to
+	 * {@link Align#TOP}.
+	 * 
+	 * @see TableLayout#top()
+	 */
+	public Table top() {
+		layout.top();
+		return this;
+	}
+
+	public boolean touchDown(float x, float y, int pointer) {
+		if (super.touchDown(x, y, pointer))
+			return true;
+		if (pointer != 0)
+			return false;
+		if (listener == null)
+			return false;
+		isPressed = true;
+		return true;
+	}
+
+	public void touchUp(float x, float y, int pointer) {
+		if (hit(x, y) != null)
+			click(x, y);
+		isPressed = false;
+	}
+
+	/**
+	 * The fixed width of the table.
+	 * 
+	 * @see TableLayout#width(int)
+	 */
+	public Table width(int width) {
+		layout.width(width);
+		return this;
+	}
+
+	/**
+	 * The fixed width of the table, or null.
+	 * 
+	 * @see TableLayout#width(String)
+	 */
+	public Table width(String width) {
+		layout.width(width);
+		return this;
 	}
 }
