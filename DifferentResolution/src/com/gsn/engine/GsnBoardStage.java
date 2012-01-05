@@ -52,7 +52,7 @@ public abstract class GsnBoardStage extends Stage{
 		localCam = new OrthographicCamera();
 		GsnBoardStage.setViewport(localCam, width, height, stretch);
 		localCam.update();
-		globalCam = camera;
+		globalCam = camera;		
 		// TODO Auto-generated constructor stub
 	}
 	

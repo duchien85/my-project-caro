@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.GsnBoardStage;
 import com.gsn.engine.GsnUtility;
@@ -17,19 +18,27 @@ public class BoardStage extends GsnBoardStage {
 	Sprite pieceX;
 	List numList;
 	
+	Image board;
+	int tmp = 50;
 	public BoardStage(float width, float height, boolean stretch) {
 		super(width, height, stretch);
 		menuBG = new Sprite(asset.menuBG);
-		int tmp = 50;
+		
 		menuBG.setBounds(0, height - tmp, width, tmp);
 		
 		clockBG = new Sprite(asset.clockBG);
-		GsnUtility.setCenterSprite(clockBG, 50, 100);		
+		GsnUtility.setCenterSprite(clockBG, 50, height - tmp /2 );		
 		
 		pieceX = new Sprite(asset.pieceX);
 		pieceX.setPosition(50, 100);
 		
 		numList = asset.numberTimerList;
+		
+		this.clickEffect = asset.clickEffect;
+		board = new Image(asset.board);
+		
+		this.addActor(board);
+		globalCam.translate(-50, -100, 0);
 	}
 
 	@Override
@@ -38,8 +47,8 @@ public class BoardStage extends GsnBoardStage {
 		menuBG.draw(batcher);
 		
 		pieceX.draw(batcher);
-		clockBG.draw(batcher);
-		GsnUtility.drawTexture(batcher, (TextureRegion)numList.get(6), 50f, 100f);		
+		clockBG.draw(batcher);				
+		GsnUtility.drawCenterTexture(batcher, (TextureRegion)numList.get(6), 50, height - tmp /2);		
 	}
 
 	@Override
@@ -55,8 +64,9 @@ public class BoardStage extends GsnBoardStage {
 	@Override
 	public boolean globalTouchUp(float x, float y, int pointer, int button) {
 		// TODO Auto-generated method stub				
-		
-		return true;
+		clickEffect.startNow(globalCam, x, y);
+		Gdx.app.log(tag, "click global : " + x + " " + y);
+		return true; 
 	}
 
 }

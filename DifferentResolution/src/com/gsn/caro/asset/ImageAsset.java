@@ -37,7 +37,7 @@ public class ImageAsset {
 	public List numberTimerList;
 	public AtlasRegion win;
 	public AtlasRegion board;
-	public AtlasRegion clockBG;
+	public AtlasRegion clockBG;	
 	
 	public List winAni;
 
