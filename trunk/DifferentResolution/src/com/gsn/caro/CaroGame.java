@@ -32,7 +32,7 @@ public class CaroGame extends Game {
 		// TODO Auto-generated method stub
 		Gdx.app.log("GAME", "RESIZE");
 		//global = new GlobalStage(width, height, false);		
-		global = new BoardStage(width, height, false);
+		global = new MenuTestStage(width, height, false);
 		Gdx.input.setInputProcessor(global);
 	}	
 	
