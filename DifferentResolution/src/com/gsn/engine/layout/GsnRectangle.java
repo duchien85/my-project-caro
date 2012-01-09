@@ -1,5 +1,9 @@
 package com.gsn.engine.layout;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
+import com.gsn.engine.GsnUtility;
+
 public class GsnRectangle{
 	public float x, y, width, height;
 	public GsnRectangle(float x, float y, float width, float height) {
@@ -18,7 +22,7 @@ public class GsnRectangle{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "(" + x + " " + y + " " + width + " " + height + ")";
+		return "(" + (int)x + ", " + (int)y + ", " + (int)width + ", " + (int)height + ")";
 	}
 
 	public void setMargin(float marginX, float marginY) {
@@ -27,5 +31,14 @@ public class GsnRectangle{
 		y = y + marginY;
 		width = width - marginX;
 		height = height - marginY;
+	}
+	
+	public void scaleAndPutSprite(Sprite sprite){
+		GsnUtility.scaleAndPutSprite(sprite, this);
+	}
+	
+	public static String toString(Sprite sprite){
+		Rectangle rect = sprite.getBoundingRectangle();
+		return "(" + (int)rect.getX() + ", " + (int)rect.getY() + ", " + (int)rect.getWidth() + ", " + (int)rect.getHeight() + ")";
 	}
 }
