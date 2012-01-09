@@ -44,6 +44,11 @@ public class GsnUtility {
 		float scaleX = rect.width / sprite.getWidth();
 		float scaleY = rect.height / sprite.getHeight();
 		float scale = scaleX > scaleY ? scaleY : scaleX;
-		sprite.scale(scale);
+		sprite.setScale(scale);
+	}	
+	
+	public static void scaleAndPutSprite(Sprite sprite, GsnRectangle rect){
+		scaleSprite(sprite, rect);
+		setCenterSprite(sprite, rect.getCenter());
 	}
 }

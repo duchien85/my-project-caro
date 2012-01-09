@@ -1,40 +1,51 @@
 package com.gsn.caro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.GsnBoardStage;
-import com.gsn.engine.GsnUtility;
-import com.gsn.engine.layout.GsnMenuLayout;
+import com.gsn.engine.layout.GsnRectangle;
+import com.gsn.engine.layout.GsnTableLayout;
 
 public class MenuTestStage extends GsnBoardStage {
-	GsnMenuLayout layout;
+	GsnTableLayout layout;
 	ImageAsset asset = ImageAsset.getInstance();
-	Sprite meAvatar;
-	Sprite youAvatar;
+	List<Sprite> list = new ArrayList<Sprite>();
 	
 	public MenuTestStage(float width, float height, boolean stretch) {
 		super(width, height, stretch);
-		layout = new GsnMenuLayout(0, height - 200, width, 50, 1, 4);
+		layout = new GsnTableLayout(0, 0, this.width, 200);
+		layout.newRow(0.3f);
+		layout.add(0.3f);
+		layout.add(0.7f);
+		layout.newRow(0.7f);
+		layout.add(0.2f);
+		layout.add(0.4f);
+		layout.add(0.4f);
 		
-		meAvatar = new Sprite(asset.avatar);
-		GsnUtility.scaleSprite(meAvatar, layout.recArr[0][0]);
-		GsnUtility.setCenterSprite(meAvatar, layout.recArr[0][0].getCenter());
-		System.out.println(layout.recArr[0][0] + " : " + layout.recArr[0][0].getCenter());
+		for (GsnRectangle rect : layout.list){
+			Sprite sprite = new Sprite(asset.avatar);
+			rect.scaleAndPutSprite(sprite);
+			list.add(sprite);
+			System.out.println("rect   : " + rect);
+			System.out.println("sprite : " + GsnRectangle.toString(sprite));
+			System.out.println("------------------------");
+		}
 		
-		
-		youAvatar = new Sprite(asset.avatar);
-		youAvatar.setColor(0.2f, 1f, 1f, 1f);
-		GsnUtility.setCenterSprite(youAvatar, layout.recArr[0][3].getCenter());
-		System.out.println(layout.recArr[0][3] + " : " + layout.recArr[0][3].getCenter());		
+		for (Sprite sprite : list){
+			System.out.println("sprite : " + GsnRectangle.toString(sprite));
+		}
+			
 	}
 
 	@Override
 	public void localDraw(SpriteBatch batcher) {
-		// TODO Auto-generated method stub			
-		meAvatar.draw(batcher);
-		youAvatar.draw(batcher);
+		// TODO Auto-generated method stub
+		for (Sprite sprite : list)
+			sprite.draw(batcher);
 	}
 
 	@Override
