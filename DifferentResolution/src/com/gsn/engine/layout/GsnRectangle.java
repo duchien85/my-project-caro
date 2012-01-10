@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.gsn.engine.GsnUtility;
 
 public class GsnRectangle{
-	public float x, y, width, height;
+	public float x, y, width, height;	
 	public GsnRectangle(float x, float y, float width, float height) {
 		// TODO Auto-generated constructor stub
 		this.x = x;
@@ -25,12 +25,23 @@ public class GsnRectangle{
 		return "(" + (int)x + ", " + (int)y + ", " + (int)width + ", " + (int)height + ")";
 	}
 
-	public void setMargin(float marginX, float marginY) {
+	public GsnRectangle setMargin(boolean isRatio, float rMarginX, float rMarginY) {
 		// TODO Auto-generated method stub
-		x = x + marginX;
-		y = y + marginY;
-		width = width - marginX;
-		height = height - marginY;
+		float marginX;
+		float marginY;
+		if (isRatio){
+			marginX = rMarginX * width;
+			marginY = rMarginY * height;
+		} else {
+			marginX = rMarginX;
+			marginY = rMarginY;
+		}
+		
+		float x = this.x + marginX;
+		float y = this.y + marginY;
+		float width = this.width - 2 * marginX;		
+		float height = this.height - 2 * marginY;
+		return new GsnRectangle(x, y, width, height);
 	}
 	
 	public void scaleAndPutSprite(Sprite sprite){
@@ -40,5 +51,9 @@ public class GsnRectangle{
 	public static String toString(Sprite sprite){
 		Rectangle rect = sprite.getBoundingRectangle();
 		return "(" + (int)rect.getX() + ", " + (int)rect.getY() + ", " + (int)rect.getWidth() + ", " + (int)rect.getHeight() + ")";
+	}
+	
+	public Rectangle toRectangle(){
+		return new Rectangle(x, y, width, height);
 	}
 }
