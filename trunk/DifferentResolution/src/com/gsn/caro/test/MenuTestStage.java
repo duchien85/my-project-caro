@@ -1,10 +1,11 @@
-package com.gsn.caro;
+package com.gsn.caro.test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.GsnBoardStage;
 import com.gsn.engine.layout.GsnRectangle;
@@ -13,11 +14,13 @@ import com.gsn.engine.layout.GsnTableLayout;
 public class MenuTestStage extends GsnBoardStage {
 	GsnTableLayout layout;
 	ImageAsset asset = ImageAsset.getInstance();
-	List<Sprite> list = new ArrayList<Sprite>();
+	List<Sprite> list = new ArrayList<Sprite>();			
 	
 	public MenuTestStage(float width, float height, boolean stretch) {
-		super(width, height, stretch);
-		layout = new GsnTableLayout(0, 0, this.width, 200);
+		super(width, height, stretch);		
+		
+		layout = createMenuLayout(true, 0.5f);		
+		
 		layout.newRow(0.3f);
 		layout.add(0.3f);
 		layout.add(0.7f);

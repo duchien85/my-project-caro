@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.gsn.caro.asset.ImageAsset;
+import com.gsn.caro.test.MenuTestStage;
 
 public class CaroGame extends Game {
 	ImageAsset asset;	
@@ -32,7 +33,7 @@ public class CaroGame extends Game {
 		// TODO Auto-generated method stub
 		Gdx.app.log("GAME", "RESIZE");
 		//global = new GlobalStage(width, height, false);		
-		global = new MenuTestStage(width, height, false);
+		global = new BoardStage(width, height, false);
 		Gdx.input.setInputProcessor(global);
 	}	
 	

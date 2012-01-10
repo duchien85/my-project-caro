@@ -1,4 +1,4 @@
-package com.gsn.caro;
+package com.gsn.caro.test;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.GsnBoardStage;
-import com.gsn.engine.GsnParticleEffect;
 import com.gsn.engine.GsnUtility;
 
 public class GlobalStage extends GsnBoardStage {

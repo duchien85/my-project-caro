@@ -15,7 +15,7 @@ public class GsnMenuLayout {
 	public void setMargin(float marginX, float marginY){
 		for (int iRow = 0; iRow < numRow; iRow++)
 			for (int iCol = 0; iCol < numCol; iCol++){
-				recArr[iRow][iCol].setMargin(marginX, marginY);	
+				recArr[iRow][iCol].setMargin(false, marginX, marginY);	
 			}
 	}
 	
