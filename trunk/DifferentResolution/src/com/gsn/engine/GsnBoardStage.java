@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.gsn.engine.layout.GsnTableLayout;
 
@@ -41,9 +42,9 @@ public abstract class GsnBoardStage extends Stage {
 	}
 
 	protected GsnParticleEffect clickEffect;
-	final protected Camera globalCam;
+	final protected OrthographicCamera globalCam;
 
-	final protected Camera localCam;
+	final protected OrthographicCamera localCam;
 	protected SpriteBatch myBatch = new SpriteBatch();
 	protected Vector2 point = new Vector2();
 
@@ -54,8 +55,7 @@ public abstract class GsnBoardStage extends Stage {
 		localCam = new OrthographicCamera();
 		GsnBoardStage.setViewport(localCam, width, height, stretch);
 		localCam.update();
-		globalCam = camera;
-		// TODO Auto-generated constructor stub
+		globalCam = (OrthographicCamera) camera;
 	}
 
 	protected GsnTableLayout createMenuLayout(boolean isRatio, float rHeight) {
@@ -65,12 +65,13 @@ public abstract class GsnBoardStage extends Stage {
 		else
 			h = rHeight;
 		return new GsnTableLayout(0, height - h, width, h);
-
 	}
 
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub
+		localCam.update();
+		globalCam.update();
 		super.draw();
 		camera = localCam;
 		myBatch.begin();
@@ -96,6 +97,22 @@ public abstract class GsnBoardStage extends Stage {
 	@Override
 	public boolean touchUp(int x, int y, int pointer, int button) {
 		// TODO Auto-generated method stub
+		System.out.println(" touch up : " + x + " " + y + " " + pointer);
+		if (numberOfFingers == 1) {
+			Vector3 touchPoint = new Vector3(x, y, 0);
+			globalCam.unproject(touchPoint);
+		}
+		numberOfFingers--;
+
+		// just some error prevention... clamping number of fingers (ouch! :-)
+		if (numberOfFingers < 0) {
+			numberOfFingers = 0;
+		}
+
+		lastDistance = 0;
+		// /xong phan pinch
+		localCam.update();
+		globalCam.update();
 		camera = localCam;
 		this.toStageCoordinates(x, y, point);
 		boolean checkGlobal = localTouchUp(point.x, point.y, pointer, button);
@@ -106,5 +123,77 @@ public abstract class GsnBoardStage extends Stage {
 			globalTouchUp(point.x, point.y, pointer, button);
 		}
 		return true;
+	}
+
+	int numberOfFingers = 0;
+	int fingerOnePointer;
+	int fingerTwoPointer;
+	float lastDistance = 0;
+	Vector3 fingerOne = new Vector3();
+	Vector3 fingerTwo = new Vector3();	
+	GsnMultiTouchSimulator multiTouch = new GsnMultiTouchSimulator(this);
+	public void pause() {
+		numberOfFingers = 0;
+	}
+
+	@Override
+	public boolean touchDown(int x, int y, int pointer, int button) {
+		// TODO Auto-generated method stub
+		// for pinch-to-zoom
+		System.out.println(" touch down : " + x + " " + y + " " + pointer);
+		numberOfFingers++;
+		if (numberOfFingers == 1) {
+			fingerOnePointer = pointer;
+			fingerOne.set(x, y, 0);
+		} else if (numberOfFingers == 2) {
+			fingerTwoPointer = pointer;
+			fingerTwo.set(x, y, 0);
+			float distance = fingerOne.dst(fingerTwo);
+			lastDistance = distance;
+		}
+		return super.touchDown(x, y, pointer, button);
+	}
+
+	@Override
+	public boolean touchDragged(int x, int y, int pointer) {
+		// TODO Auto-generated method stub\
+		// for pinch-to-zoom
+		System.out.println(" touch drag : " + x + " " + y + " " + pointer);
+		if (pointer == fingerOnePointer) {
+			fingerOne.set(x, y, 0);
+		}
+		if (pointer == fingerTwoPointer) {
+			fingerTwo.set(x, y, 0);
+		}
+  
+		float distance = fingerOne.dst(fingerTwo);
+
+		if (lastDistance != 0 && distance != 0) {
+			float zoom = globalCam.zoom * lastDistance / distance;			
+			globalCam.zoom = zoom;			
+			System.out.println("zoom : " + zoom);
+			// setZoomCamera(zoom);
+		}
+
+		// clamps field of view to common angles...
+		// if (cam.fieldOfView < 10f) cam.fieldOfView = 10f;
+		// if (cam.fieldOfView > 120f) cam.fieldOfView = 120f;
+		lastDistance = distance;
+		globalCam.update();
+		return super.touchDragged(x, y, pointer);
+	}
+	
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		multiTouch.keyUp(keycode);
+		return super.keyUp(keycode);
+	}
+	
+	@Override
+	public boolean keyDown(int keycode) {
+		// TODO Auto-generated method stub
+		multiTouch.keyDown(keycode);
+		return super.keyDown(keycode);
 	}
 }

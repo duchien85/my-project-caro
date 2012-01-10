@@ -2,8 +2,9 @@ package com.gsn.caro;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.GsnBoardStage;
@@ -33,8 +34,20 @@ public class BoardStage extends GsnBoardStage {
 		meTimer.setTime(6);
 		otherTimer = new ClockSprite(menuLayout.list.get(2));
 		
-		animation = new GsnAnimation(0.2f, asset.winAni, false, 100, 100);
-		animation.start();
+		animation = new GsnAnimation(0.2f, asset.winAni, false, width / 2, height / 2);		
+		
+		board = new Image(asset.avatar);
+		board.setClickListener(new ClickListener() {
+			
+			@Override
+			public void click(Actor actor, float x, float y) {
+				// TODO Auto-generated method stub
+				System.out.println("click : " + x + ", " + y);
+			}
+		});
+		
+		globalCam.position.set(100, 100, 0) ;
+		this.addActor(board);
 	}
 	
 	float time; 
@@ -48,12 +61,12 @@ public class BoardStage extends GsnBoardStage {
 		otherTimer.draw(batcher);
 		
 		animation.act(Gdx.graphics.getDeltaTime());
-		animation.draw(batcher);
+		animation.draw(batcher);		
 	}
 	@Override
 	public boolean localTouchUp(float x, float y, int pointer, int button) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 	@Override
 	public boolean globalTouchUp(float x, float y, int pointer, int button) {
