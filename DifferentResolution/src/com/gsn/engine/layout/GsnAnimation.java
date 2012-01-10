@@ -13,7 +13,8 @@ public class GsnAnimation {
 	List<Sprite> frames;
 	float time;
 	private Sprite currentFrame;
-	boolean isLoop;
+	boolean isLoop;	
+	boolean isRuning;
 	
 	public GsnAnimation(float frameDuration, List<AtlasRegion> keyFrames, boolean looping, float centerX, float centerY) {
 		// TODO Auto-generated constructor stub
@@ -21,17 +22,20 @@ public class GsnAnimation {
 		frames = GsnUtility.convertRegionsToSprites(keyFrames);
 		time = 0;
 		isLoop = looping;
+		currentFrame = null;
 		for (Sprite sprite : frames)
 			GsnUtility.setCenterSprite(sprite, centerX, centerY);
+		isRuning = false;
 	}		
 	
 	public void start(){
 		time = 0;
+		isRuning = true;
 		act(0f);
 	}
 	
-	public boolean isFinish(){
-		return currentFrame == null;
+	public boolean isFinished(){
+		return (isRuning == false);
 	}
 	
 	public Sprite act(float delta){
@@ -43,8 +47,10 @@ public class GsnAnimation {
 			else 
 				no = no % frames.size();
 		} 
-		if (no < 0)
+		if (no < 0){
 			currentFrame = null;
+			isRuning = false;
+		}
 		else 
 			currentFrame = frames.get(no);
 		return currentFrame;
@@ -55,7 +61,7 @@ public class GsnAnimation {
 	} 	
 	
 	public void draw(SpriteBatch batcher){
-		if (currentFrame != null)
+		if (!isFinished())
 			currentFrame.draw(batcher);
 	}
 }

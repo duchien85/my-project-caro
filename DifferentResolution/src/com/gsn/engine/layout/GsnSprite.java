@@ -1,11 +1,13 @@
 package com.gsn.engine.layout;
 
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.gsn.engine.GsnUtility;
 
-public abstract class GsnSprite{
+public abstract class GsnSprite extends InputAdapter{
 	protected Rectangle bound = new Rectangle();
 
 	abstract public void draw(SpriteBatch batcher);
