@@ -21,7 +21,8 @@ public class GsnPinchToZoom{
 	boolean isPinched = false;
 	boolean isDragged = false;
 	float oldX, oldY;
-	float tolerant = 20;
+	float oldDownX, oldDownY;
+	float tolerant = 7;
 	Vector2 vector = new Vector2();
 	
 	public GsnPinchToZoom(GsnBoardStage gsnStage){
@@ -82,7 +83,10 @@ public class GsnPinchToZoom{
 		}
 
 		if (numberOfFingers < 1) {
-			if (!isDragged || ((Math.abs((x - oldX)) < tolerant) && (Math.abs((y - oldY)) < tolerant))){
+//			System.out.println("x : " + x +  " " + oldDownX + " " + (Math.abs((x - oldDownX))));
+//			System.out.println("y : " + y +  " " + oldDownY + " " + (Math.abs((y - oldDownY))));
+			if (!isDragged && ((Math.abs((x - oldDownX)) < tolerant) && (Math.abs((y - oldDownY)) < tolerant))){
+				//System.out.println(" vao roi ");
 				stage.touchUpWithoutZoom(x, y, pointer, button);
 			}
 		}
@@ -116,6 +120,8 @@ public class GsnPinchToZoom{
 		isPinched = numberOfFingers >= 2;
 		oldX = x;
 		oldY = y;
+		oldDownX = x;
+		oldDownY = y;
 		return true;
 	}
 		
@@ -148,9 +154,9 @@ public class GsnPinchToZoom{
 		// clamps field of view to common angles...
 		// if (cam.fieldOfView < 10f) cam.fieldOfView = 10f;
 		// if (cam.fieldOfView > 120f) cam.fieldOfView = 120f;
-		if (!(Math.abs((x - oldX)) < tolerant) && (Math.abs((y - oldY)) < tolerant)) {
-			oldX = Integer.MIN_VALUE;
-			oldY = Integer.MIN_VALUE;
+		if ((Math.abs((x - oldDownX)) > tolerant) || (Math.abs((y - oldDownY)) > tolerant)) {
+			oldDownX = Integer.MIN_VALUE;
+			oldDownY = Integer.MIN_VALUE;
 		}
 		if (isDragged) {
 			//System.out.println("keo camera");
