@@ -5,7 +5,6 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gsn.caro.asset.ImageAsset;
-import com.gsn.engine.GdxUtility;
 import com.gsn.engine.GsnUtility;
 import com.gsn.engine.layout.GsnRectangle;
 import com.gsn.engine.layout.GsnSprite;
@@ -26,11 +25,14 @@ public class ClockSprite extends GsnSprite {
 		// TODO Auto-generated constructor stub
 		bound = rect.toRectangle();
 		clockBG = new Sprite(ImageAsset.getInstance().clockBG);
-		numClock = GsnUtility.convertRegionsToSprites(ImageAsset.getInstance().numberTimerList);
-		
 		rect.scaleAndPutSprite(clockBG);
-		for (Sprite sprite : numClock)
-			GdxUtility.setCenter(sprite, rect.getCenter().x, rect.getCenter().y);
+		
+		numClock = GsnUtility.convertRegionsToSprites(ImageAsset.getInstance().numberTimerList);		
+		GsnRectangle tmp =  rect.setMargin(true, 0.2f, 0.3f);
+		for (Sprite sprite : numClock){
+			//GdxUtility.setCenter(sprite, rect.getCenter().x, rect.getCenter().y);
+			tmp.scaleAndPutSprite(sprite);
+		}
 	}	
 	
 	@Override
