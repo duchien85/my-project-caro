@@ -34,12 +34,12 @@ public class ImageAsset {
 	public AtlasRegion pieceO;
 	public AtlasRegion pieceX;
 	final String tag = ImageAsset.class.getSimpleName();
-	public List numberTimerList;
+	public List<AtlasRegion> numberTimerList;
 	public AtlasRegion win;
 	public AtlasRegion board;
 	public AtlasRegion clockBG;	
 	
-	public List winAni;
+	public List<AtlasRegion> winAni;
 
 	private ImageAsset() {
 	}
@@ -69,7 +69,6 @@ public class ImageAsset {
 		manager = new AssetManager();
 		manager.setLoader(Texture.class, new TextureLoader(resolver));
 		manager.setErrorListener(new AssetErrorListener() {
-
 			@Override
 			public void error(String fileName, Class type, Throwable throwable) {
 				// TODO Auto-generated method stub

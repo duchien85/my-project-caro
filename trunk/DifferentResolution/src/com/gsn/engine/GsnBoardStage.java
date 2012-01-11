@@ -8,10 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.gsn.engine.layout.GsnTableLayout;
 
-public abstract class GsnBoardStage extends Stage implements  GsnPinchToZoom.ITouchUpWithoutZoom{	
-	
+public abstract class GsnBoardStage extends Stage implements GsnPinchToZoom.ITouchUpWithoutZoom {
+
 	static public void setViewport(Camera camera, float width, float height, boolean stretch) {
-		
 		float thiswidth = 0f, thisheight = 0f;
 		if (!stretch) {
 			if (width > height && width / (float) Gdx.graphics.getWidth() <= height / (float) Gdx.graphics.getHeight()) {
@@ -44,11 +43,10 @@ public abstract class GsnBoardStage extends Stage implements  GsnPinchToZoom.ITo
 
 	protected GsnParticleEffect clickEffect;
 	final protected OrthographicCamera globalCam;
-
 	final protected OrthographicCamera localCam;
 	protected SpriteBatch myBatch = new SpriteBatch();
-	protected Vector2 point = new Vector2();
 	GsnPinchToZoom pinch;
+	protected Vector2 vector = new Vector2();
 
 	final public String tag = GsnBoardStage.class.getSimpleName();
 
@@ -87,64 +85,63 @@ public abstract class GsnBoardStage extends Stage implements  GsnPinchToZoom.ITo
 		}
 	}
 
-	abstract public void localDraw(SpriteBatch batcher);
-
-	abstract public boolean localTouchUp(float x, float y, int pointer, int button);
-
 	abstract public boolean globalTouchUp(float x, float y, int pointer, int button);
 
-	public void setClickEffect(GsnParticleEffect effect) {
-		this.clickEffect = effect;
-	}
-	
-	@Override
-	public void touchUpWithoutZoom(int x, int y, int pointer, int button){
-		localCam.update();
-		globalCam.update();
-		camera = localCam;
-		this.toStageCoordinates(x, y, point);
-		boolean checkGlobal = localTouchUp(point.x, point.y, pointer, button);
-		camera = globalCam;
-		if (checkGlobal) {
-			super.touchUp(x, y, pointer, button);
-			toStageCoordinates(x, y, point);
-			globalTouchUp(point.x, point.y, pointer, button);
-		}		
-	}
-	
-	@Override
-	public boolean touchUp(int x, int y, int pointer, int button) {
-		// TODO Auto-generated method stub		
-		pinch.touchUp(x, y, pointer, button);
-		return super.touchUp(x, y, pointer, button);
-	}
-	
-	@Override
-	public boolean touchDragged(int x, int y, int pointer) {
-		// TODO Auto-generated method stub
-		pinch.touchDragged(x, y, pointer);
-		return super.touchDragged(x, y, pointer);
-	}
-	
-	@Override
-	public boolean touchDown(int x, int y, int pointer, int button) {
-		// TODO Auto-generated method stub
-		pinch.touchDown(x, y, pointer, button);
-		return super.touchDown(x, y, pointer, button);
-	}
-	
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		pinch.keyUp(keycode);
-		return super.keyUp(keycode);
-	}
-	
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
 		pinch.keyDown(keycode);
 		return super.keyDown(keycode);
 	}
-		
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		pinch.keyUp(keycode);
+		return super.keyUp(keycode);
+	}
+
+	abstract public void localDraw(SpriteBatch batcher);
+
+	abstract public boolean localTouchUp(float x, float y, int pointer, int button);
+
+	public void setClickEffect(GsnParticleEffect effect) {
+		this.clickEffect = effect;
+	}
+
+	@Override
+	public boolean touchDown(int x, int y, int pointer, int button) {
+		// TODO Auto-generated method stub
+		pinch.touchDown(x, y, pointer, button);
+		return super.touchDown(x, y, pointer, button);
+	}
+
+	@Override
+	public boolean touchDragged(int x, int y, int pointer) {
+		// TODO Auto-generated method stub
+		pinch.touchDragged(x, y, pointer);
+		return super.touchDragged(x, y, pointer);
+	}
+
+	@Override
+	public boolean touchUp(int x, int y, int pointer, int button) {
+		// TODO Auto-generated method stub
+		pinch.touchUp(x, y, pointer, button);
+		return super.touchUp(x, y, pointer, button);
+	}
+
+	@Override
+	public void touchUpWithoutZoom(int x, int y, int pointer, int button) {
+		localCam.update();
+		globalCam.update();
+		camera = localCam;
+		this.toStageCoordinates(x, y, vector);
+		boolean checkGlobal = localTouchUp(vector.x, vector.y, pointer, button);
+		camera = globalCam;
+		if (checkGlobal) {
+			super.touchUp(x, y, pointer, button);
+			toStageCoordinates(x, y, vector);
+			globalTouchUp(vector.x, vector.y, pointer, button);
+		}
+	}
 }

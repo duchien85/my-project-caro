@@ -3,6 +3,7 @@ package com.gsn.caro;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -24,6 +25,8 @@ public class BoardStage extends GsnBoardStage {
 	int tmp = 50;
 	public BoardStage(float width, float height, boolean stretch) {
 		super(width, height, stretch);
+		clickEffect = asset.clickEffect;
+		
 		menuLayout = createMenuLayout(true, 0.2f);
 		menuBG = new GsnRepeatingSprite(asset.menuBG, menuLayout.x, menuLayout.y, menuLayout.width, menuLayout.height);
 		
@@ -37,16 +40,13 @@ public class BoardStage extends GsnBoardStage {
 		animation = new GsnAnimation(0.2f, asset.winAni, false, width / 2, height / 2);		
 		
 		board = new Image(asset.avatar);
-		board.setClickListener(new ClickListener() {
-			
+		board.setClickListener(new ClickListener() {			
 			@Override
 			public void click(Actor actor, float x, float y) {
 				// TODO Auto-generated method stub
 				System.out.println("click : " + x + ", " + y);
 			}
-		});
-		
-		//globalCam.position.set(0, 0, 0) ;
+		});		
 		this.addActor(board);
 	}
 	
@@ -63,9 +63,20 @@ public class BoardStage extends GsnBoardStage {
 		animation.act(Gdx.graphics.getDeltaTime());
 		animation.draw(batcher);		
 	}
+	
+	@Override
+	public boolean touchDown(int x, int y, int pointer, int button) {		
+//		camera = localCam;
+//		this.toStageCoordinates(x, y, vector);
+//		clickEffect.setPosition(vector.x, vector.y);
+//		clickEffect.start();
+//		camera = globalCam;
+		return super.touchDown(x, y, pointer, button);
+	}
+	
 	@Override
 	public boolean localTouchUp(float x, float y, int pointer, int button) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub		
 		return true;
 	}
 	@Override
