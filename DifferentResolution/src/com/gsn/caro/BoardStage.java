@@ -40,13 +40,13 @@ public class BoardStage extends GsnBoardStage {
 		animation = new GsnAnimation(0.2f, asset.winAni, false, width / 2, height / 2);		
 		
 		board = new Image(asset.avatar);
-		board.setClickListener(new ClickListener() {			
-			@Override
-			public void click(Actor actor, float x, float y) {
-				// TODO Auto-generated method stub
-				System.out.println("click : " + x + ", " + y);
-			}
-		});		
+//		board.setClickListener(new ClickListener() {			
+//			@Override
+//			public void click(Actor actor, float x, float y) {
+//				// TODO Auto-generated method stub
+//				System.out.println("click : " + x + ", " + y);
+//			}
+//		});		
 		this.addActor(board);
 	}
 	

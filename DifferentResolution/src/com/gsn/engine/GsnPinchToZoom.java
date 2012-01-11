@@ -28,8 +28,7 @@ public class GsnPinchToZoom{
 	public GsnPinchToZoom(GsnBoardStage gsnStage){
 		this.stage = gsnStage;
 		resetCamera();
-	}
-		
+	}	
 	
 	float minZoom = 0.2f; 
 	float maxZoom = 5f;
@@ -70,11 +69,9 @@ public class GsnPinchToZoom{
 			stage.globalCam.translate(dx, dy, 0);
 		}
 	}
-	
-	float oriX, oriY;
+		
 	public boolean touchUp(int x, int y, int pointer, int button) {
-		// TODO Auto-generated method stub
-		//System.out.println(" touch up : " + x + " " + y + " " + pointer);					
+		// TODO Auto-generated method stub					
 		numberOfFingers--;
 
 		// just some error prevention... clamping number of fingers (ouch! :-)
@@ -97,7 +94,6 @@ public class GsnPinchToZoom{
 		}
 		isDragged = false;
 		return false;
-		// /xong phan pinch		
 	}
 
 	public void pause() {
@@ -151,9 +147,6 @@ public class GsnPinchToZoom{
 			isDragged = false;
 		}
 
-		// clamps field of view to common angles...
-		// if (cam.fieldOfView < 10f) cam.fieldOfView = 10f;
-		// if (cam.fieldOfView > 120f) cam.fieldOfView = 120f;
 		if ((Math.abs((x - oldDownX)) > tolerant) || (Math.abs((y - oldDownY)) > tolerant)) {
 			oldDownX = Integer.MIN_VALUE;
 			oldDownY = Integer.MIN_VALUE;
