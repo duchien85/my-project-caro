@@ -46,7 +46,7 @@ public class BoardStage extends GsnBoardStage {
 			}
 		});
 		
-		globalCam.position.set(100, 100, 0) ;
+		//globalCam.position.set(0, 0, 0) ;
 		this.addActor(board);
 	}
 	
@@ -81,8 +81,7 @@ public class BoardStage extends GsnBoardStage {
 		case Input.Keys.F1:
 			animation.start();
 			break;
-		}
-			
+		}			
 		return super.keyDown(keycode);
 	}
 
