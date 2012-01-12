@@ -27,8 +27,8 @@ public class BoardStage extends GsnBoardStage {
 		super(width, height, stretch);
 		clickEffect = asset.clickEffect;
 		
-		menuLayout = createMenuLayout(true, 0.2f);
-		menuBG = new GsnRepeatingSprite(asset.menuBG, menuLayout.x, menuLayout.y, menuLayout.width, menuLayout.height);
+		menuLayout = createMenuLayout(false, asset.clockBG.getRegionHeight());
+		menuBG = new GsnRepeatingSprite(asset.bbChat.get(0), menuLayout.x, menuLayout.y, menuLayout.width, menuLayout.height);
 		
 		menuLayout.newRow(1f);
 		menuLayout.addList(0.4f, 0.2f, 0.4f);		

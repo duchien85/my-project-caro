@@ -5,7 +5,6 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.ResolutionFileResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.ResolutionFileResolver.Resolution;
@@ -38,7 +37,7 @@ public class ImageAsset {
 	public AtlasRegion win;
 	public AtlasRegion board;
 	public AtlasRegion clockBG;	
-	
+	public List<AtlasRegion> bbChat;
 	public List<AtlasRegion> winAni;
 
 	private ImageAsset() {
@@ -61,13 +60,15 @@ public class ImageAsset {
 		menuBG = atlas.findRegion("cuocGold");		
 		board = atlas.findRegion("board");
 		clockBG = atlas.findRegion("DongHoDemNguoc");
+		bbChat = atlas.findRegions("bbchat");
 	}
 	
 	public void create() {
 		Resolution[] resolutions = { new Resolution(320, 480, "320480"), new Resolution(480, 800, "480800"), new Resolution(480, 856, "480854") };
 		ResolutionFileResolver resolver = new ResolutionFileResolver(new InternalFileHandleResolver(), resolutions);
-		manager = new AssetManager();
-		manager.setLoader(Texture.class, new TextureLoader(resolver));
+		manager = new AssetManager(resolver);
+//		manager.setLoader(Texture.class, new TextureLoader(resolver));
+//		manager.setLoader(TextureAtlas.class, new TextureAtlasLoader(resolver));
 		manager.setErrorListener(new AssetErrorListener() {
 			@Override
 			public void error(String fileName, Class type, Throwable throwable) {
