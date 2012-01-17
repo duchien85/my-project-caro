@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.gsn.caro.asset.ImageAsset;
-import com.gsn.caro.test.MenuTestStage;
 
 public class CaroGame extends Game {
 	ImageAsset asset;	

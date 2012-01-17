@@ -1,4 +1,4 @@
-package com.gsn.engine;
+package com.gsn.engine.gdx;
 
 
 import java.util.List;
@@ -91,5 +91,9 @@ public class GdxUtility {
 	public static String getShortName(String name){
 		if (name.length()>=9) return (name.substring(0, 6)+"...");
 		else return name;
+	}
+	
+	public static boolean canHit(float x, float y, float width, float height){
+		return (x >=0 && x <= width && y >= 0 && y <= height);
 	}
 }

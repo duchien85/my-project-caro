@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.gsn.engine.GsnParticleEffect;
 import com.gsn.engine.layout.GsnTableLayout;
 
 public abstract class GsnBoardStage extends Stage implements GsnPinchToZoom.ITouchUpWithoutZoom {
