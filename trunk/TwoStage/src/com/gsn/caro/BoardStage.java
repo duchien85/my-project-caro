@@ -1,4 +1,4 @@
-package com.gsn.caro.test;
+package com.gsn.caro;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;

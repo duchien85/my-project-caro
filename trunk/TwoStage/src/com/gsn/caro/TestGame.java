@@ -1,4 +1,4 @@
-package com.gsn.caro.test;
+package com.gsn.caro;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -35,6 +35,22 @@ public class TestGame extends Game {
 				two.touchDown(x, y, pointer, button);
 				return super.touchDown(x, y, pointer, button);
 			}
+			
+			@Override
+			public boolean touchUp(int x, int y, int pointer, int button) {
+				// TODO Auto-generated method stub
+				one.touchUp(x, y, pointer, button);
+				two.touchUp(x, y, pointer, button);
+				return super.touchUp(x, y, pointer, button);
+			}
+						
+			@Override
+			public boolean touchDragged(int x, int y, int pointer) {
+				// TODO Auto-generated method stub
+				one.touchDragged(x, y, pointer);
+				two.touchDragged(x, y, pointer);
+				return super.touchDragged(x, y, pointer);
+			}						
 		});
 	}
 	
