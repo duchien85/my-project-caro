@@ -63,16 +63,7 @@ public class TestGame extends Game {
 		one.draw();		
 		
 		two.act(Gdx.graphics.getDeltaTime());
-		two.draw();
-		
-	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new LwjglApplication(new TestGame(), "Test", 240, 320, false);
+		two.draw();	
 	}
 
 }
