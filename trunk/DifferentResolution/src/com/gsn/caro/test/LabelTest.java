@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Align;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
+import com.gsn.skin.TestGame;
 
 public class LabelTest extends Game {
 	Skin skin;
@@ -94,7 +95,7 @@ public class LabelTest extends Game {
 	}	
 	
 	public static void main(String[] args) {
-		Game test = new LabelTest();
+		Game test = new TestGame();
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();		
 		config.vSyncEnabled = true;
 		new LwjglApplication(test, config);
