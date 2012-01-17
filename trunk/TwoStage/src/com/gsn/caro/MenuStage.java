@@ -2,17 +2,16 @@ package com.gsn.caro;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 import com.gsn.caro.asset.ImageAsset;
-import com.gsn.engine.gdx.GdxUtility;
+import com.gsn.engine.GdxUtility;
 
 public class MenuStage extends Stage {
 	Vector2 vector = new Vector2();
@@ -23,50 +22,37 @@ public class MenuStage extends Stage {
 	public MenuStage(float width, float height) {
 		super(width, height, false);
 
-		Skin skin = new Skin(Gdx.files.internal("data/skin/uiskin.json"), Gdx.files.internal("data/skin/uiskin.png"));
-		Table myTable = new Table();
-		myTable.x = 0;
-		myTable.y = 100;
-		this.addActor(myTable);
+		Skin skin = new Skin(Gdx.files.internal("data/skin/uiskin.json"), Gdx.files.internal("data/skin/uiskin.png"));		
 
 		final TextButton btn = new TextButton("Text Button", skin) {
 			@Override
 			public void touchUp(float x, float y, int pointer) {
 				// TODO Auto-generated method stub
 				if (GdxUtility.canHit(x, y, width, height)) {
-					System.out.println("click Button");
-				} else {
-					System.out.println("DONT click Button");
+					System.out.println("click Button TEXT");
 				}
 				super.touchUp(x, y, pointer);
 			}
 		};
 
-		ImageButton imgBtn = new ImageButton(ImageAsset.getInstance().clockBG) {
+		ImageButton imgBtn = new ImageButton(ImageAsset.getInstance().clock);
+		
+		imgBtn.setClickListener(new ClickListener() {
+			
 			@Override
-			public void touchUp(float x, float y, int pointer) {
+			public void click(Actor actor, float x, float y) {
 				// TODO Auto-generated method stub
-				if (GdxUtility.canHit(x, y, width, height)) {
-					System.out.println("click Button");
-				} else {
-					System.out.println("DONT click Button");
-				}
-				super.touchUp(x, y, pointer);
+				System.out.println("haaaaaaaa");
 			}
-		};
-
+		});
+		
+		Table myTable = new Table();
+		myTable.x = 100;
+		myTable.y = 200;
+		this.addActor(myTable);
 		myTable.debug();
-		myTable.add(new Label("meow", skin)).colspan(6);
-		myTable.row();
-		myTable.add(btn);
-		// myTable.row();
-		myTable.add(new TextButton("Toggle Button", skin.getStyle("toggle", TextButtonStyle.class)));
-		// myTable.row();
 		myTable.add(imgBtn);
 		myTable.row();
-		myTable.add(new CheckBox("meow", skin));
-		myTable.pack();
-
+		myTable.add(btn);
 	}
-
 }

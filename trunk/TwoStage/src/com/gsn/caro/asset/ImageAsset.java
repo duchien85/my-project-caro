@@ -1,7 +1,5 @@
 package com.gsn.caro.asset;
 
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
@@ -12,8 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.gsn.engine.gdx.GsnParticleEffect;
 
 public class ImageAsset {
 	private static ImageAsset _instance; 
@@ -22,53 +18,27 @@ public class ImageAsset {
 			_instance = new ImageAsset();
 		return _instance;
 	}
-	public AtlasRegion avatar;
-	public AtlasRegion background;
-	public TextureRegion bet;
-	public GsnParticleEffect clickEffect = new GsnParticleEffect();
-	public AtlasRegion menuBG;
-	BitmapFont font;
-	AssetManager manager;
+	final static String tag = ImageAsset.class.getSimpleName();
+	static AssetManager manager;
 	
-	public AtlasRegion pieceO;
-	public AtlasRegion pieceX;
-	final String tag = ImageAsset.class.getSimpleName();
-	public List<AtlasRegion> numberTimerList;
-	public AtlasRegion win;
-	public AtlasRegion board;
-	public AtlasRegion clockBG;	
-	public List<AtlasRegion> bbChat;
-	public List<AtlasRegion> winAni;
+	public BitmapFont font = new BitmapFont();
+	
+	public AtlasRegion clock;
+	
 
 	private ImageAsset() {
 	}
 
-	private void assignContent() {
-		clickEffect.load(Gdx.files.internal("data/particle/click.p"), Gdx.files.internal("data/particle"));		
+	private void assignContent() {		
 		
 		TextureAtlas atlas = manager.get("data/content/pack", TextureAtlas.class);
-		win = atlas.findRegion("win");
-		background = atlas.findRegion("background");		
-		winAni = atlas.findRegions("Thang");
-		
-		numberTimerList = atlas.findRegions("timer");
-		
-		pieceO = atlas.findRegion("dauO");
-		pieceX = atlas.findRegion("dauX1");
-		avatar = atlas.findRegion("avatarIngame");
-		bet = atlas.findRegion("bet5001");
-		menuBG = atlas.findRegion("cuocGold");		
-		board = atlas.findRegion("board");
-		clockBG = atlas.findRegion("DongHoDemNguoc");
-		bbChat = atlas.findRegions("bbchat");
+		clock = atlas.findRegion("dong ho");
 	}
 	
 	public void create() {
 		Resolution[] resolutions = { new Resolution(320, 480, "320480"), new Resolution(480, 800, "480800"), new Resolution(480, 856, "480854") };
 		ResolutionFileResolver resolver = new ResolutionFileResolver(new InternalFileHandleResolver(), resolutions);
 		manager = new AssetManager(resolver);
-//		manager.setLoader(Texture.class, new TextureLoader(resolver));
-//		manager.setLoader(TextureAtlas.class, new TextureAtlasLoader(resolver));
 		manager.setErrorListener(new AssetErrorListener() {
 			@Override
 			public void error(String fileName, Class type, Throwable throwable) {

@@ -3,7 +3,9 @@ package com.gsn.caro;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.gsn.caro.asset.ImageAsset;
 
 public class BoardStage extends Stage {
@@ -11,20 +13,18 @@ public class BoardStage extends Stage {
 	Image avatar;
 	public BoardStage(float width, float height) {
 		super(width, height, false);
-		// TODO Auto-generated constructor stub
-		avatar = new Image(ImageAsset.getInstance().bet);
-		addActor(avatar);
-	}
-	
-	@Override
-	public boolean touchDown(int x, int y, int pointer, int button) {
-		// TODO Auto-generated method stub;		
-		this.toStageCoordinates(x, y, vector);
-		Actor actor = this.hit(vector.x, vector.y);
-		if (actor == avatar){
-			System.out.println("click BOARD");
-		}
+		ImageButton imgBtn = new ImageButton(ImageAsset.getInstance().clock);
 		
-		return super.touchDown(x, y, pointer, button);
-	}
+		imgBtn.setClickListener(new ClickListener() {
+			
+			@Override
+			public void click(Actor actor, float x, float y) {
+				// TODO Auto-generated method stub
+				System.out.println("KAKAKAKA");
+			}
+		});
+		
+		this.addActor(imgBtn);
+	
+	}	
 }
