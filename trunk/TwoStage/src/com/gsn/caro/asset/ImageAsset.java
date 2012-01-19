@@ -23,16 +23,29 @@ public class ImageAsset {
 	
 	public BitmapFont font = new BitmapFont();
 	
-	public AtlasRegion clock;
-	
+	public AtlasRegion myClockBG;
+	public AtlasRegion otherClockBG;
+	public AtlasRegion betBG;
+	public AtlasRegion scoreBG;
+	public AtlasRegion backActiveBtn;
+	public AtlasRegion backDeactiveBtn;
+	public AtlasRegion infoActiveBtn;
+	public AtlasRegion infoDeactiveBtn;
 
-	private ImageAsset() {
+	private ImageAsset() {	
 	}
 
 	private void assignContent() {		
 		
 		TextureAtlas atlas = manager.get("data/content/pack", TextureAtlas.class);
-		clock = atlas.findRegion("dong ho");
+		myClockBG = atlas.findRegion("dong ho");
+		otherClockBG = atlas.findRegion("dong ho doi thu");
+		betBG = atlas.findRegion("khung muc cuoc");
+		scoreBG = atlas.findRegion("bang ti so");
+		backActiveBtn = atlas.findRegion("nut back");
+		backDeactiveBtn = atlas.findRegion("nut back an");
+		infoActiveBtn = atlas.findRegion("nut hien thong tin");
+		infoDeactiveBtn = atlas.findRegion("nut hien thong tin an");
 	}
 	
 	public void create() {
