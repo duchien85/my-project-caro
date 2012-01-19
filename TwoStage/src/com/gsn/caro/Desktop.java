@@ -1,6 +1,7 @@
 package com.gsn.caro;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.gsn.test.TestGame;
 
 public class Desktop {
 
@@ -21,5 +22,4 @@ public class Desktop {
 	public static void main(String[] args) {		
 		createGame(2);		
 	}
-
 }
