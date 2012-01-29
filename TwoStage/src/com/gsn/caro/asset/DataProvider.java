@@ -1,5 +1,7 @@
 package com.gsn.caro.asset;
 
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.gsn.engine.gdx.GsnParticleEffect;
 
 public class DataProvider {
@@ -15,4 +17,6 @@ public class DataProvider {
 	}
 
 	public GsnParticleEffect clickEffect;
+	
+	public Stage screenStage;
 }

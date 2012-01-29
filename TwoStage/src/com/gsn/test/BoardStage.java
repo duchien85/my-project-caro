@@ -1,14 +1,26 @@
 package com.gsn.test;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.GsnPinchToZoom;
 
 public class BoardStage extends Stage {
 	ImageAsset asset;
 	GsnPinchToZoom pinch;
-
+	
+	private Vector3 vector = new Vector3();
+	public void toScreenCoordinates (float x, float y, Vector2 out) {
+		camera.project(vector.set(x, y, 0));
+		out.x = vector.x;
+		out.y = vector.y;		
+	}
+	
 	public BoardStage(float width, float height) {
 		super(width, height, false);
 		pinch = new GsnPinchToZoom(this);
@@ -16,7 +28,17 @@ public class BoardStage extends Stage {
 		Image board = new Image(asset.board);
 		board.x = -board.width / 2;
 		board.y = -board.height / 2;
-		// board.setClickListener(new SimpleClickListener("click Board"));
+		board.setClickListener(new ClickListener() {
+			Vector2 vector = new Vector2();
+			@Override
+			public void click(Actor actor, float x, float y) {
+				// TODO Auto-generated method stub
+				float rX = actor.x + x;
+				float rY = actor.y + y;
+				toScreenCoordinates(rX, rY, vector);				
+				DataProvider.getInstance().clickEffect.startNow(DataProvider.getInstance().screenStage.getCamera(), vector.x, vector.y);
+			}
+		});
 		this.addActor(board);
 	}
 

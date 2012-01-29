@@ -1,10 +1,13 @@
 package com.gsn.test;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.ActorUtility;
 import com.gsn.engine.layout.GsnTableLayout;
@@ -16,6 +19,8 @@ public class MenuStage extends Stage {
 	public void setInputBoard(boolean inputBoard) {
 		this.inputBoard = inputBoard;
 	}
+	
+	Vector3 vector = new Vector3();	
 
 	public MenuStage(float width, float height) {
 		super(width, height, false);
@@ -26,7 +31,16 @@ public class MenuStage extends Stage {
 		Image otherClockBG = new Image(asset.myClockBG);
 		ImageButton backBtn = new ImageButton(asset.backActiveBtn, asset.backDeactiveBtn);
 		ActorUtility.setTopRight(backBtn, width, height);
-		backBtn.setClickListener(new SimpleClickListener("click back btn"));
+		backBtn.setClickListener(new ClickListener() {
+			Vector2 vector = new Vector2();
+			@Override
+			public void click(Actor actor, float x, float y) {
+				// TODO Auto-generated method stub
+				float rX = actor.x + x;
+				float rY = actor.y + y;				
+				DataProvider.getInstance().clickEffect.startNow(MenuStage.this.getCamera(), rX, rY);
+			}
+		});
 		// Image myClockBG2 = new Image(asset.myClockBG);
 		// Image scoreBG2 = new Image(asset.scoreBG);
 		// Image otherClockBG2 = new Image(asset.infoDeactiveBtn);
