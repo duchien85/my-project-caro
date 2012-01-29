@@ -5,21 +5,22 @@ import com.gsn.test.TestGame;
 
 public class Desktop {
 
-	public static void createGame(int mode){		
-		switch (mode){
-		case 1:			
+	public static void createGame(int mode) {
+		switch (mode) {
+		case 1:
 			createGame(240, 320);
 			break;
 		case 2:
 			createGame(480, 600);
 			break;
-		}		
+		}
 	}
-	
-	public static void createGame(int width, int height){
+
+	public static void createGame(int width, int height) {
 		new JoglApplication(new TestGame(), "My Caro", width, height, false);
 	}
-	public static void main(String[] args) {		
-		createGame(2);		
+
+	public static void main(String[] args) {
+		createGame(2);
 	}
 }

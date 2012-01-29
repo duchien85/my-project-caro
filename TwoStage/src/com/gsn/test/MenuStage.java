@@ -11,6 +11,11 @@ import com.gsn.engine.layout.GsnTableLayout;
 
 public class MenuStage extends Stage {
 	ImageAsset asset;
+	boolean inputBoard;
+
+	public void setInputBoard(boolean inputBoard) {
+		this.inputBoard = inputBoard;
+	}
 
 	public MenuStage(float width, float height) {
 		super(width, height, false);
@@ -18,7 +23,7 @@ public class MenuStage extends Stage {
 
 		Image myClockBG = new Image(asset.myClockBG);
 		Image betBG = new Image(asset.betBG);
-		Image otherClockBG = new Image(asset.myClockBG);		
+		Image otherClockBG = new Image(asset.myClockBG);
 		ImageButton backBtn = new ImageButton(asset.backActiveBtn, asset.backDeactiveBtn);
 		ActorUtility.setTopRight(backBtn, width, height);
 		backBtn.setClickListener(new SimpleClickListener("click back btn"));
@@ -35,11 +40,19 @@ public class MenuStage extends Stage {
 		table.list.get(2).putCenter(otherClockBG);
 
 		Image actTable = table.toImage();
-		actTable.setClickListener(new SimpleClickListener("click menu region"));
+		actTable.setClickListener(new ClickListener() {
+
+			@Override
+			public void click(Actor actor, float x, float y) {
+				// TODO Auto-generated method stub
+				System.out.println("click menu region");
+				setInputBoard(false);
+			}
+		});
 		this.addActor(actTable);
 		this.addActor(myClockBG);
 		this.addActor(betBG);
 		this.addActor(otherClockBG);
 		this.addActor(backBtn);
-	}	
+	}
 }

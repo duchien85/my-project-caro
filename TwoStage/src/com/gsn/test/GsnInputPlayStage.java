@@ -1,7 +1,9 @@
 package com.gsn.test;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.gsn.caro.asset.DataProvider;
 
 public class GsnInputPlayStage implements InputProcessor {
 	Stage boardStage;
@@ -15,6 +17,7 @@ public class GsnInputPlayStage implements InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
+
 		menuStage.keyDown(keycode);
 		boardStage.keyDown(keycode);
 		return true;
@@ -36,9 +39,14 @@ public class GsnInputPlayStage implements InputProcessor {
 		return true;
 	}
 
+	Vector2 vector = new Vector2();
+
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button) {
 		// TODO Auto-generated method stub
+		boardStage.toStageCoordinates(x, y, vector);
+		DataProvider.getInstance().clickEffect.startNow(boardStage.getCamera(), vector.x, vector.y);
+
 		menuStage.touchDown(x, y, pointer, button);
 		boardStage.touchDown(x, y, pointer, button);
 		return true;
