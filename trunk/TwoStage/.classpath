@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-backend-android.jar"/>
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-backend-jogl-natives.jar"/>
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-backend-jogl-sources.jar"/>
-	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-backend-jogl.jar"/>
+	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-backend-jogl.jar" sourcepath="/DifferentResolution/libs/gdx-backend-jogl-sources.jar"/>
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-backend-lwjgl-natives.jar"/>
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-backend-lwjgl-sources.jar"/>
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-backend-lwjgl.jar"/>

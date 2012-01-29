@@ -1,6 +1,6 @@
 package com.gsn.caro;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.badlogic.gdx.backends.jogl.JoglApplication;
 import com.gsn.test.TestGame;
 
 public class Desktop {
@@ -11,13 +11,13 @@ public class Desktop {
 			createGame(240, 320);
 			break;
 		case 2:
-			createGame(480, 800);
+			createGame(480, 600);
 			break;
 		}		
 	}
 	
 	public static void createGame(int width, int height){
-		new LwjglApplication(new TestGame(), "My Caro", width, height, false);
+		new JoglApplication(new TestGame(), "My Caro", width, height, false);
 	}
 	public static void main(String[] args) {		
 		createGame(2);		

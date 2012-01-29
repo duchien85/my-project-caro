@@ -2,8 +2,6 @@ package com.gsn.test;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.gsn.caro.asset.ImageAsset;

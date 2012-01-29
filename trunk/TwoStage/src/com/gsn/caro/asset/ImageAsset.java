@@ -31,6 +31,7 @@ public class ImageAsset {
 	public AtlasRegion backDeactiveBtn;
 	public AtlasRegion infoActiveBtn;
 	public AtlasRegion infoDeactiveBtn;
+	public AtlasRegion board;
 
 	private ImageAsset() {	
 	}
@@ -46,6 +47,7 @@ public class ImageAsset {
 		backDeactiveBtn = atlas.findRegion("nut back an");
 		infoActiveBtn = atlas.findRegion("nut hien thong tin");
 		infoDeactiveBtn = atlas.findRegion("nut hien thong tin an");
+		board = atlas.findRegion("ban choi");
 	}
 	
 	public void create() {
@@ -76,19 +78,19 @@ public class ImageAsset {
 	}
 }
 //===================================================================
-//	Anh khóc, vì giờ đây anh đã mất em rồi
-//	Anh khóc, vì giờ đây em đã xa thật rồi.
-//	Anh nhớ, lời hẹn ước ta không xa rời.
-//	Mà giờ đây, sao chỉ anh lẻ loi
-//	Anh cứ, cố gắng tại sao vẫn cứ xa vời
-//	Anh và em, dường như ta đã hết yêu nhau rồi.
-//	Em hãy nói cho anh nghe đi hỡi người yêu ơi.
-//	Tại sao giờ chúng ta lìa đôi.
+//	Anh khÃ³c, vÃ¬ giá»� Ä‘Ã¢y anh Ä‘Ã£ máº¥t em rá»“i
+//	Anh khÃ³c, vÃ¬ giá»� Ä‘Ã¢y em Ä‘Ã£ xa tháº­t rá»“i.
+//	Anh nhá»›, lá»�i háº¹n Æ°á»›c ta khÃ´ng xa rá»�i.
+//	MÃ  giá»� Ä‘Ã¢y, sao chá»‰ anh láº» loi
+//	Anh cá»©, cá»‘ gáº¯ng táº¡i sao váº«n cá»© xa vá»�i
+//	Anh vÃ  em, dÆ°á»�ng nhÆ° ta Ä‘Ã£ háº¿t yÃªu nhau rá»“i.
+//	Em hÃ£y nÃ³i cho anh nghe Ä‘i há»¡i ngÆ°á»�i yÃªu Æ¡i.
+//	Táº¡i sao giá»� chÃºng ta lÃ¬a Ä‘Ã´i.
 //	===================================================================
-//	Tại anh đã vô tâm hay tại anh không quan tâm em mỗi ngày.
-//	Để giờ đây khi lời anh nói, em không tin anh nữa vậy.
-//	Trong tình yêu, đôi lúc ta hay giận hờn anh biết.
-//	Nhưng anh thấy,giờ em không còn yêu anh.
-//	Vậy thôi anh cho em đi về nơi em chưa bắt đầu
-//	Nơi mà em khi chưa quen anh, anh thấy em vui hơn nhiều.
-//	Anh xin lỗi, vì đã cướp mất khoảng trời của em, nhưng có người sẽ cho em lại một bầu trời. 
+//	Táº¡i anh Ä‘Ã£ vÃ´ tÃ¢m hay táº¡i anh khÃ´ng quan tÃ¢m em má»—i ngÃ y.
+//	Ä�á»ƒ giá»� Ä‘Ã¢y khi lá»�i anh nÃ³i, em khÃ´ng tin anh ná»¯a váº­y.
+//	Trong tÃ¬nh yÃªu, Ä‘Ã´i lÃºc ta hay giáº­n há»�n anh biáº¿t.
+//	NhÆ°ng anh tháº¥y,giá»� em khÃ´ng cÃ²n yÃªu anh.
+//	Váº­y thÃ´i anh cho em Ä‘i vá»� nÆ¡i em chÆ°a báº¯t Ä‘áº§u
+//	NÆ¡i mÃ  em khi chÆ°a quen anh, anh tháº¥y em vui hÆ¡n nhiá»�u.
+//	Anh xin lá»—i, vÃ¬ Ä‘Ã£ cÆ°á»›p máº¥t khoáº£ng trá»�i cá»§a em, nhÆ°ng cÃ³ ngÆ°á»�i sáº½ cho em láº¡i má»™t báº§u trá»�i. 
