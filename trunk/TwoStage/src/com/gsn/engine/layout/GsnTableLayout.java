@@ -3,14 +3,13 @@ package com.gsn.engine.layout;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class GsnTableLayout {
-	private float tmpHeight, tmpWidth, tmpX, tmpY, oldHeight;	
+	private float tmpHeight, tmpWidth, tmpX, tmpY, oldHeight;
 	public float x, y, width, height;
 	public List<GsnRectangle> list;
+
 	public GsnTableLayout(float x, float y, float width, float height) {
 		// TODO Auto-generated constructor stub
 		this.x = x;
@@ -22,36 +21,36 @@ public class GsnTableLayout {
 		this.oldHeight = 0;
 		list = new ArrayList<GsnRectangle>();
 	}
-	
-	public GsnRectangle getBoundingRectangle(){
+
+	public GsnRectangle getBoundingRectangle() {
 		return new GsnRectangle(x, y, width, height);
 	}
-	
-	public void newRow(float rHeight){		
+
+	public void newRow(float rHeight) {
 		this.tmpX = x;
 		this.tmpY = this.tmpY + oldHeight;
-		
+
 		oldHeight = tmpHeight = rHeight * height;
 	}
-	
-	public void addList(float... rWidths){
+
+	public void addList(float... rWidths) {
 		for (int i = 0; i < rWidths.length; i++)
 			add(rWidths[i]);
 	}
-	
-	public void add(float rWidth){
+
+	public void add(float rWidth) {
 		tmpWidth = width * rWidth;
 		list.add(new GsnRectangle(tmpX, tmpY, tmpWidth, tmpHeight));
 		tmpX += tmpWidth;
 	}
-	
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "(" + x + ", " + y + ", " + width + ", " + height + ")";
 	}
-	
-	public Image toImage(){
+
+	public Image toImage() {
 		Image tmp = new Image();
 		tmp.x = this.x;
 		tmp.y = this.y;

@@ -12,7 +12,7 @@ public class GsnParticleEffect extends ParticleEffect {
 
 	public GsnParticleEffect() {
 		super();
-	}		
+	}
 
 	public GsnParticleEffect(Camera camera) {
 		super();
@@ -21,7 +21,7 @@ public class GsnParticleEffect extends ParticleEffect {
 
 	public void drawNow() {
 		if (started) {
-			if (camera != null){
+			if (camera != null) {
 				camera.update();
 				batcher.setProjectionMatrix(camera.combined);
 			}
@@ -30,8 +30,8 @@ public class GsnParticleEffect extends ParticleEffect {
 			batcher.end();
 		}
 	}
-	
-	public void drawNow(float delta){
+
+	public void drawNow(float delta) {
 		update(delta);
 		drawNow();
 	}
@@ -47,7 +47,7 @@ public class GsnParticleEffect extends ParticleEffect {
 	public void setCamera(Camera camera) {
 		this.camera = camera;
 	}
-	
+
 	@Override
 	public void start() {
 		// TODO Auto-generated method stub
@@ -55,7 +55,7 @@ public class GsnParticleEffect extends ParticleEffect {
 		started = true;
 	}
 
-	public void startNow(Camera camera, float x, float y){
+	public void startNow(Camera camera, float x, float y) {
 		setPosition(x, y);
 		setCamera(camera);
 		start();
@@ -67,5 +67,5 @@ public class GsnParticleEffect extends ParticleEffect {
 		if (super.isComplete())
 			started = false;
 		super.update(delta);
-	}		
+	}
 }

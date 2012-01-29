@@ -29,7 +29,7 @@ public class GsnParticleEffect extends ParticleEffect {
 			this.draw(batcher);
 			batcher.end();
 		}
-	}
+	}	
 	
 	public void drawNow(float delta){
 		update(delta);
@@ -54,7 +54,11 @@ public class GsnParticleEffect extends ParticleEffect {
 		super.start();
 		started = true;
 	}
-
+	
+	public void startNow(float x, float y){
+		startNow(null, x, y);
+	}
+	
 	public void startNow(Camera camera, float x, float y){
 		setPosition(x, y);
 		setCamera(camera);
