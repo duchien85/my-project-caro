@@ -25,6 +25,8 @@ public class TestGame extends Game {
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 		super.resize(width, height);
+		Stage tmp = new Stage(width, height, false);
+		DataProvider.getInstance().screenStage = tmp;
 		menuStage = new MenuStage(width, height);
 		boardStage = new BoardStage(width, height);
 		input = new GsnInputPlayStage(menuStage, boardStage);

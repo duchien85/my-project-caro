@@ -44,8 +44,8 @@ public class GsnInputPlayStage implements InputProcessor {
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button) {
 		// TODO Auto-generated method stub
-		boardStage.toStageCoordinates(x, y, vector);
-		DataProvider.getInstance().clickEffect.startNow(boardStage.getCamera(), vector.x, vector.y);
+//		boardStage.toStageCoordinates(x, y, vector);
+//		DataProvider.getInstance().clickEffect.startNow(boardStage.getCamera(), vector.x, vector.y);
 
 		menuStage.touchDown(x, y, pointer, button);
 		boardStage.touchDown(x, y, pointer, button);

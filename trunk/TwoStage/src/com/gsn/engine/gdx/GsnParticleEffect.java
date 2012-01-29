@@ -1,12 +1,13 @@
 package com.gsn.engine.gdx;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GsnParticleEffect extends ParticleEffect {
 	private SpriteBatch batcher = new SpriteBatch();
-	private Camera camera;
+	private OrthographicCamera camera;
 
 	boolean started = false;
 
@@ -16,14 +17,14 @@ public class GsnParticleEffect extends ParticleEffect {
 
 	public GsnParticleEffect(Camera camera) {
 		super();
-		this.camera = camera;
+		this.camera = (OrthographicCamera) camera;
 	}
-
+	
 	public void drawNow() {
 		if (started) {
-			if (camera != null) {
+			if (camera != null) {				
 				camera.update();
-				batcher.setProjectionMatrix(camera.combined);
+				batcher.setProjectionMatrix(camera.combined);				
 			}
 			batcher.begin();
 			this.draw(batcher);
@@ -45,7 +46,7 @@ public class GsnParticleEffect extends ParticleEffect {
 	}
 
 	public void setCamera(Camera camera) {
-		this.camera = camera;
+		this.camera = (OrthographicCamera) camera;
 	}
 
 	@Override
@@ -59,6 +60,16 @@ public class GsnParticleEffect extends ParticleEffect {
 		setPosition(x, y);
 		setCamera(camera);
 		start();
+	}
+	
+	float x, y;
+	
+	@Override
+	public void setPosition(float x, float y) {
+		// TODO Auto-generated method stub
+		this.x = x;
+		this.y = y;
+		super.setPosition(x, y);
 	}
 
 	@Override
