@@ -56,7 +56,9 @@ public class GsnPinchToZoom {
 	}
 
 	public void setRangeZoom(float minZoom, float maxZoom, float defaulZoom) {
-
+		this.minZoom = minZoom;
+		this.maxZoom = maxZoom;
+		this.defaultZoom = defaulZoom;
 	}
 
 	public void resetCamera() {

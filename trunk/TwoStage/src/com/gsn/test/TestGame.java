@@ -8,17 +8,18 @@ import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 
 public class TestGame extends Game {
-	Stage menuStage;
-	Stage boardStage;
+	MenuStage menuStage;
+	BoardStage boardStage;
 	GsnInputPlayStage input;
 	ImageAsset asset;
+
 
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
 		asset = ImageAsset.getInstance();
 		asset.create();
-		DataProvider.getInstance().clickEffect = asset.clickEffect;
+		DataProvider.getInstance().clickEffect = asset.clickEffect;	
 	}
 
 	@Override
@@ -27,6 +28,8 @@ public class TestGame extends Game {
 		super.resize(width, height);
 		Stage tmp = new Stage(width, height, false);
 		DataProvider.getInstance().screenStage = tmp;
+		tmp.getCamera().update();
+		
 		menuStage = new MenuStage(width, height);
 		boardStage = new BoardStage(width, height);
 		input = new GsnInputPlayStage(menuStage, boardStage);
@@ -36,9 +39,9 @@ public class TestGame extends Game {
 	@Override
 	public void render() {
 		// TODO Auto-generated method stub
-		super.render();
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
+		boardStage.getCamera().update();
+		menuStage.getCamera().update();
 		boardStage.act(Gdx.graphics.getDeltaTime());
 		boardStage.draw();
 
@@ -46,7 +49,7 @@ public class TestGame extends Game {
 		menuStage.draw();
 
 		asset.clickEffect.update(Gdx.graphics.getDeltaTime());
-		asset.clickEffect.drawNow();
+		asset.clickEffect.drawNow();		
 	}
 
 }
