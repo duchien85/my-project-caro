@@ -6,10 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.gsn.caro.asset.DataProvider;
 
 public class GsnInputPlayStage implements InputProcessor {
-	Stage boardStage;
-	Stage menuStage;
+	BoardStage boardStage;
+	MenuStage menuStage;	
 
-	public GsnInputPlayStage(Stage menu, Stage board) {
+	public GsnInputPlayStage(MenuStage menu, BoardStage board) {
 		this.boardStage = board;
 		this.menuStage = menu;
 	}
@@ -29,7 +29,7 @@ public class GsnInputPlayStage implements InputProcessor {
 		menuStage.keyUp(keycode);
 		boardStage.keyUp(keycode);
 		return true;
-	}
+		}
 
 	@Override
 	public boolean keyTyped(char character) {
@@ -56,7 +56,9 @@ public class GsnInputPlayStage implements InputProcessor {
 	public boolean touchUp(int x, int y, int pointer, int button) {
 		// TODO Auto-generated method stub
 		menuStage.touchUp(x, y, pointer, button);
-		boardStage.touchUp(x, y, pointer, button);
+		if (menuStage.touchUpBoard)
+			boardStage.touchUp(x, y, pointer, button);
+		menuStage.touchUpBoard = true;
 		return true;
 	}
 
@@ -81,3 +83,4 @@ public class GsnInputPlayStage implements InputProcessor {
 	}
 
 }
+

@@ -15,30 +15,43 @@ import com.gsn.engine.layout.GsnTableLayout;
 public class MenuStage extends Stage {
 	ImageAsset asset;
 	boolean inputBoard;
-
+	public boolean touchUpBoard;
+	public boolean touchDownBoard;
+	public boolean touchDragBoard;
+	
+	Vector2 vector = new Vector2();
 	public void setInputBoard(boolean inputBoard) {
 		this.inputBoard = inputBoard;
 	}
 	
-	Vector3 vector = new Vector3();	
-
 	public MenuStage(float width, float height) {
 		super(width, height, false);
 		asset = ImageAsset.getInstance();
 
 		Image myClockBG = new Image(asset.myClockBG);
 		Image betBG = new Image(asset.betBG);
+		
+		betBG.setClickListener(new ClickListener() {
+			
+			@Override
+			public void click(Actor actor, float x, float y) {
+				// TODO Auto-generated method stub
+				System.out.println("click Bet BG");
+			}
+		});
+		
 		Image otherClockBG = new Image(asset.myClockBG);
-		ImageButton backBtn = new ImageButton(asset.backActiveBtn, asset.backDeactiveBtn);
+		ImageButton backBtn = new ImageButton(asset.backActiveBtn, asset.backDeactiveBtn);		
 		ActorUtility.setTopRight(backBtn, width, height);
 		backBtn.setClickListener(new ClickListener() {
-			Vector2 vector = new Vector2();
+			
 			@Override
 			public void click(Actor actor, float x, float y) {
 				// TODO Auto-generated method stub
 				float rX = actor.x + x;
 				float rY = actor.y + y;				
 				DataProvider.getInstance().clickEffect.startNow(MenuStage.this.getCamera(), rX, rY);
+				touchUpBoard = false;
 			}
 		});
 		// Image myClockBG2 = new Image(asset.myClockBG);
@@ -53,20 +66,22 @@ public class MenuStage extends Stage {
 		table.list.get(1).putCenter(betBG);
 		table.list.get(2).putCenter(otherClockBG);
 
-		Image actTable = table.toImage();
-		actTable.setClickListener(new ClickListener() {
+		Image tableImg = table.toImage();
+		tableImg.color.set(1.0f, 1.0f, 1.0f, 1.0f);
+		tableImg.setClickListener(new ClickListener() {
 
 			@Override
 			public void click(Actor actor, float x, float y) {
 				// TODO Auto-generated method stub
 				System.out.println("click menu region");
 				setInputBoard(false);
+				touchUpBoard = false;
 			}
 		});
-		this.addActor(actTable);
+		this.addActor(tableImg);
 		this.addActor(myClockBG);
 		this.addActor(betBG);
 		this.addActor(otherClockBG);
-		this.addActor(backBtn);
+		this.addActor(backBtn);		
 	}
 }

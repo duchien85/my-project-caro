@@ -12,7 +12,7 @@ import com.gsn.engine.GsnPinchToZoom;
 
 public class BoardStage extends Stage {
 	ImageAsset asset;
-	GsnPinchToZoom pinch;
+	GsnPinchToZoom pinch;	
 	
 	private Vector3 vector = new Vector3();
 	public void toScreenCoordinates (float x, float y, Vector2 out) {
@@ -24,6 +24,8 @@ public class BoardStage extends Stage {
 	public BoardStage(float width, float height) {
 		super(width, height, false);
 		pinch = new GsnPinchToZoom(this);
+		//pinch.setRangeZoom(0.5f, 1.5f, 1.5f);
+		pinch.resetCamera();
 		asset = ImageAsset.getInstance();
 		Image board = new Image(asset.board);
 		board.x = -board.width / 2;
@@ -33,6 +35,7 @@ public class BoardStage extends Stage {
 			@Override
 			public void click(Actor actor, float x, float y) {
 				// TODO Auto-generated method stub
+				System.out.println("Click Board");
 				float rX = actor.x + x;
 				float rY = actor.y + y;
 				toScreenCoordinates(rX, rY, vector);				

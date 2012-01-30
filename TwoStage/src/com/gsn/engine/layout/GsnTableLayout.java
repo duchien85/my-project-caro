@@ -3,7 +3,11 @@ package com.gsn.engine.layout;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.gsn.caro.asset.DataProvider;
 
 public class GsnTableLayout {
 	private float tmpHeight, tmpWidth, tmpX, tmpY, oldHeight;
@@ -20,6 +24,11 @@ public class GsnTableLayout {
 		this.tmpY = y;
 		this.oldHeight = 0;
 		list = new ArrayList<GsnRectangle>();
+	}
+	
+	public GsnTableLayout(GsnRectangle table) {
+		// TODO Auto-generated constructor stub
+		this(table.x, table.y, table.width, table.height);
 	}
 
 	public GsnRectangle getBoundingRectangle() {
@@ -51,7 +60,21 @@ public class GsnTableLayout {
 	}
 
 	public Image toImage() {
-		Image tmp = new Image();
+		Image tmp = new Image(){
+			ShapeRenderer shapeRenderer = new ShapeRenderer();
+			@Override
+			public void draw(SpriteBatch batch, float parentAlpha) {
+				// TODO Auto-generated method stub
+				batch.end();
+				shapeRenderer.setProjectionMatrix(DataProvider.getInstance().screenStage.getCamera().combined);
+				shapeRenderer.begin(ShapeType.FilledRectangle);
+				 shapeRenderer.setColor(1, 1, 0, 0);
+				 shapeRenderer.filledRect(GsnTableLayout.this.x, GsnTableLayout.this.y, GsnTableLayout.this.width, GsnTableLayout.this.height);
+				 shapeRenderer.end();
+				
+				batch.begin();
+			}
+		};
 		tmp.x = this.x;
 		tmp.y = this.y;
 		tmp.height = this.height;
