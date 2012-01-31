@@ -1,6 +1,7 @@
 package com.gsn.test;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -11,6 +12,7 @@ import com.gsn.caro.asset.AssetOld;
 import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.ActorUtility;
+import com.gsn.engine.GdxUtility;
 import com.gsn.engine.layout.GsnRectangle;
 import com.gsn.engine.layout.GsnTableLayout;
 import com.gsn.engine.template.GsnClockImage;
@@ -28,6 +30,9 @@ public class MenuStage extends Stage {
 
 		boardBorder = new Image(new NinePatch(asset.boardBorder, 20, 20, 20, 20));
 				
+		final Image bubleChat = new Image(new NinePatch(GdxUtility.convertListRegionToArray(AssetOld.getInstance().bbChat)));
+		bubleChat.width = 100;
+		bubleChat.height = 50;
 		
 		Image myClockBG = new GsnClockImage(asset.myClockBG);		
 		//Image betBG = new Image(asset.betBG);
@@ -103,6 +108,16 @@ public class MenuStage extends Stage {
 		this.addActor(otherClockBG);
 		this.addActor(backBtn);		
 		this.addActor(boardBorder);
+		this.addActor(bubleChat);
+		bubleChat.setClickListener(new ClickListener() {
+			
+			@Override
+			public void click(Actor actor, float x, float y) {
+				// TODO Auto-generated method stub
+				System.out.println("click buble");
+				bubleChat.remove();
+			}
+		});
 	}
 	
 	public void setInputBoard(boolean inputBoard) {
