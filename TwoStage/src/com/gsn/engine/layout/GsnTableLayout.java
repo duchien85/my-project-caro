@@ -3,12 +3,6 @@ package com.gsn.engine.layout;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.gsn.caro.asset.DataProvider;
-
 public class GsnTableLayout {
 	public List<GsnRectangle> list;
 	private float tmpHeight, tmpWidth, tmpX, tmpY, oldHeight;

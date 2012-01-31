@@ -34,11 +34,15 @@ public class GsnRectangle {
 	public void putCenter(Actor actor) {
 		ActorUtility.setCenter(actor, this.x + this.width / 2, this.y + this.height / 2);
 	}
-
-	public void putCenter(Actor actor, float rWidth, float rHeight) {
-		float x = this.x + this.width * rWidth;
-		float y = this.y + this.height * rHeight;
-		ActorUtility.setCenter(actor, x, y);
+	
+	public void putTopCenter(Actor actor){
+		actor.x = x + width / 2 - actor.width / 2; 
+		actor.y = y + width - actor.height;		
+	}
+	
+	public void putBottomCenter(Actor actor){
+		actor.x = x + width / 2 - actor.width / 2; 
+		actor.y = y;		
 	}
 
 	public GsnRectangle setMargin(boolean isRatio, float rMarginX, float rMarginY) {

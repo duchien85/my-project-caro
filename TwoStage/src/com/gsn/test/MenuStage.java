@@ -1,34 +1,37 @@
 package com.gsn.test;
 
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.gsn.caro.asset.AssetOld;
 import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.ActorUtility;
-import com.gsn.engine.layout.GsnNinePath;
 import com.gsn.engine.layout.GsnRectangle;
 import com.gsn.engine.layout.GsnTableLayout;
+import com.gsn.engine.template.GsnClockImage;
 
 public class MenuStage extends Stage {
 	ImageAsset asset;
 	boolean inputBoard;	
-	GsnNinePath boardBorder;
+	Image boardBorder;
 	Image menuBG;
-	Vector2 vector = new Vector2();
+	Vector2 vector = new Vector2();	
 	
 	public MenuStage(float width, float height) {
 		super(width, height, false);
 		asset = ImageAsset.getInstance();
 
-		boardBorder = new GsnNinePath(asset.boardBorder, 20, 20, 20, 20);
+		boardBorder = new Image(new NinePatch(asset.boardBorder, 20, 20, 20, 20));
 				
 		
-		Image myClockBG = new Image(asset.myClockBG);
-		Image betBG = new Image(asset.betBG);
+		Image myClockBG = new GsnClockImage(asset.myClockBG);		
+		//Image betBG = new Image(asset.betBG);
+		Image betBG = new Image(AssetOld.getInstance().bet100_1);
 		
 		betBG.setClickListener(new ClickListener() {
 			
@@ -39,9 +42,17 @@ public class MenuStage extends Stage {
 			}
 		});
 		
-		Image otherClockBG = new Image(asset.myClockBG);
+		final Image otherClockBG = new Image(asset.myClockBG);
+		otherClockBG.setClickListener(new ClickListener() {
+			
+			@Override
+			public void click(Actor actor, float x, float y) {
+				// TODO Auto-generated method stub
+				otherClockBG.setRegion(asset.otherClockBG);
+			}
+		});
 		ImageButton backBtn = new ImageButton(asset.backActiveBtn, asset.backDeactiveBtn);		
-		ActorUtility.setTopRight(backBtn, width, height);
+		ActorUtility.setTopRight(backBtn, width, height);		
 		backBtn.setClickListener(new ClickListener() {
 			
 			@Override
@@ -52,6 +63,9 @@ public class MenuStage extends Stage {
 				DataProvider.getInstance().clickEffect.startNow(MenuStage.this.getCamera(), rX, rY);				
 			}
 		});	
+		
+		ImageButton infoBtn = new ImageButton(asset.infoActiveBtn, asset.infoDeactiveBtn);
+		
 		float h = myClockBG.height + 20;
 		GsnTableLayout table = new GsnTableLayout(0, 0, width, height);
 			//new GsnTableLayout(0, height - h, width, h);
@@ -62,7 +76,8 @@ public class MenuStage extends Stage {
 		
 		
 		table.list.get(1).putCenter(myClockBG);
-		table.list.get(2).putCenter(betBG);
+		table.list.get(2).putTopCenter(betBG);
+		table.list.get(2).putBottomCenter(infoBtn);
 		table.list.get(3).putCenter(otherClockBG);
 		GsnRectangle tmp = table.list.get(0);
 		boardBorder.x = tmp.x;
@@ -84,6 +99,7 @@ public class MenuStage extends Stage {
 		this.addActor(menuBG);
 		this.addActor(myClockBG);
 		this.addActor(betBG);
+		this.addActor(infoBtn);
 		this.addActor(otherClockBG);
 		this.addActor(backBtn);		
 		this.addActor(boardBorder);

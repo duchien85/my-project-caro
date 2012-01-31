@@ -4,12 +4,14 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.gsn.caro.asset.AssetOld;
 import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 
 public class TestGame extends Game {
 	ImageAsset asset;
-	BoardStage boardStage;
+	BoardStage boardStage;	
+	BackGroundStage backgroundStage;
 	GsnInputPlayStage input;
 	MenuStage menuStage;
 
@@ -19,6 +21,9 @@ public class TestGame extends Game {
 		// TODO Auto-generated method stub
 		asset = ImageAsset.getInstance();
 		asset.create();
+		
+		AssetOld.getInstance().finishLoadingAll();
+		
 		DataProvider.getInstance().clickEffect = asset.clickEffect;	
 	}
 
@@ -28,6 +33,9 @@ public class TestGame extends Game {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		boardStage.getCamera().update();
 		menuStage.getCamera().update();
+		
+		backgroundStage.draw();
+		
 		boardStage.act(Gdx.graphics.getDeltaTime());
 		boardStage.draw();
 
@@ -48,6 +56,8 @@ public class TestGame extends Game {
 		
 		menuStage = new MenuStage(width, height);
 		boardStage = new BoardStage(width, height);
+		backgroundStage = new BackGroundStage(width, height);
+		
 		input = new GsnInputPlayStage(menuStage, boardStage);
 		Gdx.input.setInputProcessor(input);
 	}
