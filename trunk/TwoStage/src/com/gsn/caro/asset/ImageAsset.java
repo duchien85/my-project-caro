@@ -15,27 +15,30 @@ import com.gsn.engine.gdx.GsnParticleEffect;
 public class ImageAsset {
 	private static ImageAsset _instance;
 
+	static AssetManager manager;
+
+	final static String tag = ImageAsset.class.getSimpleName();
 	public static ImageAsset getInstance() {
 		if (_instance == null)
 			_instance = new ImageAsset();
 		return _instance;
 	}
 
-	final static String tag = ImageAsset.class.getSimpleName();
-	static AssetManager manager;
-
-	public BitmapFont font = new BitmapFont();
-	public GsnParticleEffect clickEffect = new GsnParticleEffect();
-
-	public AtlasRegion myClockBG;
-	public AtlasRegion otherClockBG;
-	public AtlasRegion betBG;
-	public AtlasRegion scoreBG;
 	public AtlasRegion backActiveBtn;
 	public AtlasRegion backDeactiveBtn;
+
+	public AtlasRegion betBG;
+	public AtlasRegion board;
+	public GsnParticleEffect clickEffect = new GsnParticleEffect();
+	public BitmapFont font = new BitmapFont();
 	public AtlasRegion infoActiveBtn;
 	public AtlasRegion infoDeactiveBtn;
-	public AtlasRegion board;
+	public AtlasRegion myClockBG;
+	public AtlasRegion otherClockBG;
+	public AtlasRegion pieceO;
+	public AtlasRegion pieceX;
+	public AtlasRegion scoreBG;
+	public AtlasRegion boardBorder;
 
 	private ImageAsset() {
 	}
@@ -52,6 +55,9 @@ public class ImageAsset {
 		infoActiveBtn = atlas.findRegion("nut hien thong tin");
 		infoDeactiveBtn = atlas.findRegion("nut hien thong tin an");
 		board = atlas.findRegion("ban choi");
+		pieceO = atlas.findRegion("dau o");
+		pieceX = atlas.findRegion("dau x");
+		boardBorder = atlas.findRegion("khung ban choi");		
 	}
 
 	public void create() {

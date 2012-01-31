@@ -11,15 +11,17 @@ public class GsnParticleEffect extends ParticleEffect {
 
 	boolean started = false;
 
+	float x, y;
+
 	public GsnParticleEffect() {
 		super();
 	}
-
+	
 	public GsnParticleEffect(Camera camera) {
 		super();
 		this.camera = (OrthographicCamera) camera;
 	}
-	
+
 	public void drawNow() {
 		if (started) {
 			if (camera != null) {				
@@ -50,26 +52,24 @@ public class GsnParticleEffect extends ParticleEffect {
 	}
 
 	@Override
-	public void start() {
-		// TODO Auto-generated method stub
-		super.start();
-		started = true;
-	}
-
-	public void startNow(Camera camera, float x, float y) {
-		setPosition(x, y);
-		setCamera(camera);
-		start();
-	}
-	
-	float x, y;
-	
-	@Override
 	public void setPosition(float x, float y) {
 		// TODO Auto-generated method stub
 		this.x = x;
 		this.y = y;
 		super.setPosition(x, y);
+	}
+	
+	@Override
+	public void start() {
+		// TODO Auto-generated method stub
+		super.start();
+		started = true;
+	}
+	
+	public void startNow(Camera camera, float x, float y) {
+		setPosition(x, y);
+		setCamera(camera);
+		start();
 	}
 
 	@Override

@@ -10,41 +10,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class GdxUtility {
-	public static Vector2 getCenter(Sprite sprite) {
-		return new Vector2(sprite.getX() + sprite.getWidth() / 2, sprite.getY() + sprite.getHeight() / 2);
-	}
-
-	public static void setCenter(Sprite sprite, float x, float y) {
-		sprite.setPosition(0, 0);
-		Vector2 cen = getCenter(sprite);
-		sprite.setPosition(x - cen.x, y - cen.y);
-	}
-
-	public static void moveToCenter(Sprite in, Sprite out) {
-		Vector2 cenOut = getCenter(out);
-		setCenter(in, cenOut.x, cenOut.y);
+	public static boolean canHit(float x, float y, float width, float height) {
+		return (x >= 0 && x <= width && y >= 0 && y <= height);
 	}
 
 	public static void drawCenter(SpriteBatch batcher, Sprite in, Sprite out) {
 		moveToCenter(in, out);
 		in.draw(batcher);
-	}
-
-	public static boolean pointInRectangle(Rectangle r, float x, float y) {
-		return r.x <= x && r.x + r.width >= x && r.y <= y && r.y + r.height >= y;
-	}
-
-	public static boolean pointInRectangle(float rx, float ry, float rw, float rh, float x, float y) {
-		return rx <= x && rx + rw >= x && ry <= y && ry + rh >= y;
-	}
-
-	public static Vector2 getCenter(TextureRegion tex, Sprite out) {
-		Vector2 cenOut = getCenter(out);
-		return new Vector2(cenOut.x - tex.getRegionWidth() / 2, cenOut.y - tex.getRegionHeight() / 2);
-	}
-
-	public static void drawText(SpriteBatch sb, BitmapFont font, String text, float width, float height, float x, float y) {
-		font.draw(sb, text, x, y);
 	}
 
 	public static void drawNumberFromTexture(List<com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion> numbers, SpriteBatch sb, int num, float x, float y) {
@@ -56,6 +28,15 @@ public class GdxUtility {
 			sb.draw(tex, dx, y);
 			dx += tex.getRegionWidth();
 		}
+	}
+
+	public static void drawText(SpriteBatch sb, BitmapFont font, String text, float width, float height, float x, float y) {
+		font.draw(sb, text, x, y);
+	}
+
+	public static int findPower(int x) {
+		int mu = (int) (Math.ceil(Math.log(x) / Math.log(2)));
+		return (int) Math.pow(2, mu);
 	}
 
 	public static String formatGold(int gold) {
@@ -80,9 +61,13 @@ public class GdxUtility {
 			return String.valueOf(value);
 	}
 
-	public static int findPower(int x) {
-		int mu = (int) (Math.ceil(Math.log(x) / Math.log(2)));
-		return (int) Math.pow(2, mu);
+	public static Vector2 getCenter(Sprite sprite) {
+		return new Vector2(sprite.getX() + sprite.getWidth() / 2, sprite.getY() + sprite.getHeight() / 2);
+	}
+
+	public static Vector2 getCenter(TextureRegion tex, Sprite out) {
+		Vector2 cenOut = getCenter(out);
+		return new Vector2(cenOut.x - tex.getRegionWidth() / 2, cenOut.y - tex.getRegionHeight() / 2);
 	}
 
 	public static String getShortName(String name) {
@@ -92,7 +77,22 @@ public class GdxUtility {
 			return name;
 	}
 
-	public static boolean canHit(float x, float y, float width, float height) {
-		return (x >= 0 && x <= width && y >= 0 && y <= height);
+	public static void moveToCenter(Sprite in, Sprite out) {
+		Vector2 cenOut = getCenter(out);
+		setCenter(in, cenOut.x, cenOut.y);
+	}
+
+	public static boolean pointInRectangle(float rx, float ry, float rw, float rh, float x, float y) {
+		return rx <= x && rx + rw >= x && ry <= y && ry + rh >= y;
+	}
+
+	public static boolean pointInRectangle(Rectangle r, float x, float y) {
+		return r.x <= x && r.x + r.width >= x && r.y <= y && r.y + r.height >= y;
+	}
+
+	public static void setCenter(Sprite sprite, float x, float y) {
+		sprite.setPosition(0, 0);
+		Vector2 cen = getCenter(sprite);
+		sprite.setPosition(x - cen.x, y - cen.y);
 	}
 }

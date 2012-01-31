@@ -8,23 +8,48 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class GsnPinchToZoom {
-	public static interface ITouchUpWithoutZoom {
+	public static interface ITouchUpWithoutZoomListener {
 		void touchUpWithoutZoom(int x, int y, int pointer, int button);
 	}
 
-	Stage stage;
+	private static boolean inRange(float x, float a, float b) {
+		return (a <= x) && (x <= b);
+	}
+	private final int BUTTON = 0;
 	OrthographicCamera camera;
-	int numberOfFingers = 0;
-	int fingerOnePointer;
-	int fingerTwoPointer;
-	float lastDistance = 0;
+	float defaultX = 0;
+	float defaultY = 0;
+	float defaultZoom = 1f;
 	Vector3 fingerOne = new Vector3();
+	int fingerOnePointer;
 	Vector3 fingerTwo = new Vector3();
-	boolean isPinched = false;
+	int fingerTwoPointer;
 	boolean isDragged = false;
-	float oldX, oldY;
+	boolean isPinched = false;
+	float lastDistance = 0;
+	float maxX = 50;
+
+	float maxY = 100;
+
+	float maxZoom = 5f;
+
+	float minX = -50;
+
+	float minY = -100;
+	float minZoom = 0.2f;
+	int numberOfFingers = 0;
+
 	float oldDownX, oldDownY;
+	float oldX, oldY;
+	// / simulator multi touch
+	private final int POINTER = 2;
+
+	private boolean pressAlt = false;
+	Stage stage;
 	float tolerant = 7;
+
+	ITouchUpWithoutZoomListener touchUpListener;
+
 	Vector2 vector = new Vector2();
 
 	public GsnPinchToZoom(Stage gsnStage) {
@@ -33,26 +58,44 @@ public class GsnPinchToZoom {
 		resetCamera();
 	}
 
-	float minZoom = 0.2f;
-	float maxZoom = 5f;
-	float defaultZoom = 1f;
-
-	float minX = -50;
-	float maxX = 50;
-	float defaultX = 0;
-
-	float minY = -100;
-	float maxY = 100;
-	float defaultY = 0;
-
-	private static boolean inRange(float x, float a, float b) {
-		return (a <= x) && (x <= b);
+	public void keyDown(int keycode) {
+		switch (keycode) {
+		case Input.Keys.ALT_LEFT:
+			if (!pressAlt) {
+				int x = Gdx.graphics.getWidth() / 2;
+				int y = Gdx.graphics.getHeight() / 2;
+				pressAlt = true;
+				stage.touchDown(x, y, POINTER, BUTTON);
+			}
+			break;
+		}
 	}
 
-	private void setZoomCamera(float zoom) {
-		if (inRange(zoom, minZoom, maxZoom)) {
-			camera.zoom = zoom;
+	public void keyUp(int keycode) {
+		switch (keycode) {
+		case Input.Keys.ALT_LEFT:
+			int x = Gdx.graphics.getWidth() / 2;
+			int y = Gdx.graphics.getHeight() / 2;
+			pressAlt = false;
+			stage.touchUp(x, y, POINTER, BUTTON);
+			break;
 		}
+	}
+
+	public void pause() {
+		reset();
+	}
+
+	public void reset() {
+		numberOfFingers = 0;
+		lastDistance = 0;
+		isPinched = false;
+		isDragged = false;
+	}
+
+	public void resetCamera() {
+		camera.position.set(defaultX, defaultY, 0);
+		camera.zoom = defaultZoom;
 	}
 
 	public void setRangeZoom(float minZoom, float maxZoom, float defaulZoom) {
@@ -61,57 +104,22 @@ public class GsnPinchToZoom {
 		this.defaultZoom = defaulZoom;
 	}
 
-	public void resetCamera() {
-		camera.position.set(defaultX, defaultY, 0);
-		camera.zoom = defaultZoom;
+	public void setTouchUpWithoutZoomListener(ITouchUpWithoutZoomListener listener) {
+		this.touchUpListener = listener;
 	}
 
-	private void translateCamera(float dx, float dy) {
-		float x = camera.position.x + dx;
-		float y = camera.position.y + dy;
-		if (inRange(x, minX, maxX) && inRange(y, minY, maxY)) {
-			// System.out.println(" translate : " + x + " " + y);
-			camera.translate(dx, dy, 0);
+	private void setZoomCamera(float zoom) {
+		if (inRange(zoom, minZoom, maxZoom)) {
+			camera.zoom = zoom;
 		}
 	}
-
-	public boolean touchUp(int x, int y, int pointer, int button) {
-		// TODO Auto-generated method stub
-		numberOfFingers--;
-
-		// just some error prevention... clamping number of fingers (ouch! :-)
-		if (numberOfFingers < 0) {
-			numberOfFingers = 0;
-		}
-
-		if (numberOfFingers < 1) {
-			// System.out.println("x : " + x + " " + oldDownX + " " +
-			// (Math.abs((x - oldDownX))));
-			// System.out.println("y : " + y + " " + oldDownY + " " +
-			// (Math.abs((y - oldDownY))));
-			if (!isDragged && ((Math.abs((x - oldDownX)) < tolerant) && (Math.abs((y - oldDownY)) < tolerant))) {
-				// System.out.println(" vao roi ");
-				// stage.touchUpWithoutZoom(x, y, pointer, button);
-			}
-		}
-
-		if (numberOfFingers == 0) {
-			isPinched = false;
-			lastDistance = 0;
-		}
-		isDragged = false;
-		return false;
-	}
-
-	public void pause() {
-		numberOfFingers = 0;
-	}
-
 	public boolean touchDown(int x, int y, int pointer, int button) {
 		// TODO Auto-generated method stub
 		// for pinch-to-zoom
 		// System.out.println(" touch down : " + x + " " + y + " " + pointer);
 		numberOfFingers++;
+		if (numberOfFingers > 2)
+			reset();
 		if (numberOfFingers == 1) {
 			fingerOnePointer = pointer;
 			fingerOne.set(x, y, 0);
@@ -127,7 +135,6 @@ public class GsnPinchToZoom {
 		oldDownY = y;
 		return true;
 	}
-
 	public boolean touchDragged(float x, float y, int pointer) {
 		// TODO Auto-generated method stub\
 		// for pinch-to-zoom
@@ -169,32 +176,36 @@ public class GsnPinchToZoom {
 		return true;
 	}
 
-	// / simulator multi touch
-	private final int POINTER = 2;
-	private final int BUTTON = 0;
-	private boolean pressAlt = false;
+	public boolean touchUp(int x, int y, int pointer, int button) {
+		// TODO Auto-generated method stub
+		numberOfFingers--;
 
-	public void keyUp(int keycode) {
-		switch (keycode) {
-		case Input.Keys.ALT_LEFT:
-			int x = Gdx.graphics.getWidth() / 2;
-			int y = Gdx.graphics.getHeight() / 2;
-			pressAlt = false;
-			stage.touchUp(x, y, POINTER, BUTTON);
-			break;
+		// just some error prevention... clamping number of fingers (ouch! :-)
+		if (numberOfFingers < 0) {
+			numberOfFingers = 0;
 		}
+
+		if (numberOfFingers < 1) {			
+			if (((Math.abs((x - oldDownX)) < tolerant) && (Math.abs((y - oldDownY)) < tolerant))) {
+				if (touchUpListener != null)
+					touchUpListener.touchUpWithoutZoom(x, y, pointer, button);
+			}
+		}
+
+		if (numberOfFingers == 0) {
+			isPinched = false;
+			lastDistance = 0;
+		}
+		isDragged = false;
+		return false;
 	}
 
-	public void keyDown(int keycode) {
-		switch (keycode) {
-		case Input.Keys.ALT_LEFT:
-			if (!pressAlt) {
-				int x = Gdx.graphics.getWidth() / 2;
-				int y = Gdx.graphics.getHeight() / 2;
-				pressAlt = true;
-				stage.touchDown(x, y, POINTER, BUTTON);
-			}
-			break;
+	private void translateCamera(float dx, float dy) {
+		float x = camera.position.x + dx;
+		float y = camera.position.y + dy;
+		if (inRange(x, minX, maxX) && inRange(y, minY, maxY)) {
+			// System.out.println(" translate : " + x + " " + y);
+			camera.translate(dx, dy, 0);
 		}
 	}
 }

@@ -1,11 +1,21 @@
 package com.gsn.engine.layout;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.gsn.caro.asset.DataProvider;
 import com.gsn.engine.ActorUtility;
 
 public class GsnRectangle {
+	public static String toString(Sprite sprite) {
+		Rectangle rect = sprite.getBoundingRectangle();
+		return "(" + (int) rect.getX() + ", " + (int) rect.getY() + ", " + (int) rect.getWidth() + ", " + (int) rect.getHeight() + ")";
+	}
+
 	public float x, y, width, height;
 
 	public GsnRectangle(float x, float y, float width, float height) {
@@ -21,10 +31,14 @@ public class GsnRectangle {
 		return tmp;
 	}
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return "(" + (int) x + ", " + (int) y + ", " + (int) width + ", " + (int) height + ")";
+	public void putCenter(Actor actor) {
+		ActorUtility.setCenter(actor, this.x + this.width / 2, this.y + this.height / 2);
+	}
+
+	public void putCenter(Actor actor, float rWidth, float rHeight) {
+		float x = this.x + this.width * rWidth;
+		float y = this.y + this.height * rHeight;
+		ActorUtility.setCenter(actor, x, y);
 	}
 
 	public GsnRectangle setMargin(boolean isRatio, float rMarginX, float rMarginY) {
@@ -46,22 +60,37 @@ public class GsnRectangle {
 		return new GsnRectangle(x, y, width, height);
 	}
 
-	public void putCenter(Actor actor) {
-		ActorUtility.setCenter(actor, this.x + this.width / 2, this.y + this.height / 2);
-	}
-
-	public void putCenter(Actor actor, float rWidth, float rHeight) {
-		float x = this.x + this.width * rWidth;
-		float y = this.y + this.height * rHeight;
-		ActorUtility.setCenter(actor, x, y);
-	}
-
-	public static String toString(Sprite sprite) {
-		Rectangle rect = sprite.getBoundingRectangle();
-		return "(" + (int) rect.getX() + ", " + (int) rect.getY() + ", " + (int) rect.getWidth() + ", " + (int) rect.getHeight() + ")";
-	}
-
 	public Rectangle toRectangle() {
 		return new Rectangle(x, y, width, height);
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "(" + (int) x + ", " + (int) y + ", " + (int) width + ", " + (int) height + ")";
+	}
+	
+	public Image toFilledRectangle(final float r, final float g, final float b, final float a) {
+		Image tmp = new Image() {
+			ShapeRenderer shapeRenderer = new ShapeRenderer();
+
+			@Override
+			public void draw(SpriteBatch batch, float parentAlpha) {
+				// TODO Auto-generated method stub
+				batch.end();
+				shapeRenderer.setProjectionMatrix(DataProvider.getInstance().screenStage.getCamera().combined);
+				shapeRenderer.begin(ShapeType.FilledRectangle);
+				shapeRenderer.setColor(r, g, b, a);
+				shapeRenderer.filledRect(GsnRectangle.this.x, GsnRectangle.this.y, GsnRectangle.this.width, GsnRectangle.this.height);
+				shapeRenderer.end();
+
+				batch.begin();
+			}
+		};
+		tmp.x = this.x;
+		tmp.y = this.y;
+		tmp.height = this.height;
+		tmp.width = this.width;
+		return tmp;
 	}
 }

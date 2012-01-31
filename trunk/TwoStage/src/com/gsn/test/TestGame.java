@@ -8,10 +8,10 @@ import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 
 public class TestGame extends Game {
-	MenuStage menuStage;
+	ImageAsset asset;
 	BoardStage boardStage;
 	GsnInputPlayStage input;
-	ImageAsset asset;
+	MenuStage menuStage;
 
 
 	@Override
@@ -20,20 +20,6 @@ public class TestGame extends Game {
 		asset = ImageAsset.getInstance();
 		asset.create();
 		DataProvider.getInstance().clickEffect = asset.clickEffect;	
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		super.resize(width, height);
-		Stage tmp = new Stage(width, height, false);
-		DataProvider.getInstance().screenStage = tmp;
-		tmp.getCamera().update();
-		
-		menuStage = new MenuStage(width, height);
-		boardStage = new BoardStage(width, height);
-		input = new GsnInputPlayStage(menuStage, boardStage);
-		Gdx.input.setInputProcessor(input);
 	}
 
 	@Override
@@ -50,6 +36,20 @@ public class TestGame extends Game {
 
 		asset.clickEffect.update(Gdx.graphics.getDeltaTime());
 		asset.clickEffect.drawNow();		
+	}
+
+	@Override
+	public void resize(int width, int height) {
+		// TODO Auto-generated method stub
+		super.resize(width, height);
+		Stage tmp = new Stage(width, height, false);
+		DataProvider.getInstance().screenStage = tmp;
+		tmp.getCamera().update();
+		
+		menuStage = new MenuStage(width, height);
+		boardStage = new BoardStage(width, height);
+		input = new GsnInputPlayStage(menuStage, boardStage);
+		Gdx.input.setInputProcessor(input);
 	}
 
 }

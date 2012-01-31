@@ -2,16 +2,26 @@ package com.gsn.test;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.gsn.caro.asset.DataProvider;
+import com.gsn.engine.ActorUtility;
 
 public class GsnInputPlayStage implements InputProcessor {
 	BoardStage boardStage;
-	MenuStage menuStage;	
+	MenuStage menuStage;
+	boolean touchBoard = true;
+
+	Vector2 vector = new Vector2();
 
 	public GsnInputPlayStage(MenuStage menu, BoardStage board) {
 		this.boardStage = board;
 		this.menuStage = menu;
+	}
+
+	private void checkTouchBoard(int x, int y) {
+		menuStage.toStageCoordinates(x, y, vector);
+		if (ActorUtility.inActor(vector, menuStage.menuBG)) {
+			boardStage.resetPinchToZoom();
+			touchBoard = false;
+		}
 	}
 
 	@Override
@@ -24,14 +34,6 @@ public class GsnInputPlayStage implements InputProcessor {
 	}
 
 	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		menuStage.keyUp(keycode);
-		boardStage.keyUp(keycode);
-		return true;
-		}
-
-	@Override
 	public boolean keyTyped(char character) {
 		// TODO Auto-generated method stub
 		menuStage.keyTyped(character);
@@ -39,26 +41,27 @@ public class GsnInputPlayStage implements InputProcessor {
 		return true;
 	}
 
-	Vector2 vector = new Vector2();
-
 	@Override
-	public boolean touchDown(int x, int y, int pointer, int button) {
+	public boolean keyUp(int keycode) {
 		// TODO Auto-generated method stub
-//		boardStage.toStageCoordinates(x, y, vector);
-//		DataProvider.getInstance().clickEffect.startNow(boardStage.getCamera(), vector.x, vector.y);
-
-		menuStage.touchDown(x, y, pointer, button);
-		boardStage.touchDown(x, y, pointer, button);
+		menuStage.keyUp(keycode);
+		boardStage.keyUp(keycode);
 		return true;
 	}
 
 	@Override
-	public boolean touchUp(int x, int y, int pointer, int button) {
+	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
-		menuStage.touchUp(x, y, pointer, button);
-		if (menuStage.touchUpBoard)
-			boardStage.touchUp(x, y, pointer, button);
-		menuStage.touchUpBoard = true;
+		return true;
+	}
+
+	@Override
+	public boolean touchDown(int x, int y, int pointer, int button) {
+		// TODO Auto-generated method stub
+		menuStage.touchDown(x, y, pointer, button);
+		checkTouchBoard(x, y);
+		if (touchBoard)
+			boardStage.touchDown(x, y, pointer, button);
 		return true;
 	}
 
@@ -66,7 +69,9 @@ public class GsnInputPlayStage implements InputProcessor {
 	public boolean touchDragged(int x, int y, int pointer) {
 		// TODO Auto-generated method stub
 		menuStage.touchDragged(x, y, pointer);
-		boardStage.touchDragged(x, y, pointer);
+		checkTouchBoard(x, y);
+		if (touchBoard)
+			boardStage.touchDragged(x, y, pointer);
 		return true;
 	}
 
@@ -77,10 +82,14 @@ public class GsnInputPlayStage implements InputProcessor {
 	}
 
 	@Override
-	public boolean scrolled(int amount) {
+	public boolean touchUp(int x, int y, int pointer, int button) {
 		// TODO Auto-generated method stub
+		menuStage.touchUp(x, y, pointer, button);
+		checkTouchBoard(x, y);
+		if (touchBoard)
+			boardStage.touchUp(x, y, pointer, button);
+		touchBoard = true;
 		return true;
 	}
 
 }
-
