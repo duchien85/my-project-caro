@@ -5,9 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.gsn.engine.gdx.GsnParticleEffect;
 
 public class DataProvider {
-	private DataProvider() {
-	}
-
 	private static DataProvider _instance;
 
 	public static DataProvider getInstance() {
@@ -17,6 +14,9 @@ public class DataProvider {
 	}
 
 	public GsnParticleEffect clickEffect;
-	
+
 	public Stage screenStage;
+	
+	private DataProvider() {
+	}
 }
