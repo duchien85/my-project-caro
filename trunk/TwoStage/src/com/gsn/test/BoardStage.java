@@ -1,25 +1,20 @@
 package com.gsn.test;
 
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.gsn.caro.asset.AssetOld;
 import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.ActorUtility;
-import com.gsn.engine.GdxUtility;
 import com.gsn.engine.GsnPinchToZoom;
 import com.gsn.engine.GsnPinchToZoom.ITouchUpWithoutZoomListener;
 
 public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 	ImageAsset asset;
-	Image pieceO, pieceX, board;
-	Image bubleChat;
+	Image pieceO, pieceX, board;	
 	
 	public GsnPinchToZoom pinch;
 	
@@ -33,13 +28,7 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 		//pinch.setRangeZoom(0.5f, 1.5f, 1.5f);
 		pinch.resetCamera();
 		asset = ImageAsset.getInstance();
-		
-		
-		TextureRegion[] a = GdxUtility.convertListRegionToArray(AssetOld.getInstance().bbChat);
-		
-		bubleChat = new Image(new NinePatch(a));
-		bubleChat.width = 100;
-		bubleChat.height = 50;
+				
 					
 		board = new Image(asset.board);
 		ActorUtility.setCenter(board, 0, 0);
@@ -57,7 +46,6 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 			}
 		});
 		this.addActor(board);	
-		this.addActor(bubleChat);
 	}	
 	
 	
