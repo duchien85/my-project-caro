@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -94,5 +95,15 @@ public class GdxUtility {
 		sprite.setPosition(0, 0);
 		Vector2 cen = getCenter(sprite);
 		sprite.setPosition(x - cen.x, y - cen.y);
+	}
+	
+	public static TextureRegion[] convertListRegionToArray(List<AtlasRegion> list){
+		TextureRegion[] tmp = new TextureRegion[list.size()];
+		int count = 0;
+		for (TextureRegion region : list){
+			tmp[count] = region;
+			count++;
+		}
+		return tmp;
 	}
 }

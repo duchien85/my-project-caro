@@ -38,8 +38,8 @@ public class ImageAsset {
 	public AtlasRegion pieceO;
 	public AtlasRegion pieceX;
 	public AtlasRegion scoreBG;
-	public AtlasRegion boardBorder;
-
+	public AtlasRegion boardBorder;	
+	
 	private ImageAsset() {
 	}
 
@@ -74,7 +74,7 @@ public class ImageAsset {
 		loadAll();
 		Texture.setAssetManager(manager);
 		// font = new BitmapFont(Gdx.files.internal("data/font.fnt"), false);
-		font = new BitmapFont();
+		font = new BitmapFont(Gdx.files.internal("data/font/comic.fnt"), Gdx.files.internal("data/font/comic.png"), false);
 	}
 
 	public void finishLoading() {

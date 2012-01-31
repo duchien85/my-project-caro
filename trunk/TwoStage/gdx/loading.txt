@@ -1,0 +1,40 @@
+
+Loading1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+loadingBg
+  rotate: false
+  xy: 2, 2
+  size: 320, 240
+  orig: 320, 240
+  offset: 0, 0
+  index: -1
+barBg
+  rotate: false
+  xy: 324, 2
+  size: 160, 18
+  orig: 160, 18
+  offset: 0, 0
+  index: -1
+chuLoading
+  rotate: false
+  xy: 324, 22
+  size: 62, 17
+  orig: 62, 17
+  offset: 0, 0
+  index: -1
+progressBar
+  rotate: false
+  xy: 2, 244
+  size: 147, 7
+  orig: 147, 7
+  offset: 0, 0
+  index: -1
+dauCham
+  rotate: false
+  xy: 151, 244
+  size: 4, 3
+  orig: 4, 3
+  offset: 0, 0
+  index: -1
