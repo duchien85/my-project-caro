@@ -51,8 +51,8 @@ public class AssetOld extends AssetManager implements AssetErrorListener {
 	public  TextureRegion dongho;
 	public  TextureRegion dauOeffect;
 	public  TextureRegion dauXeffect;
-	public  List<com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion> numbers;
-	public  List<com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion> timeNumbers;
+	public  List<AtlasRegion> numbers;
+	public  List<AtlasRegion> timeNumbers;
 	public  TextureRegion avatarIngame;	
 	public  TextureRegion chon;
 	public  Sprite goldSign;
@@ -108,7 +108,7 @@ public class AssetOld extends AssetManager implements AssetErrorListener {
 	public  TextureRegion menuButton;
 	public  TextureRegion menuButtonDown;	
 	public  Sprite bangtiso;	
-	
+	public List<AtlasRegion> winEffect;
 	//dialog
 	public  Sprite dialogBg;
 	public  TextureRegion okBtn;
@@ -267,6 +267,8 @@ public class AssetOld extends AssetManager implements AssetErrorListener {
 		bbChat = atlas.findRegions("bbchat");
 		iconChat = atlas.findRegion("iconChat");
 		iconChatDown = atlas.findRegion("iconChatDown");
+		
+		winEffect = atlas.findRegions("Thang");
 	}
 	
 	

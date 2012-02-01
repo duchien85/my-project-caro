@@ -1,7 +1,6 @@
 package com.gsn.test;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,6 +14,7 @@ import com.gsn.engine.ActorUtility;
 import com.gsn.engine.GdxUtility;
 import com.gsn.engine.layout.GsnRectangle;
 import com.gsn.engine.layout.GsnTableLayout;
+import com.gsn.engine.template.GsnBubleChat;
 import com.gsn.engine.template.GsnClockImage;
 
 public class MenuStage extends Stage {
@@ -22,7 +22,8 @@ public class MenuStage extends Stage {
 	boolean inputBoard;	
 	Image boardBorder;
 	Image menuBG;
-	Vector2 vector = new Vector2();	
+	Vector2 vector = new Vector2();
+	GsnBubleChat bubleChatMe;	
 	
 	public MenuStage(float width, float height) {
 		super(width, height, false);
@@ -30,13 +31,14 @@ public class MenuStage extends Stage {
 
 		boardBorder = new Image(new NinePatch(asset.boardBorder, 20, 20, 20, 20));
 				
-		final Image bubleChat = new Image(new NinePatch(GdxUtility.convertListRegionToArray(AssetOld.getInstance().bbChat)));
-		bubleChat.width = 100;
-		bubleChat.height = 50;
+		bubleChatMe = new GsnBubleChat(new NinePatch(GdxUtility.convertListRegionToArray(AssetOld.getInstance().bbChat)), asset.font);
+		bubleChatMe.x = 100;
+		bubleChatMe.y = 100;
+		
 		
 		Image myClockBG = new GsnClockImage(asset.myClockBG);		
 		//Image betBG = new Image(asset.betBG);
-		Image betBG = new Image(AssetOld.getInstance().bet100_1);
+		Image betBG = new Image(asset.betBG);
 		
 		betBG.setClickListener(new ClickListener() {
 			
@@ -107,20 +109,19 @@ public class MenuStage extends Stage {
 		this.addActor(infoBtn);
 		this.addActor(otherClockBG);
 		this.addActor(backBtn);		
-		this.addActor(boardBorder);
-		this.addActor(bubleChat);
-		bubleChat.setClickListener(new ClickListener() {
-			
-			@Override
-			public void click(Actor actor, float x, float y) {
-				// TODO Auto-generated method stub
-				System.out.println("click buble");
-				bubleChat.remove();
-			}
-		});
+		this.addActor(boardBorder);			
+	}
+	
+	public void chatMe(String text){
+		bubleChatMe.setText(text);
+		bubleChatMe.setWidthText(60);
+		bubleChatMe.pack();
+		bubleChatMe.removeFuture(2);
+		this.addActor(bubleChatMe);
 	}
 	
 	public void setInputBoard(boolean inputBoard) {
 		this.inputBoard = inputBoard;
 	}
 }
+
