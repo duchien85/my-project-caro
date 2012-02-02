@@ -1,4 +1,4 @@
-package com.gsn.engine;
+package com.gsn.engine.gdx;
 
 import java.util.List;
 

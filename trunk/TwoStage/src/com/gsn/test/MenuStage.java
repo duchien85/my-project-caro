@@ -12,7 +12,7 @@ import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.ActorUtility;
 import com.gsn.engine.GdxUtility;
-import com.gsn.engine.GsnAnimation;
+import com.gsn.engine.gdx.GsnAnimation;
 import com.gsn.engine.layout.GsnRectangle;
 import com.gsn.engine.layout.GsnTableLayout;
 import com.gsn.engine.template.GsnBubleChat;
