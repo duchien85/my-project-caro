@@ -96,11 +96,11 @@ public class GdxUtility {
 		Vector2 cen = getCenter(sprite);
 		sprite.setPosition(x - cen.x, y - cen.y);
 	}
-	
-	public static TextureRegion[] convertListRegionToArray(List<AtlasRegion> list){
+
+	public static TextureRegion[] convertListRegionToArray(List<AtlasRegion> list) {
 		TextureRegion[] tmp = new TextureRegion[list.size()];
 		int count = 0;
-		for (TextureRegion region : list){
+		for (TextureRegion region : list) {
 			tmp[count] = region;
 			count++;
 		}

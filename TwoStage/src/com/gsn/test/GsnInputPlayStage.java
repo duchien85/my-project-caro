@@ -8,13 +8,15 @@ import com.gsn.engine.ActorUtility;
 public class GsnInputPlayStage implements InputProcessor {
 	BoardStage boardStage;
 	MenuStage menuStage;
+	PlayStage playStage;
 	boolean touchBoard = true;
 
 	Vector2 vector = new Vector2();
 
-	public GsnInputPlayStage(PlayStage game) {
-		this.boardStage = game.boardStage;
-		this.menuStage = game.menuStage;
+	public GsnInputPlayStage(PlayStage stage) {
+		this.playStage = stage;
+		this.boardStage = stage.boardStage;
+		this.menuStage = stage.menuStage;
 	}
 
 	private void checkCanTouchBoard(int x, int y) {
@@ -33,9 +35,15 @@ public class GsnInputPlayStage implements InputProcessor {
 			menuStage.chatMe("kasfjlasfjasdlgja asdfkk asf2w23 asdfas");
 			break;
 		case Keys.F2:
-			menuStage.win();			
+			menuStage.win();
 			break;
-		default:	
+		case Keys.F3:
+			playStage.showDialog();
+			break;
+		case Keys.F4:
+			playStage.hideDialog();
+			break;
+		default:
 			break;
 		}
 		boardStage.keyDown(keycode);

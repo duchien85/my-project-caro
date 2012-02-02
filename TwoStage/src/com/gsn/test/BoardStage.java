@@ -16,49 +16,50 @@ import com.gsn.engine.gdx.GsnAnimation;
 
 public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 	ImageAsset asset;
-	Image pieceO, pieceX, board;	
-	
+	Image pieceO, pieceX, board;
+
 	public GsnPinchToZoom pinch;
-	
-	Vector2 vector2 = new Vector2();	
+
+	Vector2 vector2 = new Vector2();
 	PlayStage parent;
-	
+
 	private Vector3 vector3 = new Vector3();
+
 	public BoardStage(PlayStage parent, float width, float height) {
 		super(width, height, false);
 		this.parent = parent;
 		pinch = new GsnPinchToZoom(this);
 		pinch.setTouchUpWithoutZoomListener(this);
-		//pinch.setRangeZoom(0.5f, 1.5f, 1.5f);
+		// pinch.setRangeZoom(0.5f, 1.5f, 1.5f);
 		pinch.resetCamera();
-		asset = ImageAsset.getInstance();				
-					
+		asset = ImageAsset.getInstance();
+
 		board = new Image(asset.board);
-		ActorUtility.setCenter(board, 0, 0);				
-		
+		ActorUtility.setCenter(board, 0, 0);
+
 		board.setClickListener(new ClickListener() {
 			Vector2 vector = new Vector2();
+
 			@Override
 			public void click(Actor actor, float x, float y) {
 				// TODO Auto-generated method stub
 				System.out.println("Click Board");
 				float rX = actor.x + x;
 				float rY = actor.y + y;
-				toScreenCoordinates(rX, rY, vector);				
+				toScreenCoordinates(rX, rY, vector);
 				DataProvider.getInstance().clickEffect.startNow(DataProvider.getInstance().screenStage.getCamera(), vector.x, vector.y);
 			}
 		});
-		this.addActor(board);	
-	}	
-	
-	
+		this.addActor(board);
+	}
+
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
 		pinch.keyDown(keycode);
 		return super.keyDown(keycode);
 	}
-	
+
 	@Override
 	public boolean keyUp(int keycode) {
 		// TODO Auto-generated method stub
@@ -66,14 +67,14 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 		return super.keyUp(keycode);
 	}
 
-	public void resetPinchToZoom(){
+	public void resetPinchToZoom() {
 		pinch.reset();
 	}
 
-	public void toScreenCoordinates (float x, float y, Vector2 out) {
+	public void toScreenCoordinates(float x, float y, Vector2 out) {
 		camera.project(vector3.set(x, y, 0));
 		out.x = vector3.x;
-		out.y = vector3.y;		
+		out.y = vector3.y;
 	}
 
 	@Override
@@ -94,17 +95,16 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 	@Override
 	public boolean touchUp(int x, int y, int pointer, int button) {
 		// TODO Auto-generated method stub
-		pinch.touchUp(x, y, pointer, button);		
+		pinch.touchUp(x, y, pointer, button);
 		return super.touchUp(x, y, pointer, button);
 	}
-
 
 	@Override
 	public void touchUpWithoutZoom(int x, int y, int pointer, int button) {
 		// TODO Auto-generated method stub
 		this.toStageCoordinates(x, y, vector2);
 		Actor actor = this.hit(vector2.x, vector2.y);
-		if (actor == board){
+		if (actor == board) {
 			pieceO = new Image(asset.pieceO);
 			pieceX = new Image(asset.pieceX);
 			pieceO.x = vector2.x;

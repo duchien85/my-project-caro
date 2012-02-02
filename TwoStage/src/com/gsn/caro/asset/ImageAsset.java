@@ -18,6 +18,7 @@ public class ImageAsset {
 	static AssetManager manager;
 
 	final static String tag = ImageAsset.class.getSimpleName();
+
 	public static ImageAsset getInstance() {
 		if (_instance == null)
 			_instance = new ImageAsset();
@@ -38,8 +39,8 @@ public class ImageAsset {
 	public AtlasRegion pieceO;
 	public AtlasRegion pieceX;
 	public AtlasRegion scoreBG;
-	public AtlasRegion boardBorder;	
-	
+	public AtlasRegion boardBorder;
+
 	private ImageAsset() {
 	}
 
@@ -57,7 +58,7 @@ public class ImageAsset {
 		board = atlas.findRegion("ban choi");
 		pieceO = atlas.findRegion("dau o");
 		pieceX = atlas.findRegion("dau x");
-		boardBorder = atlas.findRegion("khung ban choi");		
+		boardBorder = atlas.findRegion("khung ban choi");
 	}
 
 	public void create() {

@@ -5,10 +5,11 @@ import com.badlogic.gdx.InputProcessor;
 
 abstract public class GsnGame implements ApplicationListener {
 	GsnStage currentStage;
+
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -20,7 +21,6 @@ abstract public class GsnGame implements ApplicationListener {
 	@Override
 	public void render() {
 		// TODO Auto-generated method stub
-		
 		if (currentStage != null)
 			currentStage.draw();
 	}
@@ -40,11 +40,11 @@ abstract public class GsnGame implements ApplicationListener {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	public void setStage(GsnStage stage ){
+
+	public void setStage(GsnStage stage) {
 		this.currentStage = stage;
 		stage.setInputListener();
-	};	
+	};
 }

@@ -15,7 +15,7 @@ public class DataProvider {
 	public GsnParticleEffect clickEffect;
 
 	public Stage screenStage;
-	
+
 	private DataProvider() {
 	}
 }

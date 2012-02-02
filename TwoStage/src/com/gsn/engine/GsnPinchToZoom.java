@@ -15,6 +15,7 @@ public class GsnPinchToZoom {
 	private static boolean inRange(float x, float a, float b) {
 		return (a <= x) && (x <= b);
 	}
+
 	private final int BUTTON = 0;
 	OrthographicCamera camera;
 	float defaultX = 0;
@@ -113,6 +114,7 @@ public class GsnPinchToZoom {
 			camera.zoom = zoom;
 		}
 	}
+
 	public boolean touchDown(int x, int y, int pointer, int button) {
 		// TODO Auto-generated method stub
 		// for pinch-to-zoom
@@ -135,6 +137,7 @@ public class GsnPinchToZoom {
 		oldDownY = y;
 		return true;
 	}
+
 	public boolean touchDragged(float x, float y, int pointer) {
 		// TODO Auto-generated method stub\
 		// for pinch-to-zoom
@@ -185,7 +188,7 @@ public class GsnPinchToZoom {
 			numberOfFingers = 0;
 		}
 
-		if (numberOfFingers < 1) {			
+		if (numberOfFingers < 1) {
 			if (((Math.abs((x - oldDownX)) < tolerant) && (Math.abs((y - oldDownY)) < tolerant))) {
 				if (touchUpListener != null)
 					touchUpListener.touchUpWithoutZoom(x, y, pointer, button);
