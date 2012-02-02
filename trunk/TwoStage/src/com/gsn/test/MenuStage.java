@@ -12,6 +12,7 @@ import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.ActorUtility;
 import com.gsn.engine.GdxUtility;
+import com.gsn.engine.GsnAnimation;
 import com.gsn.engine.layout.GsnRectangle;
 import com.gsn.engine.layout.GsnTableLayout;
 import com.gsn.engine.template.GsnBubleChat;
@@ -23,10 +24,13 @@ public class MenuStage extends Stage {
 	Image boardBorder;
 	Image menuBG;
 	Vector2 vector = new Vector2();
-	GsnBubleChat bubleChatMe;	
+	GsnBubleChat bubleChatMe;
+	GsnAnimation winAnimation;
+	PlayStage parent;
 	
-	public MenuStage(float width, float height) {
+	public MenuStage(PlayStage parent, float width, float height) {
 		super(width, height, false);
+		this.parent = parent;
 		asset = ImageAsset.getInstance();
 
 		boardBorder = new Image(new NinePatch(asset.boardBorder, 20, 20, 20, 20));
@@ -34,7 +38,8 @@ public class MenuStage extends Stage {
 		bubleChatMe = new GsnBubleChat(new NinePatch(GdxUtility.convertListRegionToArray(AssetOld.getInstance().bbChat)), asset.font);
 		bubleChatMe.x = 100;
 		bubleChatMe.y = 100;
-		
+		winAnimation  = new GsnAnimation(0.2f, AssetOld.getInstance().winEffect);
+				
 		
 		Image myClockBG = new GsnClockImage(asset.myClockBG);		
 		//Image betBG = new Image(asset.betBG);
@@ -86,6 +91,8 @@ public class MenuStage extends Stage {
 		table.list.get(2).putTopCenter(betBG);
 		table.list.get(2).putBottomCenter(infoBtn);
 		table.list.get(3).putCenter(otherClockBG);
+		table.list.get(0).putCenter(winAnimation);
+		
 		GsnRectangle tmp = table.list.get(0);
 		boardBorder.x = tmp.x;
 		boardBorder.y = tmp.y;
@@ -123,5 +130,10 @@ public class MenuStage extends Stage {
 	public void setInputBoard(boolean inputBoard) {
 		this.inputBoard = inputBoard;
 	}
+
+	public void win() {
+		// TODO Auto-generated method stub
+		this.addActor(winAnimation);
+	}	
 }
 

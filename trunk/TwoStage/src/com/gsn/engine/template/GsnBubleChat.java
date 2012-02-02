@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.actions.Delay;
 import com.badlogic.gdx.scenes.scene2d.actions.Remove;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.gsn.caro.asset.ImageAsset;
 
 public class GsnBubleChat extends Image {
 	BitmapFont font;
@@ -52,10 +53,16 @@ public class GsnBubleChat extends Image {
 	public void removeFuture(float period){
 		this.action(Delay.$(Remove.$(), period));
 	}
+	
+	float time;
+	
 	@Override
 	public void act(float delta) {
 		// TODO Auto-generated method stub
 		super.act(delta);
-		System.out.println("act... " + delta);
+		time += delta;
+		if (time > 1)
+			this.setRegion(ImageAsset.getInstance().backActiveBtn);
+		//System.out.println("act buble chat... " + time);
 	}
 }

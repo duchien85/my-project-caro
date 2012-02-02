@@ -12,9 +12,9 @@ public class GsnInputPlayStage implements InputProcessor {
 
 	Vector2 vector = new Vector2();
 
-	public GsnInputPlayStage(MenuStage menu, BoardStage board) {
-		this.boardStage = board;
-		this.menuStage = menu;
+	public GsnInputPlayStage(PlayStage game) {
+		this.boardStage = game.boardStage;
+		this.menuStage = game.menuStage;
 	}
 
 	private void checkCanTouchBoard(int x, int y) {
@@ -32,22 +32,27 @@ public class GsnInputPlayStage implements InputProcessor {
 		case Keys.F1:
 			menuStage.chatMe("kasfjlasfjasdlgja asdfkk asf2w23 asdfas");
 			break;
-
-		default:
+		case Keys.F2:
+			menuStage.win();			
+			break;
+		default:	
 			break;
 		}
+		boardStage.keyDown(keycode);
 		return true;
 	}
 
 	@Override
 	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
+		boardStage.keyTyped(character);
 		return true;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
 		// TODO Auto-generated method stub
+		boardStage.keyUp(keycode);
 		return true;
 	}
 
