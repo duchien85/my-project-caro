@@ -1,12 +1,15 @@
 package com.gsn.test;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.tablelayout.Table;
 import com.gsn.caro.asset.AssetOld;
+import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.myplay.GsnStage;
 
 public class LobbyStage extends GsnStage {
@@ -30,7 +33,7 @@ public class LobbyStage extends GsnStage {
 		this.game = game;
 
 		background = new Image(AssetOld.getInstance().background);
-		this.addActor(background);
+		//this.addActor(background);
 
 		for (int i = 0; i < betBtnArr.length; i++) {
 			betBtnArr[i] = new BetBtn(i, AssetOld.getInstance().bet100_1, AssetOld.getInstance().bet100_2, AssetOld.getInstance().bet100_3);
@@ -79,7 +82,7 @@ public class LobbyStage extends GsnStage {
 		// betTable.y = 100;
 		this.addActor(betTable);
 
-		Group infoUser = new InfoUserGroup();
+		InfoUserGroup infoUser = new InfoUserGroup();
 		infoUser.x = 10;
 		infoUser.y = height - infoUser.height - 10;
 
@@ -87,7 +90,10 @@ public class LobbyStage extends GsnStage {
 
 		settingBtn = new ImageButton(AssetOld.getInstance().menuButton);
 		this.addActor(settingBtn);
-
+		
+		Label a = new Label("talksdfj asdf a", new Label.LabelStyle(ImageAsset.getInstance().font, new Color(1, 1, 1, 1)));
+		this.addActor(a);
+		
 		settingBtn.x = width - settingBtn.width - 10;
 		settingBtn.y = height - settingBtn.height - 10;
 	}

@@ -40,5 +40,7 @@ public class CaroGame extends GsnGame {
 		playStage = new PlayStage(width, height);
 		lobbyStage = new LobbyStage(this, width, height);
 		setStage(playStage);
+		//setStage(lobbyStage);
+		//setStage(new TestStage(width, height));
 	}
 }

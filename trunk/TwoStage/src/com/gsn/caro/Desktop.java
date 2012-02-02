@@ -12,7 +12,7 @@ public class Desktop {
 			createGame(240, 320);
 			break;
 		case 2:
-			createGame(480, 800);
+			createGame(480, 600);
 			break;
 		}
 	}

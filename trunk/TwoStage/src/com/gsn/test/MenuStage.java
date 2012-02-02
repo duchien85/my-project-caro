@@ -118,9 +118,7 @@ public class MenuStage extends Stage {
 	}
 
 	public void chatMe(String text) {
-		bubleChatMe.setText(text);
-		bubleChatMe.setWidthText(60);
-		bubleChatMe.pack();
+		bubleChatMe.setText(text, 80);
 		bubleChatMe.removeFuture(2);
 		this.addActor(bubleChatMe);
 	}
@@ -131,6 +129,6 @@ public class MenuStage extends Stage {
 
 	public void win() {
 		// TODO Auto-generated method stub
-		this.addActor(winAnimation);
+		this.addActor(winAnimation);	
 	}
 }
