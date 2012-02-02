@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class GSNAnimation extends Image{	
+public class GsnAnimation extends Image{	
 	float period = 0; 
 	final TextureRegion[] keyFrames;
 	public float frameDuration;	
 
-	public GSNAnimation(float frameDuration, List<AtlasRegion> a) {
+	public GsnAnimation(float frameDuration, List<AtlasRegion> a) {
+		super(a.get(0));
 		this.frameDuration = frameDuration;
 		this.keyFrames = new TextureRegion[a.size()];
 		for (int i = 0, n = a.size(); i < n; i++) {
@@ -19,7 +20,7 @@ public class GSNAnimation extends Image{
 		}
 	}		
 
-	public void resetTime(float time) {
+	public void resetTime() {
 		period = 0;		
 	}
 
@@ -49,8 +50,10 @@ public class GSNAnimation extends Image{
 		TextureRegion frame = getKeyFrame(period, false);
 		if (frame != null)
 			setRegion(frame);
-		else
+		else{
 			remove();
-		System.out.println("act... " + delta );
+			resetTime();
+		}
+		//System.out.println("act animation... " + delta );
 	}
 }

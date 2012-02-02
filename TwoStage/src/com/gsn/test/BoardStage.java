@@ -10,7 +10,7 @@ import com.gsn.caro.asset.AssetOld;
 import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.ActorUtility;
-import com.gsn.engine.GSNAnimation;
+import com.gsn.engine.GsnAnimation;
 import com.gsn.engine.GsnPinchToZoom;
 import com.gsn.engine.GsnPinchToZoom.ITouchUpWithoutZoomListener;
 
@@ -21,10 +21,12 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 	public GsnPinchToZoom pinch;
 	
 	Vector2 vector2 = new Vector2();	
+	PlayStage parent;
 	
 	private Vector3 vector3 = new Vector3();
-	public BoardStage(float width, float height) {
+	public BoardStage(PlayStage parent, float width, float height) {
 		super(width, height, false);
+		this.parent = parent;
 		pinch = new GsnPinchToZoom(this);
 		pinch.setTouchUpWithoutZoomListener(this);
 		//pinch.setRangeZoom(0.5f, 1.5f, 1.5f);
@@ -32,10 +34,7 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 		asset = ImageAsset.getInstance();				
 					
 		board = new Image(asset.board);
-		ActorUtility.setCenter(board, 0, 0);
-		
-		GSNAnimation ani = new GSNAnimation(0.2f, AssetOld.getInstance().winEffect);
-		this.addActor(ani);
+		ActorUtility.setCenter(board, 0, 0);				
 		
 		board.setClickListener(new ClickListener() {
 			Vector2 vector = new Vector2();
@@ -80,7 +79,7 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button) {
 		// TODO Auto-generated method stub
-		// System.out.println("touch down ne : " + pointer);
+		System.out.println("touch down ne : " + pointer);
 		pinch.touchDown(x, y, pointer, button);
 		return super.touchDown(x, y, pointer, button);
 	}

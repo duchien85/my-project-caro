@@ -1,7 +1,8 @@
 package com.gsn.caro;
 
 import com.badlogic.gdx.backends.jogl.JoglApplication;
-import com.gsn.test.TestGame;
+import com.gsn.test.CaroGame;
+import com.gsn.test.PlayStage;
 
 public class Desktop {
 
@@ -17,7 +18,7 @@ public class Desktop {
 	}
 
 	public static void createGame(int width, int height) {
-		new JoglApplication(new TestGame(), "My Caro", width, height, false);
+		new JoglApplication(new CaroGame(), "My Caro", width, height, false);
 	}
 
 	public static void main(String[] args) {
