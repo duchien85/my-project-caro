@@ -1,14 +1,13 @@
 package com.gsn.test;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.gsn.caro.asset.AssetOld;
 import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
+import com.gsn.engine.myplay.GsnStage;
 
-public class PlayStage extends Stage {
+public class PlayStage extends GsnStage {
 	public PlayStage(float width, float height) {
 		super(width, height, false);
 		Stage tmp = new Stage(width, height, false);
@@ -47,6 +46,12 @@ public class PlayStage extends Stage {
 
 		asset.clickEffect.update(Gdx.graphics.getDeltaTime());
 		asset.clickEffect.drawNow();		
+	}
+	
+	@Override
+	public void setInputListener() {
+		// TODO Auto-generated method stub
+		Gdx.input.setInputProcessor(input);
 	}
 
 }
