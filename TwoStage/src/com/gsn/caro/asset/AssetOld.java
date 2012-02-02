@@ -112,8 +112,7 @@ public class AssetOld extends AssetManager implements AssetErrorListener {
 	public TextureRegion cancelBtn;
 	public TextureRegion okBtnDown;
 	public TextureRegion cancelBtnDown;
-	public Sprite dialogButton;
-	public BitmapFont font;
+	public Sprite dialogButton;	
 	// public Animation bobJump;
 	public Sprite menuItem;
 
