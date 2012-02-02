@@ -10,9 +10,9 @@ import com.gsn.caro.asset.AssetOld;
 import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.ActorUtility;
-import com.gsn.engine.GsnAnimation;
 import com.gsn.engine.GsnPinchToZoom;
 import com.gsn.engine.GsnPinchToZoom.ITouchUpWithoutZoomListener;
+import com.gsn.engine.gdx.GsnAnimation;
 
 public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 	ImageAsset asset;
