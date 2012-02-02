@@ -8,13 +8,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 public class BackGroundStage extends Stage {
 	ShapeRenderer shapeRender;
 	Image background;
-	
+
 	public BackGroundStage(float width, float height) {
 		super(width, height, false);
-		shapeRender = new ShapeRenderer();		
+		shapeRender = new ShapeRenderer();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public void draw() {
 		// TODO Auto-generated method stub

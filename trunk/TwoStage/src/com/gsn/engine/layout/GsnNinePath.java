@@ -7,11 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class GsnNinePath extends Image {
 	NinePatch ninePath;
-	public GsnNinePath(TextureRegion region, int left, int right, int top, int bottom){
+
+	public GsnNinePath(TextureRegion region, int left, int right, int top, int bottom) {
 		super(region);
-		ninePath = new NinePatch(region, left, right, top, bottom);		
+		ninePath = new NinePatch(region, left, right, top, bottom);
 	}
-	
+
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		// TODO Auto-generated method stub
