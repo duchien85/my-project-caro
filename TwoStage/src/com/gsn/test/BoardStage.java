@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.gsn.caro.asset.AssetOld;
 import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.ActorUtility;

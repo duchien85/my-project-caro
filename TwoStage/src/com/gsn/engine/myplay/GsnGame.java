@@ -1,7 +1,8 @@
 package com.gsn.engine.myplay;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL10;
 
 abstract public class GsnGame implements ApplicationListener {
 	GsnStage currentStage;
@@ -20,7 +21,8 @@ abstract public class GsnGame implements ApplicationListener {
 
 	@Override
 	public void render() {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stu
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		if (currentStage != null)
 			currentStage.draw();
 	}
