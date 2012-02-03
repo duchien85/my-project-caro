@@ -37,8 +37,9 @@ public class CaroGame extends GsnGame {
 		super.resize(width, height);
 		playStage = new PlayStage(this, width, height);
 		lobbyStage = new LobbyStage(this, width, height);
+		setPlayStage();
 		//setStage(playStage);
-		setStage(lobbyStage);
+		//setStage(lobbyStage);
 		//setStage(new TestStage(width, height));
 	}
 	
