@@ -31,18 +31,21 @@ public class GsnRectangle {
 		return tmp;
 	}
 
-	public void putCenter(Actor actor) {
+	public GsnRectangle putCenter(Actor actor) {
 		ActorUtility.setCenter(actor, this.x + this.width / 2, this.y + this.height / 2);
+		return this;
 	}
 
-	public void putTopCenter(Actor actor) {
+	public GsnRectangle putTopCenter(Actor actor) {
 		actor.x = x + width / 2 - actor.width / 2;
-		actor.y = y + width - actor.height;
+		actor.y = y + height - actor.height;
+		return this;
 	}
 
-	public void putBottomCenter(Actor actor) {
+	public GsnRectangle putBottomCenter(Actor actor) {
 		actor.x = x + width / 2 - actor.width / 2;
 		actor.y = y;
+		return this;
 	}
 
 	public GsnRectangle setMargin(boolean isRatio, float rMarginX, float rMarginY) {

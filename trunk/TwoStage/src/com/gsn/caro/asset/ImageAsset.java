@@ -1,5 +1,7 @@
 package com.gsn.caro.asset;
 
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
@@ -34,22 +36,30 @@ public class ImageAsset {
 	public BitmapFont font = new BitmapFont();
 	public AtlasRegion infoActiveBtn;
 	public AtlasRegion infoDeactiveBtn;
-	public AtlasRegion myClockBG;
-	public AtlasRegion otherClockBG;
+	public AtlasRegion clockBG;	
 	public AtlasRegion pieceO;
 	public AtlasRegion pieceX;
 	public AtlasRegion scoreBG;
 	public AtlasRegion boardBorder;
+	public AtlasRegion boardBG;
+	public List<AtlasRegion> board9Path;
 
+	public AtlasRegion menuBtn;
+	public AtlasRegion menuBtnDown;
+	
+	public AtlasRegion iconMe;
+	public AtlasRegion iconOther;
+
+	public AtlasRegion iconGold;	
+	
 	private ImageAsset() {
 	}
 
 	private void assignContent() {
 		clickEffect.load(Gdx.files.internal("data/particle/click.p"), Gdx.files.internal("data/particle"));
 		TextureAtlas atlas = manager.get("data/content/pack", TextureAtlas.class);
-		myClockBG = atlas.findRegion("dong ho");
-		otherClockBG = atlas.findRegion("dong ho doi thu");
-		betBG = atlas.findRegion("khung muc cuoc");
+		clockBG = atlas.findRegion("khung dong ho");		
+		betBG = atlas.findRegion("nen muc cuoc");
 		scoreBG = atlas.findRegion("bang ti so");
 		backActiveBtn = atlas.findRegion("nut back");
 		backDeactiveBtn = atlas.findRegion("nut back an");
@@ -59,6 +69,17 @@ public class ImageAsset {
 		pieceO = atlas.findRegion("dau o");
 		pieceX = atlas.findRegion("dau x");
 		boardBorder = atlas.findRegion("khung ban choi");
+		
+		board9Path = atlas.findRegions("boarder");
+		boardBG = atlas.findRegion("BG ban choi");
+		
+		menuBtn = atlas.findRegion("nut menu");
+		menuBtnDown = atlas.findRegion("nut menu an");
+		
+		iconGold = atlas.findRegion("icon $ muc cuoc");
+		
+		iconMe = atlas.findRegion("icon nguoi choi");
+		iconOther = atlas.findRegion("icon doi thu");
 	}
 
 	public void create() {
