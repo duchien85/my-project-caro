@@ -33,11 +33,16 @@ public class MenuStage extends Stage {
 	GsnClockImage otherClockBG;
 	GsnAnimation animation;
 	Label pointMatch;
+	Image avatarImg;
+	
+	GsnRectangle rectBound;
 
 	public MenuStage(PlayStage parent, float width, float height) {
 		super(width, height, false);
 		this.parent = parent;
 		asset = ImageAsset.getInstance();
+		
+		avatarImg = new Image(AssetOld.getInstance().avatarIngame);
 
 		boardBorder = new Image(new NinePatch(asset.boardBorder, 20, 20, 20, 20));
 
@@ -52,25 +57,8 @@ public class MenuStage extends Stage {
 		// Image betBG = new Image(asset.betBG);
 		Image betBG = new Image(asset.betBG);
 
-		betBG.setClickListener(new ClickListener() {
-
-			@Override
-			public void click(Actor actor, float x, float y) {
-				// TODO Auto-generated method stub
-				System.out.println("click Bet BG");
-			}
-		});
-
 		otherClockBG = new GsnClockImage(asset.otherClockBG, AssetOld.getInstance().timeNumbers);
 		otherClockBG.setBoard(parent.boardStage);
-//		otherClockBG.setClickListener(new ClickListener() {
-//
-//			@Override
-//			public void click(Actor actor, float x, float y) {
-//				// TODO Auto-generated method stub
-//				otherClockBG.setRegion(asset.otherClockBG);
-//			}
-//		});
 		ImageButton backBtn = new ImageButton(asset.backActiveBtn, asset.backDeactiveBtn);
 		ActorUtility.setTopRight(backBtn, width, height);
 		backBtn.setClickListener(new ClickListener() {
@@ -80,11 +68,20 @@ public class MenuStage extends Stage {
 				// TODO Auto-generated method stub
 				float rX = actor.x + x;
 				float rY = actor.y + y;
+				MenuStage.this.parent.game.setLobbyStage();
 				DataProvider.getInstance().clickEffect.startNow(MenuStage.this.getCamera(), rX, rY);
 			}
 		});
 
 		ImageButton infoBtn = new ImageButton(asset.infoActiveBtn, asset.infoDeactiveBtn);
+		infoBtn.setClickListener(new ClickListener() {
+			
+			@Override
+			public void click(Actor actor, float x, float y) {
+				// TODO Auto-generated method stub
+				showInfoUser();
+			}
+		});
 
 		float h = myClockBG.height + 20;
 		GsnTableLayout table = new GsnTableLayout(0, 0, width, height);
@@ -126,10 +123,13 @@ public class MenuStage extends Stage {
 		this.addActor(boardBorder);
 		pointMatch = new Label("talksdfj\n asdf an safkl nsdf", new Label.LabelStyle(ImageAsset.getInstance().font, new Color(1, 1, 1, 1)));
 		this.addActor(pointMatch);
-//		animation = new GsnAnimation(0.1f, AssetOld.getInstance().winEffect);
-//		this.addActor(animation);
-//		animation.x = width / 2;
-//		animation.y = height / 2;
+		
+		rectBound = new GsnRectangle(0, height - h, width, h);
+	}
+	
+	public void showInfoUser(){
+		
+		
 	}
 
 	public void chatMe(String text) {
@@ -158,4 +158,8 @@ public class MenuStage extends Stage {
 		myClockBG.stop();
 	}
 	
+	
+	public GsnRectangle getRectangleBound(){
+		return rectBound;
+	}
 }

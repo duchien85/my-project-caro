@@ -2,7 +2,6 @@ package com.gsn.test;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -103,6 +102,10 @@ public class LobbyStage extends GsnStage {
 		// TODO Auto-generated method stub
 		super.draw();
 		betTable.drawDebug(this);
+		this.getSpriteBatch().begin();
+		ImageAsset.getInstance().font.setColor(3, 0, 0, 1);
+		ImageAsset.getInstance().font.draw(this.getSpriteBatch(), "hahahha ", 100, 100);
+		this.getSpriteBatch().end();
 	}
 
 }

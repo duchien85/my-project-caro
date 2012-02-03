@@ -2,7 +2,6 @@ package com.gsn.caro;
 
 import com.badlogic.gdx.backends.jogl.JoglApplication;
 import com.gsn.test.CaroGame;
-import com.gsn.test.PlayStage;
 
 public class Desktop {
 

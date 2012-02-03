@@ -3,13 +3,11 @@
  */
 package com.gsn.test;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.gsn.caro.asset.AssetOld;
 import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
 import com.gsn.engine.myplay.GsnGame;
-import com.gsn.engine.myplay.GsnStage;
 
 /**
  * @author trungdv2
@@ -37,10 +35,18 @@ public class CaroGame extends GsnGame {
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 		super.resize(width, height);
-		playStage = new PlayStage(width, height);
+		playStage = new PlayStage(this, width, height);
 		lobbyStage = new LobbyStage(this, width, height);
-		setStage(playStage);
-		//setStage(lobbyStage);
+		//setStage(playStage);
+		setStage(lobbyStage);
 		//setStage(new TestStage(width, height));
+	}
+	
+	public void setLobbyStage(){
+		this.setStage(lobbyStage);
+	}
+	
+	public void setPlayStage(){		
+		this.setStage(playStage);
 	}
 }
