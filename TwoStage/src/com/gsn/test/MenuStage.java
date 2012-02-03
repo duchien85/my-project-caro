@@ -1,5 +1,6 @@
 package com.gsn.test;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.gsn.caro.asset.AssetOld;
 import com.gsn.caro.asset.DataProvider;
 import com.gsn.caro.asset.ImageAsset;
@@ -27,6 +29,10 @@ public class MenuStage extends Stage {
 	GsnBubleChat bubleChatMe;
 	GsnAnimation winAnimation;
 	PlayStage parent;
+	GsnClockImage myClockBG;
+	GsnClockImage otherClockBG;
+	GsnAnimation animation;
+	Label pointMatch;
 
 	public MenuStage(PlayStage parent, float width, float height) {
 		super(width, height, false);
@@ -40,7 +46,9 @@ public class MenuStage extends Stage {
 		bubleChatMe.y = 100;
 		winAnimation = new GsnAnimation(0.2f, AssetOld.getInstance().winEffect);
 
-		GsnClockImage myClockBG = new GsnClockImage(asset.myClockBG, AssetOld.getInstance().timeNumbers);
+		myClockBG = new GsnClockImage(asset.myClockBG, AssetOld.getInstance().timeNumbers);
+		myClockBG.setBoard(parent.boardStage);
+		myClockBG.start();
 		// Image betBG = new Image(asset.betBG);
 		Image betBG = new Image(asset.betBG);
 
@@ -53,15 +61,16 @@ public class MenuStage extends Stage {
 			}
 		});
 
-		final Image otherClockBG = new Image(asset.myClockBG);
-		otherClockBG.setClickListener(new ClickListener() {
-
-			@Override
-			public void click(Actor actor, float x, float y) {
-				// TODO Auto-generated method stub
-				otherClockBG.setRegion(asset.otherClockBG);
-			}
-		});
+		otherClockBG = new GsnClockImage(asset.otherClockBG, AssetOld.getInstance().timeNumbers);
+		otherClockBG.setBoard(parent.boardStage);
+//		otherClockBG.setClickListener(new ClickListener() {
+//
+//			@Override
+//			public void click(Actor actor, float x, float y) {
+//				// TODO Auto-generated method stub
+//				otherClockBG.setRegion(asset.otherClockBG);
+//			}
+//		});
 		ImageButton backBtn = new ImageButton(asset.backActiveBtn, asset.backDeactiveBtn);
 		ActorUtility.setTopRight(backBtn, width, height);
 		backBtn.setClickListener(new ClickListener() {
@@ -115,6 +124,12 @@ public class MenuStage extends Stage {
 		this.addActor(otherClockBG);
 		this.addActor(backBtn);
 		this.addActor(boardBorder);
+		pointMatch = new Label("talksdfj\n asdf an safkl nsdf", new Label.LabelStyle(ImageAsset.getInstance().font, new Color(1, 1, 1, 1)));
+		this.addActor(pointMatch);
+//		animation = new GsnAnimation(0.1f, AssetOld.getInstance().winEffect);
+//		this.addActor(animation);
+//		animation.x = width / 2;
+//		animation.y = height / 2;
 	}
 
 	public void chatMe(String text) {
@@ -131,4 +146,16 @@ public class MenuStage extends Stage {
 		// TODO Auto-generated method stub
 		this.addActor(winAnimation);	
 	}
+	
+	public void myStep()
+	{
+		myClockBG.start();
+		otherClockBG.stop();
+	}
+	public void otherStep()
+	{
+		otherClockBG.start();
+		myClockBG.stop();
+	}
+	
 }
