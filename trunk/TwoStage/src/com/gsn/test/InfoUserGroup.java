@@ -35,15 +35,19 @@ public class InfoUserGroup extends Group {
 		avatarImage = new Image(AssetOld.getInstance().avatarLobby);
 		this.addActor(avatarImage);
 		font = ImageAsset.getInstance().font;
-		Label a = new Label("talksdfj\n asdf an safkl nsdf", new Label.LabelStyle(ImageAsset.getInstance().font, new Color(1, 1, 1, 1)));
-		a.width = 80;
-		a.setWrap(true);
-		a.setText("ta la dai ma vuong  so ta ko");
-		a.setAlignment(0, Align.CENTER);
-//		TextBounds bounds = a.getTextBounds();
-//		System.out.println("text bound" + bounds.width + " " + bounds.height);
-		//a.pack();
-		this.addActor(a);
+		Label label = new Label("talksdfj\n asdf an safkl nsdf", new Label.LabelStyle(ImageAsset.getInstance().font, new Color(1, 1, 1, 1)));
+		label.width = 80;
+		label.setWrap(true);
+		label.setText("Tên: " + name + "\n" + "Gold: " + gold + "\n" + "Xu: " + xu + "\n" + "Điểm: " + point);
+		label.setAlignment(0, Align.LEFT);
+
+		// TextBounds bounds = a.getTextBounds();
+		// System.out.println("text bound" + bounds.width + " " +
+		// bounds.height);
+		// a.pack();
+		this.addActor(label);
+		label.x = this.x + label.width;
+		label.y = this.y + label.height;
 
 	}
 
@@ -58,8 +62,10 @@ public class InfoUserGroup extends Group {
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		// TODO Auto-generated method stub
 		super.draw(batch, parentAlpha);
-//		new Label("trung", style)
-//		TextBounds bounds = font.getMultiLineBounds("tên : " + name);
-//		font.drawMultiLine(batch, "tên : " + name + "\n vàng: " + gold + "\n xu: " + xu + "\n điểm: " + point, this.x + avatarImage.height, this.y + avatarImage.height - bounds.height);
+		// new Label("trung", style)
+		// TextBounds bounds = font.getMultiLineBounds("tÃªn : " + name);
+		// font.drawMultiLine(batch, "tÃªn : " + name + "\n vÃ ng: " + gold +
+		// "\n xu: " + xu + "\n Ä‘iá»ƒm: " + point, this.x + avatarImage.height,
+		// this.y + avatarImage.height - bounds.height);
 	}
 }
