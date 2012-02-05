@@ -9,12 +9,13 @@ import com.gsn.engine.myplay.GsnStage;
 
 public class PlayStage extends GsnStage {
 	CaroGame game;
+	Stage stageLocal;
 	public PlayStage(CaroGame game, float width, float height) {
 		super(width, height, false);
 		this.game = game;
-		Stage tmp = new Stage(width, height, false);
-		DataProvider.getInstance().screenStage = tmp;
-		tmp.getCamera().update();
+		stageLocal = new Stage(width, height, false);
+		DataProvider.getInstance().screenStage = stageLocal;
+		stageLocal.getCamera().update();
 
 		boardStage = new BoardStage(this, width, height);
 		menuStage = new MenuStage(this, width, height);
@@ -32,7 +33,7 @@ public class PlayStage extends GsnStage {
 	DialogStage dialogStage;
 	MenuStage menuStage;
 
-	public final GsnInputPlayStage input;
+	private final GsnInputPlayStage input;
 
 	boolean isDialog = false;
 
@@ -46,9 +47,13 @@ public class PlayStage extends GsnStage {
 		this.setInputListener();
 	}
 
+	public void clickEffect(float x, float y) {
+		asset.clickEffect.startNow(stageLocal.getCamera(), x, y);
+	}
+
 	@Override
 	public void draw() {
-		// TODO Auto-generated method stub		
+		// TODO Auto-generated method stub
 		boardStage.getCamera().update();
 		menuStage.getCamera().update();
 
@@ -70,9 +75,10 @@ public class PlayStage extends GsnStage {
 			dialogStage.draw();
 		}
 	}
-	
-	public void setTouchBoard(boolean touch){
-		input.touchBoard = touch;
+
+	public void dontTouchBoard() {
+		input.touchBoard = false;
+		boardStage.pinch.reset();
 	}
 
 	@Override

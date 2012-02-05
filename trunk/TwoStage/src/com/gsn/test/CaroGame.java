@@ -27,8 +27,7 @@ public class CaroGame extends GsnGame {
 	public void create() {
 		// TODO Auto-generated method stub
 		ImageAsset.getInstance().create();
-		AssetOld.getInstance().finishLoadingAll();
-		DataProvider.getInstance().clickEffect = ImageAsset.getInstance().clickEffect;
+		AssetOld.getInstance().finishLoadingAll();		
 	}
 
 	@Override

@@ -10,9 +10,7 @@ public class DataProvider {
 		if (_instance == null)
 			_instance = new DataProvider();
 		return _instance;
-	}
-
-	public GsnParticleEffect clickEffect;
+	}	
 
 	public Stage screenStage;
 

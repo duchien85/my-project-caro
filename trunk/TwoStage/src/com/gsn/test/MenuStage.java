@@ -91,7 +91,7 @@ public class MenuStage extends Stage {
 				float rX = actor.x + x;
 				float rY = actor.y + y;
 				MenuStage.this.parent.game.setLobbyStage();
-				DataProvider.getInstance().clickEffect.startNow(MenuStage.this.getCamera(), rX, rY);
+				MenuStage.this.parent.clickEffect(rX, rY);
 			}
 		});
 
@@ -175,7 +175,7 @@ public class MenuStage extends Stage {
 	}
 	
 	public void showInfoUser(){
-		MenuStage.this.parent.setTouchBoard(false);
+		MenuStage.this.parent.dontTouchBoard();
 		this.addActor(infoGame);
 		showInfoBtn.remove();
 		this.addActor(hideInfoBtn);
@@ -183,12 +183,11 @@ public class MenuStage extends Stage {
 	}
 	
 	public void hideInfoUser(){
-		MenuStage.this.parent.setTouchBoard(false);
+		MenuStage.this.parent.dontTouchBoard();
 		infoGame.remove();
 		hideInfoBtn.remove();
-		this.addActor(showInfoBtn);
-		rectBound = new GsnRectangle(0, height - heightMenu, width, heightMenu);
-		rectBound = rectBoundShowInfo;
+		this.addActor(showInfoBtn);		
+		rectBound = rectBoundHideInfo;
 	}
 
 	public void chatMe(String text) {
@@ -215,14 +214,9 @@ public class MenuStage extends Stage {
 	{
 		otherClockBG.start();
 		myClockBG.stop();
-	}
-	
+	}	
 	
 	public GsnRectangle getRectangleBound(){
 		return rectBound;
-	}
-	
-	public GsnRectangle toRectBound(){
-		return rectBound;
-	}
+	}	
 }
