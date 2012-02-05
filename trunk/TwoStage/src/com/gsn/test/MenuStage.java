@@ -74,8 +74,17 @@ public class MenuStage extends Stage {
 		otherClockBG.setBoard(parent.boardStage);
 		ImageButton backBtn = new ImageButton(asset.backActiveBtn, asset.backDeactiveBtn);
 		ActorUtility.setTopRight(backBtn, width, height);
+		
+		menuBtn.setClickListener(new ClickListener() {
+			
+			@Override
+			public void click(Actor actor, float x, float y) {
+				// TODO Auto-generated method stub
+				MenuStage.this.parent.showDialog();
+			}
+		});
+		
 		backBtn.setClickListener(new ClickListener() {
-
 			@Override
 			public void click(Actor actor, float x, float y) {
 				// TODO Auto-generated method stub
