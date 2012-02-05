@@ -58,7 +58,9 @@ public class ImageAsset {
 	
 	public AtlasRegion chatBtn;
 	public AtlasRegion chatBtnDown;
+	public AtlasRegion greyBG;
 	
+	public AtlasRegion avatar;	
 	private ImageAsset() {		
 	}
 
@@ -95,6 +97,8 @@ public class ImageAsset {
 		
 		chatBtn = atlas.findRegion("nut chat");
 		chatBtnDown = atlas.findRegion("nut chat an");
+		avatar = atlas.findRegion("khung avatar");	
+		greyBG = atlas.findRegion("nen-xam");		
 	}
 
 	public void create() {
