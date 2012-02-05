@@ -53,7 +53,7 @@ public class MenuStage extends Stage {
 		chatBtn = new ImageButton(asset.chatBtn, asset.chatBtnDown);
 		showInfoBtn = new ImageButton(asset.showInfoBtn, asset.showInfoBtnDown);
 		hideInfoBtn = new ImageButton(asset.hideInfoBtn, asset.hideInfoBtnDown);
-		infoGame = new InfoGameGroup(width, 200);
+		infoGame = new InfoGameGroup(width);		
 		
 		iconMe = new Image(asset.iconMe);
 		iconOther = new Image(asset.iconOther);
@@ -130,8 +130,13 @@ public class MenuStage extends Stage {
 		hideInfoBtn.x = showInfoBtn.x;
 		hideInfoBtn.y = showInfoBtn.y - infoGame.height;
 		
-		this.menuBG = new GsnRectangle(table.list.get(1).x, table.list.get(1).y, width, table.list.get(1).height).toFilledRectangle(1, 1, 0, 1);		
+		menuBG = new Image(asset.boardBG);
+		menuBG.width = this.width;
+		menuBG.height = this.heightMenu;
 		
+		ActorUtility.setTopLeft(menuBG, 0, this.height);
+		
+		this.addActor(menuBG);
 		this.addActor(iconMe);
 		this.addActor(myClockBG);
 		this.addActor(betInfo);

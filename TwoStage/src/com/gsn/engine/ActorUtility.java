@@ -1,6 +1,7 @@
 package com.gsn.engine;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 
 public class ActorUtility {	
 
@@ -39,5 +40,15 @@ public class ActorUtility {
 	public static void setBottomLeft(Actor actor, float x, float y) {
 		actor.x = x;
 		actor.y = y;
+	}
+
+	public static void setCenterBottom(Actor actor, float x, int y) {
+		actor.x = x - actor.width / 2;
+		actor.y = y;
+	}
+	
+	public static void setCenterTop(Actor actor, float x, int y) {
+		actor.x = x ;
+		actor.y = y - actor.height / 2;
 	}
 }
