@@ -18,7 +18,7 @@ public class ImageAsset {
 	private static ImageAsset _instance;
 
 	static AssetManager manager;
-
+	
 	final static String tag = ImageAsset.class.getSimpleName();
 
 	public static ImageAsset getInstance() {
@@ -34,8 +34,10 @@ public class ImageAsset {
 	public AtlasRegion board;
 	public GsnParticleEffect clickEffect = new GsnParticleEffect();
 	public BitmapFont font = new BitmapFont();
-	public AtlasRegion infoActiveBtn;
-	public AtlasRegion infoDeactiveBtn;
+	public AtlasRegion showInfoBtn;
+	public AtlasRegion showInfoBtnDown;
+	public AtlasRegion hideInfoBtn;
+	public AtlasRegion hideInfoBtnDown;
 	public AtlasRegion clockBG;	
 	public AtlasRegion pieceO;
 	public AtlasRegion pieceX;
@@ -43,6 +45,8 @@ public class ImageAsset {
 	public AtlasRegion boardBorder;
 	public AtlasRegion boardBG;
 	public List<AtlasRegion> board9Path;
+	public List<AtlasRegion> bubleChatOther9Path;
+	public List<AtlasRegion> infoUserBG9Path;
 
 	public AtlasRegion menuBtn;
 	public AtlasRegion menuBtnDown;
@@ -50,9 +54,12 @@ public class ImageAsset {
 	public AtlasRegion iconMe;
 	public AtlasRegion iconOther;
 
-	public AtlasRegion iconGold;	
+	public AtlasRegion iconGold;
 	
-	private ImageAsset() {
+	public AtlasRegion chatBtn;
+	public AtlasRegion chatBtnDown;
+	
+	private ImageAsset() {		
 	}
 
 	private void assignContent() {
@@ -63,8 +70,8 @@ public class ImageAsset {
 		scoreBG = atlas.findRegion("bang ti so");
 		backActiveBtn = atlas.findRegion("nut back");
 		backDeactiveBtn = atlas.findRegion("nut back an");
-		infoActiveBtn = atlas.findRegion("nut hien thong tin");
-		infoDeactiveBtn = atlas.findRegion("nut hien thong tin an");
+		showInfoBtn = atlas.findRegion("nut so");
+		showInfoBtnDown = atlas.findRegion("nut so an");
 		board = atlas.findRegion("ban choi");
 		pieceO = atlas.findRegion("dau o");
 		pieceX = atlas.findRegion("dau x");
@@ -80,6 +87,14 @@ public class ImageAsset {
 		
 		iconMe = atlas.findRegion("icon nguoi choi");
 		iconOther = atlas.findRegion("icon doi thu");
+		bubleChatOther9Path = atlas.findRegions("bubble-chat-2");
+		infoUserBG9Path = atlas.findRegions("nen-thong-tin");
+		
+		hideInfoBtn = atlas.findRegion("nut dong");
+		hideInfoBtnDown = atlas.findRegion("nut dong an");
+		
+		chatBtn = atlas.findRegion("nut chat");
+		chatBtnDown = atlas.findRegion("nut chat an");
 	}
 
 	public void create() {
