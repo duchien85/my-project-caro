@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.gsn.engine.layout.GsnRectangle;
 
 public class GdxUtility {
 	public static boolean canHit(float x, float y, float width, float height) {
@@ -105,5 +107,13 @@ public class GdxUtility {
 			count++;
 		}
 		return tmp;
+	}
+	
+	public static boolean inRange(float x, float a, float b) {
+		return (a <= x) && (x <= b);
+	};
+	
+	public static boolean inRectangle(float x, float y, GsnRectangle actor) {
+		return inRange(x, actor.x, actor.x + actor.width) && inRange(y, actor.y, actor.y + actor.height);
 	}
 }

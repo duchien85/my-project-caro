@@ -70,6 +70,10 @@ public class PlayStage extends GsnStage {
 			dialogStage.draw();
 		}
 	}
+	
+	public void setTouchBoard(boolean touch){
+		input.touchBoard = touch;
+	}
 
 	@Override
 	public void setInputListener() {

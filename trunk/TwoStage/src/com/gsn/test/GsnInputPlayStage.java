@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.gsn.engine.ActorUtility;
+import com.gsn.engine.GdxUtility;
 
 public class GsnInputPlayStage implements InputProcessor {
 	BoardStage boardStage;
@@ -21,7 +22,7 @@ public class GsnInputPlayStage implements InputProcessor {
 
 	private void checkCanTouchBoard(int x, int y) {
 		menuStage.toStageCoordinates(x, y, vector);
-		if (ActorUtility.inActor(vector, menuStage.menuBG)) {
+		if (GdxUtility.inRectangle(vector.x, vector.y, menuStage.getRectangleBound())) {
 			boardStage.resetPinchToZoom();
 			touchBoard = false;
 		}

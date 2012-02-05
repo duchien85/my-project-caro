@@ -28,26 +28,37 @@ public class MenuStage extends Stage {
 	PlayStage parent;
 	GsnClockImage myClockBG;
 	GsnClockImage otherClockBG;
-	GsnAnimation animation;	
+	GsnAnimation animation;
+	
 	ImageButton menuBtn;
 	ImageButton chatBtn;
+	ImageButton showInfoBtn;
+	ImageButton hideInfoBtn;
+	InfoGameGroup infoGame;
 	
 	Image menuBG;
 	GsnRectangle rectBound;
+	GsnRectangle rectBoundHideInfo;
+	GsnRectangle rectBoundShowInfo;
 	Image iconMe;
 	Image iconOther;
+	
+	float heightMenu;
 
 	public MenuStage(PlayStage parent, float width, float height) {
 		super(width, height, false);
 		this.parent = parent;
 		asset = ImageAsset.getInstance();					
 		menuBtn = new ImageButton(asset.menuBtn, asset.menuBtnDown);
-		chatBtn = new ImageButton(asset.menuBtn, asset.menuBtnDown);
+		chatBtn = new ImageButton(asset.chatBtn, asset.chatBtnDown);
+		showInfoBtn = new ImageButton(asset.showInfoBtn, asset.showInfoBtnDown);
+		hideInfoBtn = new ImageButton(asset.hideInfoBtn, asset.hideInfoBtnDown);
+		infoGame = new InfoGameGroup(width, 200);
 		
 		iconMe = new Image(asset.iconMe);
 		iconOther = new Image(asset.iconOther);
 		
-		bubleChatMe = new GsnBubleChat(new NinePatch(GdxUtility.convertListRegionToArray(AssetOld.getInstance().bbChat)), asset.font);
+		bubleChatMe = new GsnBubleChat(new NinePatch(GdxUtility.convertListRegionToArray(asset.bubleChatOther9Path)), asset.font);
 		bubleChatMe.x = 100;
 		bubleChatMe.y = 100;
 		winAnimation = new GsnAnimation(0.2f, AssetOld.getInstance().winEffect);
@@ -75,20 +86,31 @@ public class MenuStage extends Stage {
 			}
 		});
 
-		ImageButton infoBtn = new ImageButton(asset.infoActiveBtn, asset.infoDeactiveBtn);
-		infoBtn.setClickListener(new ClickListener() {
+		showInfoBtn = new ImageButton(asset.showInfoBtn, asset.showInfoBtnDown);
+		showInfoBtn.setClickListener(new ClickListener() {
+			
+			@Override
+			public void click(Actor actor, float x, float y) {
+				// TODO Auto-generated method stub				
+				showInfoUser();				
+			}
+		});
+		
+		hideInfoBtn.setClickListener(new ClickListener() {
 			
 			@Override
 			public void click(Actor actor, float x, float y) {
 				// TODO Auto-generated method stub
-				showInfoUser();
+				hideInfoUser();
 			}
 		});
+		
 
-		float heightMenu = myClockBG.height + menuBtn.height;
+		heightMenu = myClockBG.height + menuBtn.height;
 		GsnTableLayout table = new GsnTableLayout(0, 0, width, height);
+		
 		table.newRow(false, this.height - heightMenu);
-		table.add(1f);
+		table.add(1f).putTopCenter(showInfoBtn).putTopLeft(infoGame);
 		
 		table.newRow(false, myClockBG.height);
 		table.addList(1f/3, 1f/3, 1f/3);
@@ -105,12 +127,15 @@ public class MenuStage extends Stage {
 		ActorUtility.setTopRight(menuBtn, this.width, this.height);
 		ActorUtility.setBottomRight(chatBtn, menuBtn.x, menuBtn.y);
 		
+		hideInfoBtn.x = showInfoBtn.x;
+		hideInfoBtn.y = showInfoBtn.y - infoGame.height;
+		
 		this.menuBG = new GsnRectangle(table.list.get(1).x, table.list.get(1).y, width, table.list.get(1).height).toFilledRectangle(1, 1, 0, 1);		
 		
 		this.addActor(iconMe);
 		this.addActor(myClockBG);
 		this.addActor(betInfo);
-		this.addActor(infoBtn);
+		this.addActor(showInfoBtn);
 		this.addActor(scoreInfo);
 		this.addActor(iconOther);
 		this.addActor(otherClockBG);
@@ -118,6 +143,7 @@ public class MenuStage extends Stage {
 		
 		this.addActor(chatBtn);
 		this.addActor(menuBtn);	
+		this.addActor(showInfoBtn);		
 		
 		boardBorder = new Image(new NinePatch(GdxUtility.convertListRegionToArray(asset.board9Path)));
 		GsnRectangle tmp = table.list.get(0);
@@ -127,12 +153,28 @@ public class MenuStage extends Stage {
 		boardBorder.height = tmp.height + 5;
 		
 		this.addActor(boardBorder);		
-		rectBound = new GsnRectangle(0, height - heightMenu, width, heightMenu);
+						
+		rectBoundHideInfo = new GsnRectangle(0, height - heightMenu, width, heightMenu);
+		rectBoundShowInfo = new GsnRectangle(0, height - heightMenu - infoGame.height, width, heightMenu + infoGame.height);
+		rectBound = rectBoundHideInfo;
+		
 	}
 	
 	public void showInfoUser(){
-		
-		
+		MenuStage.this.parent.setTouchBoard(false);
+		this.addActor(infoGame);
+		showInfoBtn.remove();
+		this.addActor(hideInfoBtn);
+		rectBound = rectBoundShowInfo;
+	}
+	
+	public void hideInfoUser(){
+		MenuStage.this.parent.setTouchBoard(false);
+		infoGame.remove();
+		hideInfoBtn.remove();
+		this.addActor(showInfoBtn);
+		rectBound = new GsnRectangle(0, height - heightMenu, width, heightMenu);
+		rectBound = rectBoundShowInfo;
 	}
 
 	public void chatMe(String text) {
@@ -163,6 +205,10 @@ public class MenuStage extends Stage {
 	
 	
 	public GsnRectangle getRectangleBound(){
+		return rectBound;
+	}
+	
+	public GsnRectangle toRectBound(){
 		return rectBound;
 	}
 }

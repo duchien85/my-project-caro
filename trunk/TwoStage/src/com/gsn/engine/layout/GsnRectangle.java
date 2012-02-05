@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gsn.caro.asset.DataProvider;
 import com.gsn.engine.ActorUtility;
+import com.gsn.test.InfoGameGroup;
 
 public class GsnRectangle {
 	public static String toString(Sprite sprite) {
@@ -99,5 +100,9 @@ public class GsnRectangle {
 		tmp.height = this.height;
 		tmp.width = this.width;
 		return tmp;
+	}
+
+	public void putTopLeft(Actor actor) {		
+		ActorUtility.setTopLeft(actor, this.x, this.y + this.height);
 	}
 }
