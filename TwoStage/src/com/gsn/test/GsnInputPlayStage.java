@@ -19,6 +19,7 @@ public class GsnInputPlayStage implements InputProcessor {
 		this.boardStage = stage.boardStage;
 		this.menuStage = stage.menuStage;
 	}
+		
 
 	private void checkCanTouchBoard(int x, int y) {
 		menuStage.toStageCoordinates(x, y, vector);

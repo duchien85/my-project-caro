@@ -16,8 +16,9 @@ import com.gsn.engine.GsnPinchToZoom;
 import com.gsn.engine.GsnPinchToZoom.ITouchUpWithoutZoomListener;
 import com.gsn.engine.gdx.GsnAnimation;
 import com.gsn.engine.layout.GsnPoint;
+import com.gsn.engine.myplay.GsnStage;
 
-public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
+public class BoardStage extends GsnStage implements ITouchUpWithoutZoomListener {
 	ImageAsset asset;
 	Image pieceO, pieceX, board;
 
@@ -64,14 +65,11 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 				float rX = actor.x + x;
 				float rY = actor.y + y;
 				toScreenCoordinates(rX, rY, vector);
-				DataProvider.getInstance().clickEffect.startNow(
-						DataProvider.getInstance().screenStage.getCamera(),
-						vector.x, vector.y);
+				BoardStage.this.parent.clickEffect(vector.x, vector.y);
 			}
 		});
 		this.addActor(board);
-		
-		
+
 		xSignal = new Image(asset.pieceX);
 		// create the bitmap font used to draw the text
 		font = new BitmapFont();
@@ -112,8 +110,7 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 		for (i = 0; i < 16; i++) {
 			for (j = 0; j < 16; j++) {
 				Image xSignal1 = new Image(asset.pieceO);
-				arrayCoordinate[i][j] = new GsnPoint(startX + size * j, startY
-						+ size * i);
+				arrayCoordinate[i][j] = new GsnPoint(startX + size * j, startY + size * i);
 
 				// arrayImage[0] = new Image(asset.pieceO);
 				// this.addActor(arrayImage[0]);
@@ -126,10 +123,10 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 		for (i = 0; i < 15; i++) {
 			arrayImage[i] = new Image[15];
 		}
-		
-//		this.addActor(animation);
-//		animation.x = width / 2;
-//		animation.y = height / 2;
+
+		// this.addActor(animation);
+		// animation.x = width / 2;
+		// animation.y = height / 2;
 		// meTimer.start();
 	}
 
@@ -149,12 +146,6 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 
 	public void resetPinchToZoom() {
 		pinch.reset();
-	}
-
-	public void toScreenCoordinates(float x, float y, Vector2 out) {
-		camera.project(vector3.set(x, y, 0));
-		out.x = vector3.x;
-		out.y = vector3.y;
 	}
 
 	@Override
@@ -192,10 +183,10 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 		// BoardStage.this.addActor(pieceO);
 		// }
 		//
+		System.out.println("touch up without zoom");
 		Vector2 coordinate = getCoordinate(vector2.x, vector2.y);
 
-		if (coordinate != null
-				&& boardLogic[(int) coordinate.x][(int) coordinate.y] == 0) {
+		if (coordinate != null && boardLogic[(int) coordinate.x][(int) coordinate.y] == 0) {
 			doStep((int) coordinate.x, (int) coordinate.y);
 		}
 	}
@@ -204,7 +195,7 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 	public void act(float delta) {
 		// TODO Auto-generated method stub
 		super.act(delta);
-		//animation.act(delta);
+		// animation.act(delta);
 	}
 
 	// Logic play caro
@@ -227,10 +218,7 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 		int i, j;
 		for (i = 0; i < 15; i++)
 			for (j = 0; j < 15; j++) {
-				if (arrayCoordinate[i][j].x <= x
-						&& arrayCoordinate[i + 1][j + 1].x > x
-						&& arrayCoordinate[i][j].y <= y
-						&& arrayCoordinate[i + 1][j + 1].y > y) {
+				if (arrayCoordinate[i][j].x <= x && arrayCoordinate[i + 1][j + 1].x > x && arrayCoordinate[i][j].y <= y && arrayCoordinate[i + 1][j + 1].y > y) {
 					return new Vector2(i, j);
 				}
 			}
@@ -283,10 +271,8 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 				count++;
 			} else {
 
-				for (i = 1; (int) coordinate.x + i < 15
-						&& (int) coordinate.y - i >= 0; i++) {
-					if (boardLogic[(int) coordinate.x + i][(int) coordinate.y
-							- i] == sinal) {
+				for (i = 1; (int) coordinate.x + i < 15 && (int) coordinate.y - i >= 0; i++) {
+					if (boardLogic[(int) coordinate.x + i][(int) coordinate.y - i] == sinal) {
 						count++;
 					} else {
 						if (count == 5)
@@ -304,8 +290,7 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 			} else {
 
 				for (i = 1; coordinate.x - i >= 0 && coordinate.y - i >= 0; i++) {
-					if (boardLogic[(int) coordinate.x - i][(int) coordinate.y
-							- i] == sinal) {
+					if (boardLogic[(int) coordinate.x - i][(int) coordinate.y - i] == sinal) {
 						count++;
 					} else {
 						if (count == 5)
@@ -323,8 +308,7 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 		Vector2 coordinate = new Vector2(i, j);
 
 		if (xStep) {
-			arrayImage[(int) coordinate.x][(int) coordinate.y] = new Image(
-					asset.pieceX);
+			arrayImage[(int) coordinate.x][(int) coordinate.y] = new Image(asset.pieceX);
 			boardLogic[(int) coordinate.x][(int) coordinate.y] = 1;
 			this.addActor(arrayImage[(int) coordinate.x][(int) coordinate.y]);
 
@@ -339,8 +323,7 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 				initGame();
 			}
 		} else {
-			arrayImage[(int) coordinate.x][(int) coordinate.y] = new Image(
-					asset.pieceO);
+			arrayImage[(int) coordinate.x][(int) coordinate.y] = new Image(asset.pieceO);
 			boardLogic[(int) coordinate.x][(int) coordinate.y] = 2;
 			this.addActor(arrayImage[(int) coordinate.x][(int) coordinate.y]);
 			if (checkVictory(2, coordinate)) {
@@ -358,15 +341,8 @@ public class BoardStage extends Stage implements ITouchUpWithoutZoomListener {
 		xStep = !xStep;
 		// arrayImage[0] = new Image(asset.pieceO);
 		// this.addActor(arrayImage[0]);
-
-		arrayImage[(int) coordinate.x][(int) coordinate.y].x = arrayCoordinate[(int) coordinate.x][(int) coordinate.y].x;// -
-																															// width
-																															// /
-																															// 2;
-		arrayImage[(int) coordinate.x][(int) coordinate.y].y = arrayCoordinate[(int) coordinate.x][(int) coordinate.y].y;// -
-																															// height
-																															// /
-																															// 2;
+		arrayImage[(int) coordinate.x][(int) coordinate.y].x = arrayCoordinate[(int) coordinate.x][(int) coordinate.y].x;// -																					// 2;
+		arrayImage[(int) coordinate.x][(int) coordinate.y].y = arrayCoordinate[(int) coordinate.x][(int) coordinate.y].y;// -																															// 2;
 	}
 
 	public void randomStep() {
