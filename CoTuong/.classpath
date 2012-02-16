@@ -10,13 +10,9 @@
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-backend-lwjgl-natives.jar"/>
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-backend-lwjgl-sources.jar"/>
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-backend-lwjgl.jar"/>
-	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-bullet-natives.jar"/>
-	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-bullet.jar"/>
-	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-jnigen.jar"/>
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-natives.jar"/>
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-openal-sources.jar"/>
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-sources.jar"/>
-	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx-tools.jar"/>
 	<classpathentry kind="lib" path="/DifferentResolution/libs/gdx.jar" sourcepath="/DifferentResolution/libs/gdx-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
