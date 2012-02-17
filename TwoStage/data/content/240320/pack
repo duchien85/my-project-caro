@@ -1,0 +1,972 @@
+
+layout 240x3201.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ban choi
+  rotate: false
+  xy: 2, 2
+  size: 644, 642
+  orig: 644, 642
+  offset: 0, 0
+  index: -1
+BG lobby
+  rotate: false
+  xy: 648, 2
+  size: 240, 320
+  orig: 240, 320
+  offset: 0, 0
+  index: -1
+BG ban choi
+  rotate: false
+  xy: 648, 324
+  size: 240, 320
+  orig: 240, 320
+  offset: 0, 0
+  index: -1
+khung chat
+  rotate: false
+  xy: 2, 646
+  size: 239, 252
+  orig: 239, 252
+  offset: 0, 0
+  index: -1
+bang thong tin
+  rotate: false
+  xy: 890, 2
+  size: 79, 110
+  orig: 79, 110
+  offset: 0, 0
+  index: -1
+khung avatar
+  rotate: false
+  xy: 890, 114
+  size: 83, 96
+  orig: 83, 96
+  offset: 0, 0
+  index: -1
+muc cuoc 1G
+  rotate: false
+  xy: 890, 212
+  size: 57, 75
+  orig: 57, 75
+  offset: 0, 0
+  index: -1
+muc cuoc 1G disable
+  rotate: false
+  xy: 949, 212
+  size: 57, 75
+  orig: 57, 75
+  offset: 0, 0
+  index: -1
+muc cuoc 1G an
+  rotate: false
+  xy: 890, 324
+  size: 57, 75
+  orig: 57, 75
+  offset: 0, 0
+  index: -1
+muc cuoc 10G
+  rotate: false
+  xy: 949, 324
+  size: 57, 75
+  orig: 57, 75
+  offset: 0, 0
+  index: -1
+muc cuoc 10G disable
+  rotate: false
+  xy: 890, 401
+  size: 57, 75
+  orig: 57, 75
+  offset: 0, 0
+  index: -1
+muc cuoc 10G an
+  rotate: false
+  xy: 949, 401
+  size: 57, 75
+  orig: 57, 75
+  offset: 0, 0
+  index: -1
+muc cuoc 5k$
+  rotate: false
+  xy: 890, 478
+  size: 57, 73
+  orig: 57, 73
+  offset: 0, 0
+  index: -1
+muc cuoc 5k$ disable
+  rotate: false
+  xy: 949, 478
+  size: 57, 73
+  orig: 57, 73
+  offset: 0, 0
+  index: -1
+muc cuoc 5k$ an
+  rotate: false
+  xy: 890, 553
+  size: 57, 73
+  orig: 57, 73
+  offset: 0, 0
+  index: -1
+muc cuoc 500$
+  rotate: false
+  xy: 949, 553
+  size: 57, 73
+  orig: 57, 73
+  offset: 0, 0
+  index: -1
+muc cuoc 500$ disable
+  rotate: false
+  xy: 2, 900
+  size: 57, 73
+  orig: 57, 73
+  offset: 0, 0
+  index: -1
+muc cuoc 500$ an
+  rotate: false
+  xy: 61, 900
+  size: 57, 73
+  orig: 57, 73
+  offset: 0, 0
+  index: -1
+muc cuoc 100$
+  rotate: false
+  xy: 120, 900
+  size: 57, 73
+  orig: 57, 73
+  offset: 0, 0
+  index: -1
+muc cuoc 100$ disable
+  rotate: false
+  xy: 179, 900
+  size: 57, 73
+  orig: 57, 73
+  offset: 0, 0
+  index: -1
+muc cuoc 100$ an
+  rotate: false
+  xy: 243, 646
+  size: 57, 73
+  orig: 57, 73
+  offset: 0, 0
+  index: -1
+nen BG
+  rotate: false
+  xy: 302, 646
+  size: 240, 61
+  orig: 240, 61
+  offset: 0, 0
+  index: -1
+nut san sang
+  rotate: false
+  xy: 302, 709
+  size: 202, 54
+  orig: 202, 54
+  offset: 0, 0
+  index: -1
+nut san sang an
+  rotate: false
+  xy: 302, 765
+  size: 202, 54
+  orig: 202, 54
+  offset: 0, 0
+  index: -1
+khung avatar lobby
+  rotate: false
+  xy: 302, 821
+  size: 99, 45
+  orig: 99, 45
+  offset: 0, 0
+  index: -1
+nut thoat
+  rotate: false
+  xy: 971, 2
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+nut thoat an
+  rotate: false
+  xy: 971, 47
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+nut nhac
+  rotate: false
+  xy: 975, 114
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+nut nhac tat
+  rotate: false
+  xy: 975, 159
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+nut nhac an
+  rotate: false
+  xy: 2, 975
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+nut loa
+  rotate: false
+  xy: 61, 975
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+nut loa tat
+  rotate: false
+  xy: 120, 975
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+nut loa an
+  rotate: false
+  xy: 179, 975
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+nut vao game
+  rotate: false
+  xy: 403, 821
+  size: 138, 39
+  orig: 138, 39
+  offset: 0, 0
+  index: -1
+nut vao game an
+  rotate: false
+  xy: 302, 868
+  size: 138, 39
+  orig: 138, 39
+  offset: 0, 0
+  index: -1
+nut dang nhap
+  rotate: false
+  xy: 302, 909
+  size: 140, 38
+  orig: 140, 38
+  offset: 0, 0
+  index: -1
+nut dang nhap an
+  rotate: false
+  xy: 302, 949
+  size: 140, 38
+  orig: 140, 38
+  offset: 0, 0
+  index: -1
+dau o
+  rotate: false
+  xy: 890, 289
+  size: 31, 33
+  orig: 31, 33
+  offset: 0, 0
+  index: -1
+vui long cho doi thu
+  rotate: false
+  xy: 949, 289
+  size: 70, 32
+  orig: 70, 32
+  offset: 0, 0
+  index: -1
+khung dong ho
+  rotate: false
+  xy: 243, 721
+  size: 55, 32
+  orig: 55, 32
+  offset: 0, 0
+  index: -1
+dau x
+  rotate: false
+  xy: 243, 755
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+nut choi ngay
+  rotate: false
+  xy: 302, 989
+  size: 108, 31
+  orig: 108, 31
+  offset: 0, 0
+  index: -1
+nut choi ngay an
+  rotate: false
+  xy: 544, 646
+  size: 108, 31
+  orig: 108, 31
+  offset: 0, 0
+  index: -1
+tem san sang
+  rotate: false
+  xy: 442, 868
+  size: 68, 28
+  orig: 68, 28
+  offset: 0, 0
+  index: -1
+icon nguoi choi
+  rotate: false
+  xy: 243, 789
+  size: 29, 27
+  orig: 29, 27
+  offset: 0, 0
+  index: -1
+nut dang xuat an
+  rotate: false
+  xy: 444, 909
+  size: 85, 26
+  orig: 85, 26
+  offset: 0, 0
+  index: -1
+ntu dang xuat
+  rotate: false
+  xy: 444, 937
+  size: 85, 26
+  orig: 85, 26
+  offset: 0, 0
+  index: -1
+nut dang ky
+  rotate: false
+  xy: 444, 965
+  size: 72, 26
+  orig: 72, 26
+  offset: 0, 0
+  index: -1
+nut dang ky an
+  rotate: false
+  xy: 444, 993
+  size: 72, 26
+  orig: 72, 26
+  offset: 0, 0
+  index: -1
+icon doi thu
+  rotate: false
+  xy: 274, 789
+  size: 25, 26
+  orig: 25, 26
+  offset: 0, 0
+  index: -1
+bang ti so
+  rotate: false
+  xy: 544, 679
+  size: 80, 25
+  orig: 80, 25
+  offset: 0, 0
+  index: -1
+nut dong
+  rotate: false
+  xy: 923, 289
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+nut dong an
+  rotate: false
+  xy: 243, 818
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1
+nut menu
+  rotate: false
+  xy: 268, 818
+  size: 30, 23
+  orig: 30, 23
+  offset: 0, 0
+  index: -1
+nut menu an
+  rotate: false
+  xy: 243, 844
+  size: 30, 23
+  orig: 30, 23
+  offset: 0, 0
+  index: -1
+nut chat
+  rotate: false
+  xy: 243, 869
+  size: 30, 23
+  orig: 30, 23
+  offset: 0, 0
+  index: -1
+nut chat an
+  rotate: false
+  xy: 243, 894
+  size: 30, 23
+  orig: 30, 23
+  offset: 0, 0
+  index: -1
+nut gui
+  rotate: false
+  xy: 243, 919
+  size: 35, 22
+  orig: 35, 22
+  offset: 0, 0
+  index: -1
+nut gui an
+  rotate: false
+  xy: 243, 943
+  size: 35, 22
+  orig: 35, 22
+  offset: 0, 0
+  index: -1
+nen muc cuoc
+  rotate: false
+  xy: 544, 706
+  size: 72, 20
+  orig: 72, 20
+  offset: 0, 0
+  index: -1
+icon G muc cuoc
+  rotate: false
+  xy: 971, 92
+  size: 17, 18
+  orig: 17, 18
+  offset: 0, 0
+  index: -1
+dang nhap bang tai khoan zing
+  rotate: false
+  xy: 654, 646
+  size: 195, 17
+  orig: 195, 17
+  offset: 0, 0
+  index: -1
+icon $ muc cuoc
+  rotate: false
+  xy: 990, 92
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+nut so
+  rotate: false
+  xy: 890, 628
+  size: 21, 13
+  orig: 21, 13
+  offset: 0, 0
+  index: -1
+nut so an
+  rotate: false
+  xy: 913, 628
+  size: 21, 13
+  orig: 21, 13
+  offset: 0, 0
+  index: -1
+cuoc 5k$
+  rotate: false
+  xy: 949, 628
+  size: 48, 12
+  orig: 48, 12
+  offset: 0, 0
+  index: -1
+cuoc 100$
+  rotate: false
+  xy: 243, 967
+  size: 39, 12
+  orig: 39, 12
+  offset: 0, 0
+  index: -1
+cuoc 500$
+  rotate: false
+  xy: 243, 981
+  size: 36, 12
+  orig: 36, 12
+  offset: 0, 0
+  index: -1
+cuoc 10G
+  rotate: false
+  xy: 999, 628
+  size: 17, 12
+  orig: 17, 12
+  offset: 0, 0
+  index: -1
+cuoc 1G
+  rotate: false
+  xy: 1009, 92
+  size: 7, 12
+  orig: 7, 12
+  offset: 0, 0
+  index: -1
+
+bo so dong ho1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+time vang
+  rotate: false
+  xy: 2, 2
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 9
+time vang
+  rotate: false
+  xy: 2, 29
+  size: 21, 25
+  orig: 21, 25
+  offset: 0, 0
+  index: 8
+time vang
+  rotate: false
+  xy: 25, 2
+  size: 22, 24
+  orig: 22, 24
+  offset: 0, 0
+  index: 6
+time vang
+  rotate: false
+  xy: 49, 2
+  size: 22, 24
+  orig: 22, 24
+  offset: 0, 0
+  index: 4
+time vang
+  rotate: false
+  xy: 2, 56
+  size: 21, 24
+  orig: 21, 24
+  offset: 0, 0
+  index: 0
+time vang
+  rotate: false
+  xy: 2, 82
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: 7
+time vang
+  rotate: false
+  xy: 73, 2
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: 5
+time vang
+  rotate: false
+  xy: 95, 2
+  size: 18, 24
+  orig: 18, 24
+  offset: 0, 0
+  index: 2
+time vang
+  rotate: false
+  xy: 25, 28
+  size: 13, 24
+  orig: 13, 24
+  offset: 0, 0
+  index: 1
+time vang
+  rotate: false
+  xy: 40, 28
+  size: 19, 23
+  orig: 19, 23
+  offset: 0, 0
+  index: 3
+
+bo so ti so1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ti so xanh
+  rotate: false
+  xy: 2, 2
+  size: 13, 16
+  orig: 13, 16
+  offset: 0, 0
+  index: 4
+ti so do
+  rotate: false
+  xy: 2, 20
+  size: 13, 16
+  orig: 13, 16
+  offset: 0, 0
+  index: 4
+ti so xanh
+  rotate: false
+  xy: 2, 38
+  size: 11, 16
+  orig: 11, 16
+  offset: 0, 0
+  index: 7
+ti so xanh
+  rotate: false
+  xy: 2, 56
+  size: 11, 16
+  orig: 11, 16
+  offset: 0, 0
+  index: 3
+ti so do
+  rotate: false
+  xy: 2, 74
+  size: 11, 16
+  orig: 11, 16
+  offset: 0, 0
+  index: 7
+ti so do
+  rotate: false
+  xy: 2, 92
+  size: 11, 16
+  orig: 11, 16
+  offset: 0, 0
+  index: 3
+ti so xanh
+  rotate: false
+  xy: 2, 110
+  size: 8, 16
+  orig: 8, 16
+  offset: 0, 0
+  index: 1
+ti so do
+  rotate: false
+  xy: 17, 2
+  size: 8, 16
+  orig: 8, 16
+  offset: 0, 0
+  index: 1
+ti so xanh
+  rotate: false
+  xy: 27, 2
+  size: 13, 15
+  orig: 13, 15
+  offset: 0, 0
+  index: 9
+ti so do
+  rotate: false
+  xy: 42, 2
+  size: 13, 15
+  orig: 13, 15
+  offset: 0, 0
+  index: 9
+ti so xanh
+  rotate: false
+  xy: 57, 2
+  size: 12, 15
+  orig: 12, 15
+  offset: 0, 0
+  index: 8
+ti so xanh
+  rotate: false
+  xy: 71, 2
+  size: 12, 15
+  orig: 12, 15
+  offset: 0, 0
+  index: 6
+ti so do
+  rotate: false
+  xy: 85, 2
+  size: 12, 15
+  orig: 12, 15
+  offset: 0, 0
+  index: 8
+ti so do
+  rotate: false
+  xy: 99, 2
+  size: 12, 15
+  orig: 12, 15
+  offset: 0, 0
+  index: 6
+ti so xanh
+  rotate: false
+  xy: 113, 2
+  size: 11, 15
+  orig: 11, 15
+  offset: 0, 0
+  index: 5
+ti so do
+  rotate: false
+  xy: 17, 20
+  size: 11, 15
+  orig: 11, 15
+  offset: 0, 0
+  index: 5
+ti so xanh
+  rotate: false
+  xy: 30, 20
+  size: 17, 14
+  orig: 17, 14
+  offset: 0, 0
+  index: 0
+ti so do
+  rotate: false
+  xy: 49, 20
+  size: 17, 14
+  orig: 17, 14
+  offset: 0, 0
+  index: 0
+ti so xanh
+  rotate: false
+  xy: 68, 20
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: 2
+ti so do
+  rotate: false
+  xy: 82, 20
+  size: 12, 14
+  orig: 12, 14
+  offset: 0, 0
+  index: 2
+
+images1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+nen-thong-tin
+  rotate: false
+  xy: 2, 2
+  size: 160, 72
+  orig: 160, 72
+  offset: 0, 0
+  index: 9
+nen-thong-tin
+  rotate: false
+  xy: 2, 76
+  size: 160, 72
+  orig: 160, 72
+  offset: 0, 0
+  index: 8
+nen-thong-tin
+  rotate: false
+  xy: 2, 150
+  size: 160, 72
+  orig: 160, 72
+  offset: 0, 0
+  index: 7
+nen-thong-tin
+  rotate: false
+  xy: 2, 224
+  size: 160, 72
+  orig: 160, 72
+  offset: 0, 0
+  index: 1
+nen-thong-tin
+  rotate: false
+  xy: 2, 224
+  size: 160, 72
+  orig: 160, 72
+  offset: 0, 0
+  index: 2
+nen-thong-tin
+  rotate: false
+  xy: 2, 224
+  size: 160, 72
+  orig: 160, 72
+  offset: 0, 0
+  index: 3
+nen-thong-tin
+  rotate: false
+  xy: 2, 224
+  size: 160, 72
+  orig: 160, 72
+  offset: 0, 0
+  index: 4
+nen-thong-tin
+  rotate: false
+  xy: 2, 224
+  size: 160, 72
+  orig: 160, 72
+  offset: 0, 0
+  index: 5
+nen-thong-tin
+  rotate: false
+  xy: 2, 224
+  size: 160, 72
+  orig: 160, 72
+  offset: 0, 0
+  index: 6
+boarder
+  rotate: false
+  xy: 164, 2
+  size: 48, 66
+  orig: 48, 66
+  offset: 0, 0
+  index: 6
+boarder
+  rotate: false
+  xy: 164, 76
+  size: 48, 66
+  orig: 48, 66
+  offset: 0, 0
+  index: 5
+boarder
+  rotate: false
+  xy: 164, 150
+  size: 48, 65
+  orig: 48, 65
+  offset: 0, 0
+  index: 9
+boarder
+  rotate: false
+  xy: 164, 224
+  size: 48, 65
+  orig: 48, 65
+  offset: 0, 0
+  index: 8
+boarder
+  rotate: false
+  xy: 2, 298
+  size: 48, 65
+  orig: 48, 65
+  offset: 0, 0
+  index: 7
+boarder
+  rotate: false
+  xy: 2, 365
+  size: 48, 65
+  orig: 48, 65
+  offset: 0, 0
+  index: 4
+boarder
+  rotate: false
+  xy: 2, 432
+  size: 48, 65
+  orig: 48, 65
+  offset: 0, 0
+  index: 3
+boarder
+  rotate: false
+  xy: 52, 298
+  size: 48, 65
+  orig: 48, 65
+  offset: 0, 0
+  index: 2
+boarder
+  rotate: false
+  xy: 52, 365
+  size: 48, 65
+  orig: 48, 65
+  offset: 0, 0
+  index: 1
+bubble-chat-1
+  rotate: false
+  xy: 102, 298
+  size: 49, 20
+  orig: 49, 20
+  offset: 0, 0
+  index: 6
+bubble-chat-1
+  rotate: false
+  xy: 153, 298
+  size: 49, 20
+  orig: 49, 20
+  offset: 0, 0
+  index: 5
+bubble-chat-1
+  rotate: false
+  xy: 204, 298
+  size: 49, 20
+  orig: 49, 20
+  offset: 0, 0
+  index: 4
+bubble-chat-2
+  rotate: false
+  xy: 102, 320
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: 9
+bubble-chat-2
+  rotate: false
+  xy: 153, 320
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: 7
+bubble-chat-2
+  rotate: false
+  xy: 204, 320
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: 6
+bubble-chat-2
+  rotate: false
+  xy: 102, 341
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: 4
+bubble-chat-2
+  rotate: false
+  xy: 153, 341
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: 3
+bubble-chat-2
+  rotate: false
+  xy: 204, 341
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: 1
+bubble-chat-1
+  rotate: false
+  xy: 102, 362
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: 9
+bubble-chat-1
+  rotate: false
+  xy: 153, 362
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: 8
+bubble-chat-1
+  rotate: false
+  xy: 204, 362
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: 7
+bubble-chat-1
+  rotate: false
+  xy: 102, 383
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: 3
+bubble-chat-1
+  rotate: false
+  xy: 153, 383
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: 2
+bubble-chat-1
+  rotate: false
+  xy: 204, 383
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: 1
+bubble-chat-2
+  rotate: false
+  xy: 52, 432
+  size: 48, 19
+  orig: 48, 19
+  offset: 0, 0
+  index: 8
+bubble-chat-2
+  rotate: false
+  xy: 52, 453
+  size: 48, 19
+  orig: 48, 19
+  offset: 0, 0
+  index: 5
+bubble-chat-2
+  rotate: false
+  xy: 52, 474
+  size: 48, 19
+  orig: 48, 19
+  offset: 0, 0
+  index: 2
