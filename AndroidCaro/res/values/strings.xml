@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, AndroidTestActivity!</string>
+    <string name="app_name">android Caro</string>
+    <string name="showDlg">show dialog</string>
+    <string name="user">user</string>
+    <string name="login">login</string>
+    <string name="pass">pass</string>
+    <string name="saveinfo">save account</string>
+
+</resources>
